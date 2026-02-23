@@ -1,6 +1,6 @@
 ﻿import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
-import { AlertTriangle, Bot, CheckCircle2, Loader2, Send, User } from 'lucide-react';
+import { AlertTriangle, Bot, CheckCircle2, Loader2, Send, Settings, User } from 'lucide-react';
 import {
   useProjectStore,
   createFanRack,
@@ -2387,7 +2387,32 @@ export function AIAssistantPanel() {
   const [draftPlan, setDraftPlan] = useState<FireworkPlan | null>(null);
   const [draftProject, setDraftProject] = useState<Project | null>(null);
   const [planWarnings, setPlanWarnings] = useState<string[]>([]);
-  const hasApiConfig = DEFAULT_API_URL.trim().length > 0;
+
+  // ── AI Settings (user-configurable via UI, persisted in localStorage) ──
+  const [showSettings, setShowSettings] = useState(false);
+  const [userApiUrl, setUserApiUrl] = useState(() =>
+    localStorage.getItem('yhl_ai_url') || DEFAULT_API_URL
+  );
+  const [userApiKey, setUserApiKey] = useState(() =>
+    localStorage.getItem('yhl_ai_key') || DEFAULT_API_KEY
+  );
+  const [userApiModel, setUserApiModel] = useState(() =>
+    localStorage.getItem('yhl_ai_model') || DEFAULT_API_MODEL
+  );
+
+  const activeApiUrl = userApiUrl.trim() || DEFAULT_API_URL;
+  const activeApiKey = userApiKey.trim() || DEFAULT_API_KEY;
+  const activeApiModel = userApiModel.trim() || DEFAULT_API_MODEL;
+  const hasApiConfig = activeApiUrl.length > 0;
+
+  const saveSettings = () => {
+    localStorage.setItem('yhl_ai_url', userApiUrl);
+    localStorage.setItem('yhl_ai_key', userApiKey);
+    localStorage.setItem('yhl_ai_model', userApiModel);
+    setShowSettings(false);
+    setNotice({ type: 'success', message: 'AI 设置已保存' });
+  };
+
   const [isTesting, setIsTesting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [connectionDetail, setConnectionDetail] = useState<string | null>(null);
@@ -2609,7 +2634,7 @@ export function AIAssistantPanel() {
     const textFallback = wantsPlan ? extractTextToRender(planText) ?? '' : '';
     if (!hasApiConfig) {
       if (!wantsPlan || !patternHint) {
-        setNotice({ type: 'error', message: '请在代码中配置 AI 地址与模型。' });
+        setNotice({ type: 'error', message: '请点击右上角 ⚙️ 配置 AI 地址与密钥。' });
         return;
       }
     }
@@ -2642,9 +2667,9 @@ export function AIAssistantPanel() {
           ...history,
         ];
         const responseText = await requestAiChat(aiMessages, {
-          apiUrl: DEFAULT_API_URL.trim() || undefined,
-          apiKey: DEFAULT_API_KEY.trim() || undefined,
-          model: DEFAULT_API_MODEL.trim() || undefined,
+          apiUrl: activeApiUrl || undefined,
+          apiKey: activeApiKey || undefined,
+          model: activeApiModel || undefined,
         });
         setIsConnected(true);
         setConnectionDetail(null);
@@ -2724,9 +2749,9 @@ export function AIAssistantPanel() {
             },
           ];
           const responseText = await requestAiChat(aiMessages, {
-            apiUrl: DEFAULT_API_URL.trim() || undefined,
-            apiKey: DEFAULT_API_KEY.trim() || undefined,
-            model: DEFAULT_API_MODEL.trim() || undefined,
+            apiUrl: activeApiUrl || undefined,
+            apiKey: activeApiKey || undefined,
+            model: activeApiModel || undefined,
           });
           setIsConnected(true);
           setConnectionDetail(null);
@@ -3050,7 +3075,7 @@ export function AIAssistantPanel() {
       const detail = formatErrorDetail(err);
       const message = hasApiConfig
         ? 'AI 对话出错，请查看错误详情。'
-        : '请在代码中配置 AI 地址与模型。';
+        : '请点击右上角 ⚙️ 配置 AI 地址与密钥。';
       setNotice({ type: 'error', message });
       setLastAiError(detail);
       if (isConnectionError(detail)) {
@@ -3074,7 +3099,7 @@ export function AIAssistantPanel() {
   const handleConnect = async (silent = false) => {
     if (!hasApiConfig) {
       if (!silent) {
-        setNotice({ type: 'error', message: '请在代码中配置 AI 地址与模型。' });
+        setNotice({ type: 'error', message: '请点击右上角 ⚙️ 配置 AI 地址与密钥。' });
       }
       return;
     }
@@ -3093,9 +3118,9 @@ export function AIAssistantPanel() {
           },
         ],
         {
-          apiUrl: DEFAULT_API_URL.trim() || undefined,
-          apiKey: DEFAULT_API_KEY.trim() || undefined,
-          model: DEFAULT_API_MODEL.trim() || undefined,
+          apiUrl: activeApiUrl || undefined,
+          apiKey: activeApiKey || undefined,
+          model: activeApiModel || undefined,
         }
       );
       const { data, error } = parseAiPayload(response);
@@ -3187,10 +3212,71 @@ export function AIAssistantPanel() {
                 大师模式 · 输入“生成方案”触发方案
               </div>
             </div>
-            <div className="text-xs text-text-secondary">
-              {isBusy ? '处理中…' : '就绪'}
+            <div className="flex items-center gap-2">
+              <div className="text-xs text-text-secondary">
+                {isBusy ? '处理中…' : '就绪'}
+              </div>
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className="p-1 rounded hover:bg-panel-border/50 text-text-secondary hover:text-text-main transition-colors"
+                title="AI 设置"
+              >
+                <Settings size={14} />
+              </button>
             </div>
           </div>
+
+          {showSettings && (
+            <div className="px-4 py-3 border-b border-panel-border bg-app-bg/80 space-y-2">
+              <div className="text-xs font-semibold text-text-main mb-2">⚙️ AI 配置</div>
+              <div className="space-y-1.5">
+                <div>
+                  <label className="text-[10px] text-text-secondary">API 地址</label>
+                  <input
+                    type="text"
+                    value={userApiUrl}
+                    onChange={(e) => setUserApiUrl(e.target.value)}
+                    placeholder="https://openrouter.ai/api/v1"
+                    className="w-full px-2 py-1 text-xs bg-app-bg border border-panel-border rounded text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] text-text-secondary">API 密钥</label>
+                  <input
+                    type="password"
+                    value={userApiKey}
+                    onChange={(e) => setUserApiKey(e.target.value)}
+                    placeholder="sk-..."
+                    className="w-full px-2 py-1 text-xs bg-app-bg border border-panel-border rounded text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] text-text-secondary">模型</label>
+                  <input
+                    type="text"
+                    value={userApiModel}
+                    onChange={(e) => setUserApiModel(e.target.value)}
+                    placeholder="xiaomi/mimo-v2-flash:free"
+                    className="w-full px-2 py-1 text-xs bg-app-bg border border-panel-border rounded text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button
+                  onClick={saveSettings}
+                  className="px-3 py-1 text-xs bg-primary/20 text-primary border border-primary/30 rounded hover:bg-primary/30 transition-colors"
+                >
+                  保存
+                </button>
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="px-3 py-1 text-xs text-text-secondary border border-panel-border rounded hover:bg-panel-border/50 transition-colors"
+                >
+                  取消
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="flex-1 overflow-auto p-4 space-y-3">
             {messages.length === 0 ? (
@@ -3325,7 +3411,7 @@ export function AIAssistantPanel() {
             {!draftPlan ? (
               <div className="text-text-secondary text-sm">
                 {!hasApiConfig
-                  ? '请在代码中配置 AI 地址与模型。'
+                  ? '请点击右上角 ⚙️ 配置 AI 地址与密钥。'
                   : `输入包含“${PLAN_TRIGGER}”的描述后生成方案。`}
               </div>
             ) : (
