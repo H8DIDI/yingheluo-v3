@@ -13,6 +13,7 @@ import {
 import { generateEpicShow } from '../utils/showGenerator';
 import { generateSymmetricShow } from '../utils/symmetricShowGenerator';
 import { generateGrandShow } from '../utils/grandShowGenerator';
+import { generateSpectacularShow } from '../utils/spectacularShowGenerator';
 
 interface ProjectState {
   project: Project | null;
@@ -30,6 +31,7 @@ interface ProjectState {
   loadDemoProject: () => void;
   loadEpicShow: () => void;
   loadGrandShow: () => void;
+  loadSpectacularShow: () => void;
   createNewProject: () => void;
   undo: () => void;
 
@@ -312,6 +314,19 @@ export const useProjectStore = create<ProjectState>((set) => ({
   loadGrandShow: () =>
     set((state) => ({
       project: generateSymmetricShow(),
+      history: pushHistory(state.history, state.project),
+      selectedPosition: null,
+      selectedRack: null,
+      selectedEvent: null,
+      selectedCue: null,
+      currentTime: 0,
+      isPlaying: false,
+      replayToken: 0,
+    })),
+
+  loadSpectacularShow: () =>
+    set((state) => ({
+      project: generateSpectacularShow(),
       history: pushHistory(state.history, state.project),
       selectedPosition: null,
       selectedRack: null,

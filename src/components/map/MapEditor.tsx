@@ -24,6 +24,7 @@ export function MapEditor({ compact = false }: MapEditorProps) {
     history,
     undo,
     loadDemoProject,
+    loadSpectacularShow,
     createNewProject,
   } = useProjectStore(
     useShallow((state) => ({
@@ -40,6 +41,7 @@ export function MapEditor({ compact = false }: MapEditorProps) {
       history: state.history,
       undo: state.undo,
       loadDemoProject: state.loadDemoProject,
+      loadSpectacularShow: state.loadSpectacularShow,
       createNewProject: state.createNewProject,
     }))
   );
@@ -95,6 +97,14 @@ export function MapEditor({ compact = false }: MapEditorProps) {
 
   const handleLoadDemo = () => {
     loadDemoProject();
+    setTool('select');
+    setShowRackBuilder(false);
+    setDraggingId(null);
+    selectRack(null);
+  };
+
+  const handleLoadSpectacular = () => {
+    loadSpectacularShow();
     setTool('select');
     setShowRackBuilder(false);
     setDraggingId(null);
@@ -185,6 +195,13 @@ export function MapEditor({ compact = false }: MapEditorProps) {
               title="加载3分钟中型烟花秀 (500炮筒对称齐射)"
             >
               案例
+            </button>
+            <button
+              onClick={handleLoadSpectacular}
+              className="px-3 py-1 text-xs rounded border border-accent-orange bg-accent-orange/10 text-accent-orange hover:bg-accent-orange/20 whitespace-nowrap"
+              title="加载5分钟震撼烟花秀 (800炮筒专业编排)"
+            >
+              🎆 震撼秀
             </button>
             <button
               onClick={handleUndo}
