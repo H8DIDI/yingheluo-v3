@@ -14,10 +14,12 @@ const TYPE_LABELS: Record<FireworkType, string> = {
   sparkler: '烟花棒',
   comet: '彗星',
   mine: '地雷',
+  chrysanthemum: '菊花',
 };
 
 const TYPE_ORDER: FireworkType[] = [
   'peony',
+  'chrysanthemum',
   'willow',
   'crossette',
   'burst',

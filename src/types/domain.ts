@@ -11,6 +11,7 @@ export interface Coordinate {
 /** Firework effect types */
 export type FireworkType =
   | 'peony'
+  | 'chrysanthemum'
   | 'willow'
   | 'crossette'
   | 'burst'

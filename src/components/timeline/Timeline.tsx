@@ -3,7 +3,7 @@ import { useShallow } from 'zustand/shallow';
 import { GripVertical } from 'lucide-react';
 import { useProjectStore } from '../../store/projectStore';
 import { useLibraryStore } from '../../store/libraryStore';
-import { ShowEvent, FiringPattern } from '../../types/domain';
+import { ShowEvent, FiringPattern, FireworkType } from '../../types/domain';
 
 export function Timeline() {
   const {
@@ -214,6 +214,20 @@ export function Timeline() {
     }
   };
 
+  const getEffectTypeColor = (type: FireworkType): string => {
+    switch (type) {
+      case 'peony':         return '#DC2626'; // 红
+      case 'willow':        return '#D4A017'; // 金
+      case 'chrysanthemum': return '#9333EA'; // 紫
+      case 'crossette':     return '#94A3B8'; // 白/银
+      case 'burst':         return '#F97316'; // 橙
+      case 'comet':         return '#3B82F6'; // 蓝
+      case 'mine':          return '#22C55E'; // 绿
+      case 'fountain':      return '#06B6D4'; // 青
+      default:              return '#DC2626'; // 默认红
+    }
+  };
+
   const handleLoadAllTubes = () => {
     const position = selectedRackInfo.position;
     const rack = selectedRackInfo.rack;
@@ -377,6 +391,14 @@ export function Timeline() {
                         const loadedCount = rack?.tubes.filter((t) => t.loaded).length ?? 0;
                         const totalCount = rack?.tubeCount ?? 0;
 
+                        // Determine dominant effect from targeted tubes
+                        const firedTubes = event.tubeIndices.length > 0
+                          ? rack?.tubes.filter((t) => event.tubeIndices.includes(t.index))
+                          : rack?.tubes;
+                        const dominantEffect = firedTubes?.find((t) => t.loaded && t.effect)?.effect ?? null;
+                        const blockColor = dominantEffect ? getEffectTypeColor(dominantEffect.type) : getPatternColor(event.pattern);
+                        const displayName = dominantEffect?.name ?? event.name;
+
                         return (
                           <div
                             key={event.id}
@@ -406,9 +428,18 @@ export function Timeline() {
                             style={{
                               left: `${event.startTime * PIXELS_PER_SECOND}px`,
                               minWidth: '120px',
-                              backgroundColor: getPatternColor(event.pattern),
+                              backgroundColor: blockColor,
                             }}
-                            title={`${event.name} - ${getPatternLabel(event.pattern)}模式 - ${loadedCount}/${totalCount}筒已装填`}
+                            title={[
+                              event.name,
+                              dominantEffect ? `效果: ${dominantEffect.name}` : null,
+                              dominantEffect ? `类型: ${dominantEffect.type}` : null,
+                              dominantEffect ? `颜色: ${dominantEffect.color}` : null,
+                              dominantEffect ? `高度: ${dominantEffect.height}m` : null,
+                              dominantEffect ? `粒子数: ${dominantEffect.particleCount}` : null,
+                              `模式: ${getPatternLabel(event.pattern)}`,
+                              `装填: ${loadedCount}/${totalCount}`,
+                            ].filter(Boolean).join('\n')}
                           >
                             <span
                               className="truncate text-white font-medium flex-1"
@@ -421,7 +452,7 @@ export function Timeline() {
                                 textOverflow: 'ellipsis'
                               }}
                             >
-                              {event.name}
+                              {displayName}
                             </span>
                             <span className="text-white/90 text-xs bg-black/20 px-1.5 py-0.5 rounded">
                               {getPatternLabel(event.pattern)}

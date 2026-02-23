@@ -82,15 +82,15 @@ export function Header({ onOpenManager, onOpenAdmin, onOpenAssistant }: HeaderPr
   };
 
   return (
-    <header className="h-14 bg-app-bg border-b border-panel-border flex items-center justify-between px-4">
-      <div className="flex items-center gap-4">
-        <h1 className="text-xl font-bold text-text-main tracking-tight">萤合落 V1.0</h1>
+    <header className="min-h-[56px] flex-shrink-0 bg-app-bg border-b border-panel-border flex items-center justify-between px-4">
+      <div className="flex items-center gap-4 min-w-0 overflow-hidden">
+        <h1 className="text-xl font-bold text-text-main tracking-tight truncate">萤合落 V1.0</h1>
         <span className="text-sm text-text-secondary px-3 py-1 bg-panel-bg rounded border border-panel-border">
           {project?.name || '未命名项目'}
         </span>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-shrink-0">
         <button
           onClick={handleReset}
           className="p-2 hover:bg-panel-border rounded transition-all"
@@ -125,7 +125,7 @@ export function Header({ onOpenManager, onOpenAdmin, onOpenAssistant }: HeaderPr
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-shrink-0">
         {onOpenManager && (
           <button
             className="p-2 hover:bg-panel-border rounded transition-all"

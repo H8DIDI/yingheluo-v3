@@ -186,6 +186,7 @@ function getBurstHeight(effect: FireworkEffect, isGroundEffect: boolean) {
 function mapCuePatternToType(pattern: string): FireworkType {
   const key = pattern.trim().toLowerCase();
   if (key.includes('willow')) return 'willow';
+  if (key.includes('chrysanthemum') || key.includes('mum')) return 'chrysanthemum';
   if (key.includes('crossette') || key.includes('spark')) return 'crossette';
   if (key.includes('peony') || key.includes('ring')) return 'peony';
   if (key.includes('fountain')) return 'fountain';
@@ -201,7 +202,7 @@ function buildEffectFromCue(cue: ChoreographyCue): FireworkEffect {
   const particleCount = Math.max(30, Math.round(120 * intensity * size));
   const duration = Math.max(0.6, cue.hangTime ?? 2.2);
   const height = capEffectHeight(cue.debug?.targetPoint?.z ?? 90);
-  const trailLength = type === 'willow' ? 0.9 : type === 'crossette' ? 0.55 : 0.4;
+  const trailLength = type === 'willow' ? 0.9 : type === 'chrysanthemum' ? 0.75 : type === 'crossette' ? 0.55 : 0.4;
   const spread = type === 'comet' ? 120 : 360;
 
   return {
@@ -669,6 +670,14 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
             elevation = Math.acos(2 * Math.random() - 1) - Math.PI / 2;
             speed = (10 + Math.random() * 18) * VELOCITY_SCALE;
             particle.trailLength = effect.trailLength;
+            break;
+          case 'chrysanthemum':
+            angle = Math.random() * Math.PI * 2;
+            elevation = Math.acos(2 * Math.random() - 1) - Math.PI / 2;
+            speed = (11 + Math.random() * 19.8) * VELOCITY_SCALE; // 1.1x peony
+            particle.trailLength = effect.trailLength || 0.75;
+            particle.dragCoefficient = AIR_RESISTANCE * 0.85 + (Math.random() - 0.5) * DRAG_VARIATION; // less drag
+            particle.size = 0.2 + Math.random() * 0.35; // finer particles
             break;
           case 'willow':
             angle = Math.random() * Math.PI * 2;

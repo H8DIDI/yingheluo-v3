@@ -111,7 +111,7 @@ const PRESETS: Record<string, EffectPreset> = {
   },
   // 菊花 — 细密球形，燃到最后
   chrysanthemum: {
-    type: 'chrysanthemum' as FireworkType, height: 180, duration: 3.0, intensity: 0.95,
+    type: 'chrysanthemum', height: 180, duration: 3.0, intensity: 0.95,
     particleCount: 180, trailLength: 0.75, spread: 360,
   },
   // 十字星 — 分裂效果
