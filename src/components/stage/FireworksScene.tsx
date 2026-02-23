@@ -19,7 +19,7 @@ import { specToSceneArray } from '../../planner/coordinate';
 import { createParticleSprite } from '../../utils/particleSprite';
 import { deepAudioEngine } from '../../utils/deepAudioEngine';
 
-const PARTICLE_COUNT = 23000;
+const PARTICLE_COUNT = 50000;
 let GRAVITY = -9.8; // m/s²
 let AIR_RESISTANCE = 0.98;
 let DRAG_VARIATION = 0.03;
@@ -43,9 +43,9 @@ let SHELL_FALL_TIME = 0.25;
 const SHELL_BRIGHTNESS = 1.6;
 let BURST_FALL_FADE_TIME = 2;
 let HEIGHT_LIMIT = Number.POSITIVE_INFINITY;
-const MAX_EXPLOSION_HEIGHT = 300; // 与场景空间大小一致
-const CONST_SAFE_HEIGHT = 80;
-const MAX_PHYSICS_HEIGHT = 150; // 物理极限高度，防止AI参数过大
+const MAX_EXPLOSION_HEIGHT = 500; // 与场景空间大小一致
+const CONST_SAFE_HEIGHT = 500;
+const MAX_PHYSICS_HEIGHT = 500; // 物理极限高度，防止AI参数过大
 const MAX_VELOCITY = Math.sqrt(2 * 9.8 * MAX_PHYSICS_HEIGHT); // 最大允许速度 ~54 m/s
 
 interface EnhancedParticle extends Particle {
@@ -667,20 +667,20 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
           case 'peony':
             angle = Math.random() * Math.PI * 2;
             elevation = Math.acos(2 * Math.random() - 1) - Math.PI / 2;
-            speed = (8 + Math.random() * 12) * VELOCITY_SCALE;
+            speed = (10 + Math.random() * 18) * VELOCITY_SCALE;
             particle.trailLength = effect.trailLength;
             break;
           case 'willow':
             angle = Math.random() * Math.PI * 2;
             elevation = Math.random() * Math.PI * 0.3 + Math.PI * 0.1;
-            speed = (6 + Math.random() * 8) * VELOCITY_SCALE;
+            speed = (5 + Math.random() * 10) * VELOCITY_SCALE;
             particle.trailLength = effect.trailLength || 0.9;
             break;
           case 'crossette':
             const direction = Math.floor(Math.random() * 4);
             angle = direction * (Math.PI / 2) + (Math.random() - 0.5) * 0.3;
             elevation = (Math.random() - 0.5) * 0.4;
-            speed = (10 + Math.random() * 8) * VELOCITY_SCALE;
+            speed = (12 + Math.random() * 12) * VELOCITY_SCALE;
             particle.trailLength = effect.trailLength;
             particle.splitTime = effect.splitDelay ?? 0.5 + Math.random() * 0.3;
             particle.hasSplit = false;
@@ -688,7 +688,7 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
           default:
             angle = Math.random() * Math.PI * 2;
             elevation = Math.random() * Math.PI * 0.5;
-            speed = (8 + Math.random() * 10) * VELOCITY_SCALE;
+            speed = (10 + Math.random() * 16) * VELOCITY_SCALE;
             particle.trailLength = effect.trailLength;
         }
 
@@ -966,20 +966,32 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
       particle.age += clampedDelta;
 
       if (particle.stage === 'shell') {
+        // Realistic shell ballistics: quadratic drag + gravity
+        const shellDrag = particle.dragCoefficient;
+        const shellMass = particle.mass;
+        const shellSpeed = Math.sqrt(
+          particle.velocity[0] ** 2 + particle.velocity[1] ** 2 + particle.velocity[2] ** 2
+        );
+
+        if (shellSpeed > 0.01) {
+          // F_drag = -c * |v|^2 * v_hat / m
+          const dragAccel = (shellDrag * shellSpeed) / shellMass;
+          particle.velocity[0] -= dragAccel * particle.velocity[0] * clampedDelta;
+          particle.velocity[1] -= dragAccel * particle.velocity[1] * clampedDelta;
+          particle.velocity[2] -= dragAccel * particle.velocity[2] * clampedDelta;
+        }
+
+        // Gravity (GRAVITY is negative)
+        particle.velocity[1] += (GRAVITY / shellMass) * clampedDelta;
+
+        // Light wind effect on shell
+        particle.velocity[0] += 0.15 * clampedDelta;
+        particle.velocity[2] += 0.08 * clampedDelta;
+
         particle.position[0] += particle.velocity[0] * clampedDelta;
         particle.position[1] += particle.velocity[1] * clampedDelta;
         particle.position[2] += particle.velocity[2] * clampedDelta;
         clampHeightPosition(particle);
-
-        // 重力影响（唯一的加速度来源）
-        const gravityEffect = GRAVITY / particle.mass;
-        particle.velocity[1] += gravityEffect * clampedDelta;
-
-        // 简单的空气阻力（每帧衰减）
-        const dragPerFrame = 0.98; // 每帧保留98%的速度
-        particle.velocity[0] *= dragPerFrame;
-        particle.velocity[1] *= dragPerFrame;
-        particle.velocity[2] *= dragPerFrame;
 
         const previousApex = particle.apexY ?? particle.position[1];
         const apexY = Math.max(previousApex, particle.position[1]);
@@ -1055,45 +1067,66 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
       particle.position[2] += particle.velocity[2] * clampedDelta;
       clampHeightPosition(particle);
 
-      // Hover physics: particles hover before gravity kicks in
-      const hoverDuration = particle.hoverDuration ?? 0;
-      const isHovering = particle.age < hoverDuration;
-      const gravityFactor = isHovering
-        ? 0
-        : THREE.MathUtils.smoothstep(particle.age, hoverDuration, hoverDuration + 0.5);
+      // Realistic burst particle physics: quadratic drag + gravity
+      const burstDrag = particle.dragCoefficient;
+      const burstMass = particle.mass;
+      const burstSpeed = Math.sqrt(
+        particle.velocity[0] ** 2 + particle.velocity[1] ** 2 + particle.velocity[2] ** 2
+      );
 
-      // Apply gravity with hover factor
-      const gravityEffect = (GRAVITY / particle.mass) * gravityFactor;
-      particle.velocity[1] += gravityEffect * clampedDelta;
+      if (burstSpeed > 0.01) {
+        const dragAccel = (burstDrag * burstSpeed) / burstMass;
+        particle.velocity[0] -= dragAccel * particle.velocity[0] * clampedDelta;
+        particle.velocity[1] -= dragAccel * particle.velocity[1] * clampedDelta;
+        particle.velocity[2] -= dragAccel * particle.velocity[2] * clampedDelta;
+      }
 
-      // Air resistance
-      const dragPerFrame = particle.type === 'willow' ? 0.94 : 0.98;
-      particle.velocity[0] *= dragPerFrame;
-      particle.velocity[1] *= isHovering ? 0.95 : dragPerFrame;
-      particle.velocity[2] *= dragPerFrame;
+      // Gravity - always applied, no hover hack
+      const burstGravityEffect = (GRAVITY / burstMass) * clampedDelta;
+      particle.velocity[1] += burstGravityEffect;
 
-      if (particle.velocity[1] < 0 && !isHovering) {
-        particle.fallTime = (particle.fallTime ?? 0) + clampedDelta;
-        const fadeTime = Math.max(
-          0.4,
-          particle.hangTime ?? BURST_FALL_FADE_TIME
-        );
-        const fallLife = 1 - (particle.fallTime ?? 0) / fadeTime;
-        particle.life = Math.max(0, fallLife);
-      } else {
-        particle.fallTime = 0;
-        particle.life = 1;
+      // Wind effect
+      particle.velocity[0] += 0.3 * clampedDelta;
+      particle.velocity[2] += 0.15 * clampedDelta;
+
+      // Life decay based on age vs duration — no artificial hover
+      const maxDuration = particle.hangTime ?? BURST_FALL_FADE_TIME;
+      const ageRatio = particle.age / Math.max(maxDuration, 0.5);
+      particle.life = Math.max(0, 1 - ageRatio);
+
+      // Ground collision kills particle
+      if (particle.position[1] <= 0.1 && particle.velocity[1] < 0) {
+        particle.life = 0;
       }
 
       dummy.position.set(...particle.position);
-      const scale = particle.size * Math.pow(Math.max(particle.life, 0), 0.5);
+      const scale = particle.size * (0.3 + 0.7 * Math.pow(Math.max(particle.life, 0), 0.4));
       dummy.scale.setScalar(scale);
       dummy.updateMatrix();
       meshRef.current!.setMatrixAt(i, dummy.matrix);
 
       tempColor.set(particle.color);
-      const brightness = Math.pow(Math.max(particle.life, 0), 1 - particle.trailLength);
-      meshRef.current!.setColorAt(i, tempColor.multiplyScalar(brightness));
+      // Metal salt cooling color model:
+      // Phase 1 (life>0.8): white-hot flash
+      // Phase 2 (0.3-0.8): vivid color
+      // Phase 3 (<0.3): red shift + dim
+      const life = Math.max(particle.life, 0);
+      let brightness: number;
+      if (life > 0.8) {
+        // Flash: extra bright, mix with white
+        const flash = (life - 0.8) / 0.2;
+        tempColor.lerp(new THREE.Color(1, 1, 1), flash * 0.4);
+        brightness = 1.2;
+      } else if (life > 0.3) {
+        brightness = 0.5 + life * 0.7;
+      } else {
+        // Cooling: shift red, dim
+        const cool = 1 - life / 0.3;
+        tempColor.lerp(new THREE.Color(0.8, 0.2, 0.05), cool * 0.4);
+        brightness = life / 0.3 * 0.4;
+      }
+      const trailFade = Math.pow(life, 1 - (0.3 + particle.trailLength * 0.7));
+      meshRef.current!.setColorAt(i, tempColor.multiplyScalar(brightness * trailFade));
     });
 
     if (pendingExplosions.length > 0) {
