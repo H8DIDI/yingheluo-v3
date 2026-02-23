@@ -308,83 +308,75 @@ function generateFullSyncWave(
 
 function generateWaveSequence(): SymmetricWave[] {
   const waves: SymmetricWave[] = [];
-  let waveIndex = 1;
+  let w = 1;
 
-  // ========== 第一阶段：开场（0-120秒）==========
-  // 节奏：每4秒一波，共30波
-  // 模式：中心轴对称 + V字波浪交替
-  for (let i = 0; i < 30; i++) {
-    const time = 4 + i * 4;
-    const height = 120 + (i % 5) * 20; // 120-200米循环
-    const effectIdx = i % EFFECT_LIBRARY.length;
-    const tubeCount = 3 + (i % 3); // 3-5管
+  // 颜色阶段：0=金色(0-3), 1=红蓝(0-5), 2=全彩(0-7)
+  const phaseEffect = (phase: number, i: number) => {
+    if (phase === 0) return i % 3; // 金色牡丹/红色爆裂/绿色柳树
+    if (phase === 1) return (i % 5) + 1; // 红/绿/白/蓝/紫
+    return i % EFFECT_LIBRARY.length; // 全部
+  };
 
+  // ═══ 序幕 (0-30s) 金色开场，稀疏庄重 ═══
+  // 每6秒一波，5波，只用金色系
+  for (let i = 0; i < 5; i++) {
+    const time = 3 + i * 6;
+    const height = 140 + i * 15;
+    const tubeCount = 2 + i;
     if (i % 2 === 0) {
-      waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `开场-中心轴${waveIndex++}`));
+      waves.push(generateCenterAxisWave(time, height, 0, tubeCount, `序幕-中心${w++}`));
     } else {
-      waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `开场-V字${waveIndex++}`));
+      waves.push(generateVShapeWave(time, height, 0, tubeCount, `序幕-V字${w++}`));
     }
   }
 
-  // ========== 第二阶段：发展（120-300秒）==========
-  // 节奏：每3秒一波，共60波
-  // 模式：中心轴对称 + V字波浪 + 中心开屏
-  for (let i = 0; i < 60; i++) {
-    const time = 124 + i * 3;
-    const height = 140 + (i % 7) * 20; // 140-260米循环
-    const effectIdx = i % EFFECT_LIBRARY.length;
-    const tubeCount = 4 + (i % 4); // 4-7管
-
+  // ═══ 第一章 (30-80s) 金色→红橙，节奏渐快 ═══
+  // 4s间隔→3s间隔，有一次2s留白后加密
+  const ch1Times = [32, 36, 40, 44, 48, 53, 58, 62, 65, 68, 71, 74, 77, 80];
+  ch1Times.forEach((time, i) => {
+    const height = 130 + (i % 4) * 25;
+    const effectIdx = phaseEffect(0, i);
+    const tubeCount = 3 + (i % 3);
     const mode = i % 3;
-    if (mode === 0) {
-      waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `发展-中心轴${waveIndex++}`));
-    } else if (mode === 1) {
-      waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `发展-V字${waveIndex++}`));
-    } else {
-      const ringSize = 1 + (i % 3); // 1-3圈
-      waves.push(generateCenterBloomWave(time, height, effectIdx, ringSize, `发展-开屏${waveIndex++}`));
-    }
-  }
+    if (mode === 0) waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `第一章-中心${w++}`));
+    else if (mode === 1) waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `第一章-V字${w++}`));
+    else waves.push(generateCenterBloomWave(time, height, effectIdx, 1 + (i % 2), `第一章-开屏${w++}`));
+  });
 
-  // ========== 第三阶段：加速（300-480秒）==========
-  // 节奏：每2秒一波，共90波
-  // 模式：所有模式混合，节奏加快
-  for (let i = 0; i < 90; i++) {
-    const time = 304 + i * 2;
-    const height = 160 + (i % 8) * 15; // 160-265米循环
-    const effectIdx = i % EFFECT_LIBRARY.length;
-    const tubeCount = 5 + (i % 5); // 5-9管
+  // ═══ 呼吸 (80-85s) 5秒静默 ═══
 
+  // ═══ 第二章 (85-130s) 多彩交响，节奏活跃 ═══
+  // 3s→2s间隔，颜色丰富
+  const ch2Times = [85, 88, 91, 94, 96, 98, 100, 102, 104, 107, 110, 112, 114, 116, 118, 120, 122, 124, 127, 130];
+  ch2Times.forEach((time, i) => {
+    const height = 150 + (i % 6) * 20;
+    const effectIdx = phaseEffect(1, i);
+    const tubeCount = 4 + (i % 4);
     const mode = i % 4;
-    if (mode === 0) {
-      waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `加速-中心轴${waveIndex++}`));
-    } else if (mode === 1) {
-      waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `加速-V字${waveIndex++}`));
-    } else if (mode === 2) {
-      const ringSize = 1 + (i % 4);
-      waves.push(generateCenterBloomWave(time, height, effectIdx, ringSize, `加速-开屏${waveIndex++}`));
-    } else {
-      waves.push(generateFullSyncWave(time, height, effectIdx, 3, `加速-全场${waveIndex++}`));
-    }
-  }
+    if (mode === 0) waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `第二章-中心${w++}`));
+    else if (mode === 1) waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `第二章-V字${w++}`));
+    else if (mode === 2) waves.push(generateCenterBloomWave(time, height, effectIdx, 2 + (i % 3), `第二章-开屏${w++}`));
+    else waves.push(generateFullSyncWave(time, height, effectIdx, 3, `第二章-全场${w++}`));
+  });
 
-  // ========== 第四阶段：高潮（480-600秒）==========
-  // 节奏：每1秒一波，共120波
-  // 模式：全场同步为主，密集齐射
-  for (let i = 0; i < 120; i++) {
-    const time = 484 + i * 1;
-    const height = 180 + (i % 10) * 12; // 180-288米循环
-    const effectIdx = i % EFFECT_LIBRARY.length;
-    const tubeCount = 6 + (i % 6); // 6-11管
+  // ═══ 呼吸 (130-133s) 3秒静默 ═══
 
-    if (i % 3 === 0) {
-      waves.push(generateFullSyncWave(time, height, effectIdx, tubeCount, `高潮-全场${waveIndex++}`));
-    } else if (i % 3 === 1) {
-      waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `高潮-中心轴${waveIndex++}`));
-    } else {
-      waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `高潮-V字${waveIndex++}`));
-    }
-  }
+  // ═══ 终章 (133-175s) 万紫千红，排山倒海 ═══
+  // 2s→1s→0.5s加速
+  const finaleTimesA = [133, 135, 137, 139, 141, 143, 145, 147, 149, 151]; // 2s
+  const finaleTimesB = [152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165]; // 1s
+  const finaleTimesC = [165.5, 166, 166.5, 167, 167.5, 168, 168.5, 169, 169.5, 170, 170.5, 171, 171.5, 172, 172.5, 173, 173.5, 174, 174.5, 175]; // 0.5s
+
+  [...finaleTimesA, ...finaleTimesB, ...finaleTimesC].forEach((time, i) => {
+    const height = 160 + (i % 8) * 16;
+    const effectIdx = phaseEffect(2, i);
+    const tubeCount = 5 + (i % 6);
+    const mode = i % 4;
+    if (mode === 0) waves.push(generateFullSyncWave(time, height, effectIdx, tubeCount, `终章-全场${w++}`));
+    else if (mode === 1) waves.push(generateCenterAxisWave(time, height, effectIdx, tubeCount, `终章-中心${w++}`));
+    else if (mode === 2) waves.push(generateVShapeWave(time, height, effectIdx, tubeCount, `终章-V字${w++}`));
+    else waves.push(generateCenterBloomWave(time, height, effectIdx, 3 + (i % 3), `终章-开屏${w++}`));
+  });
 
   return waves;
 }
@@ -533,7 +525,7 @@ export function generateSymmetricShow(): Project {
     positions,
     events,
     cues,
-    duration: 600,
+    duration: 180,
     createdAt: new Date(),
     updatedAt: new Date(),
     groundHeight: 0,
