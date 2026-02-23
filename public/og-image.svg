@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a1a2e"/>
+  <text x="600" y="250" text-anchor="middle" font-family="system-ui" font-size="72" fill="#f59e0b" font-weight="bold">🎆 萤合落</text>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui" font-size="32" fill="#e0e0e0">专业烟花燃放控制与3D编排系统</text>
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui" font-size="24" fill="#a0a0b0">React + Three.js | 50000粒子物理引擎 | AI智能编排</text>
+  <text x="600" y="500" text-anchor="middle" font-family="system-ui" font-size="20" fill="#666">yingheluo.dpdns.org</text>
+</svg>
