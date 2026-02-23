@@ -1,0 +1,8 @@
+name = "yingheluo-v3"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "yingheluo-v3"
+database_id = "ee0e8930-3fe6-440c-83ee-7957c52c679c"

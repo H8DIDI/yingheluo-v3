@@ -1,0 +1,344 @@
+/**
+ * Example AI Responses Using Advanced Commands
+ *
+ * These examples show how the AI should respond to different user requests.
+ */
+
+// ============================================================================
+// Example 1: 国庆大开场
+// ============================================================================
+
+// User Input: "生成方案 国庆大开场，要有排浪和对称效果"
+
+// AI Response:
+{
+  "version": "advanced-v1",
+  "title": "国庆盛典开场秀",
+  "duration": 60,
+  "theme": "国庆",
+  "notes": [
+    "采用展翅排浪开场，营造盛大氛围",
+    "对称齐射强化视觉冲击",
+    "红金配色呼应国庆主题"
+  ],
+  "commands": [
+    {
+      "type": "wave",
+      "time": 0,
+      "pattern": "open_wings",
+      "group": "all",
+      "duration": 3,
+      "shell": "Red_Peony",
+      "height": 120,
+      "description": "红色牡丹展翅开场"
+    },
+    {
+      "type": "symmetry",
+      "time": 5,
+      "axis": "center",
+      "positions": ["all"],
+      "shell": "Gold_Chrysanthemum",
+      "delay": 200,
+      "description": "对称金菊齐射"
+    },
+    {
+      "type": "wave",
+      "time": 10,
+      "pattern": "close_in",
+      "group": "all",
+      "duration": 4,
+      "shell": "Red_Strobe",
+      "height": 100,
+      "description": "红色闪光合拢"
+    },
+    {
+      "type": "cascade",
+      "time": 16,
+      "positions": ["all"],
+      "shell": "Gold_Willow",
+      "interval": 300,
+      "pattern": "sequential",
+      "description": "金色柳树级联"
+    },
+    {
+      "type": "burst",
+      "time": 25,
+      "group": "all",
+      "shell": "Red_Gold_Mix",
+      "count": 30,
+      "interval": 100,
+      "random": true,
+      "description": "红金混合爆发"
+    },
+    {
+      "type": "finale",
+      "time": 55,
+      "shell": "Multi_Color_Burst",
+      "waves": 3,
+      "waveInterval": 500,
+      "description": "三波彩色终场"
+    }
+  ],
+  "assistantMessage": "已为您设计国庆盛典开场秀，采用经典的展翅排浪开场，配合对称齐射和级联效果，营造盛大热烈的氛围。高潮部分使用密集爆发，终场三波齐射收尾。"
+}
+
+// ============================================================================
+// Example 2: 浪漫婚礼
+// ============================================================================
+
+// User Input: "生成方案 浪漫婚礼主题，粉色系，要有心形效果"
+
+// AI Response:
+{
+  "version": "advanced-v1",
+  "title": "浪漫婚礼烟花秀",
+  "duration": 60,
+  "theme": "浪漫婚礼",
+  "notes": [
+    "粉色系主色调，营造浪漫氛围",
+    "对称效果象征新人携手",
+    "渐进式节奏，温馨而不失华丽"
+  ],
+  "commands": [
+    {
+      "type": "symmetry",
+      "time": 0,
+      "axis": "center",
+      "positions": ["all"],
+      "shell": "Pink_Peony",
+      "delay": 300,
+      "description": "粉色牡丹对称开场"
+    },
+    {
+      "type": "wave",
+      "time": 5,
+      "pattern": "center_out",
+      "group": "all",
+      "duration": 4,
+      "shell": "Pink_Willow",
+      "height": 100,
+      "description": "粉色柳树从中心向外"
+    },
+    {
+      "type": "cascade",
+      "time": 12,
+      "positions": ["all"],
+      "shell": "Purple_Crossette",
+      "interval": 400,
+      "pattern": "sequential",
+      "description": "紫色十字级联"
+    },
+    {
+      "type": "salvo",
+      "time": 20,
+      "positionName": "中心阵地",
+      "tubes": [0, 1, 2, 3, 4],
+      "shell": "Pink_Heart",
+      "height": 120,
+      "description": "粉色心形齐射"
+    },
+    {
+      "type": "wave",
+      "time": 25,
+      "pattern": "open_wings",
+      "group": "all",
+      "duration": 5,
+      "shell": "Pink_Burst",
+      "height": 110,
+      "description": "粉色爆发展翅"
+    },
+    {
+      "type": "finale",
+      "time": 55,
+      "shell": "Pink_Purple_Mix",
+      "waves": 2,
+      "waveInterval": 800,
+      "description": "粉紫混合终场"
+    }
+  ],
+  "assistantMessage": "已为您设计浪漫婚礼烟花秀，以粉色系为主色调，采用对称开场象征新人携手，中段加入心形效果，终场温馨收尾。整体节奏温和而浪漫。"
+}
+
+// ============================================================================
+// Example 3: 高科技未来感
+// ============================================================================
+
+// User Input: "生成方案 高科技主题，蓝色系，要有扫射效果"
+
+// AI Response:
+{
+  "version": "advanced-v1",
+  "title": "未来科技烟花秀",
+  "duration": 60,
+  "theme": "高科技",
+  "notes": [
+    "蓝色系主色调，营造科技感",
+    "扫射效果模拟激光扫描",
+    "快节奏密集点火，展现未来感"
+  ],
+  "commands": [
+    {
+      "type": "sweep",
+      "time": 0,
+      "positionName": "扇形阵地1",
+      "startAngle": -30,
+      "endAngle": 30,
+      "duration": 2,
+      "shell": "Blue_Strobe",
+      "description": "蓝色闪光扫射开场"
+    },
+    {
+      "type": "wave",
+      "time": 3,
+      "pattern": "left_to_right",
+      "group": "all",
+      "duration": 3,
+      "interval": 150,
+      "shell": "Cyan_Burst",
+      "height": 100,
+      "description": "青色爆发从左到右"
+    },
+    {
+      "type": "burst",
+      "time": 8,
+      "group": "all",
+      "shell": "Blue_Crossette",
+      "count": 40,
+      "interval": 50,
+      "random": true,
+      "description": "蓝色十字快速爆发"
+    },
+    {
+      "type": "sweep",
+      "time": 15,
+      "positionName": "扇形阵地2",
+      "startAngle": -45,
+      "endAngle": 45,
+      "duration": 3,
+      "shell": "Cyan_Palm",
+      "description": "青色棕榈扫射"
+    },
+    {
+      "type": "wave",
+      "time": 20,
+      "pattern": "right_to_left",
+      "group": "all",
+      "duration": 3,
+      "shell": "Blue_Willow",
+      "height": 120,
+      "description": "蓝色柳树从右到左"
+    },
+    {
+      "type": "cascade",
+      "time": 25,
+      "positions": ["all"],
+      "shell": "Cyan_Strobe",
+      "interval": 200,
+      "pattern": "wave",
+      "description": "青色闪光波浪级联"
+    },
+    {
+      "type": "burst",
+      "time": 35,
+      "group": "all",
+      "shell": "Blue_Burst",
+      "count": 50,
+      "interval": 40,
+      "random": true,
+      "description": "蓝色密集爆发"
+    },
+    {
+      "type": "finale",
+      "time": 55,
+      "shell": "Blue_Cyan_Mix",
+      "waves": 4,
+      "waveInterval": 400,
+      "description": "蓝青混合快速终场"
+    }
+  ],
+  "assistantMessage": "已为您设计高科技主题烟花秀，采用蓝色系配色，扫射效果模拟激光扫描，快节奏密集点火展现未来科技感。多次使用扫射和爆发指令，营造动感十足的视觉效果。"
+}
+
+// ============================================================================
+// Example 4: 简单测试 - 对称排浪
+// ============================================================================
+
+// User Input: "生成方案 简单的对称排浪效果"
+
+// AI Response:
+{
+  "version": "advanced-v1",
+  "title": "对称排浪演示",
+  "duration": 30,
+  "theme": "对称排浪",
+  "notes": [
+    "展示对称和排浪的基本效果",
+    "适合测试和演示"
+  ],
+  "commands": [
+    {
+      "type": "wave",
+      "time": 0,
+      "pattern": "open_wings",
+      "group": "all",
+      "duration": 3,
+      "shell": "Red_Peony",
+      "description": "展翅排浪"
+    },
+    {
+      "type": "symmetry",
+      "time": 5,
+      "axis": "center",
+      "positions": ["all"],
+      "shell": "Gold_Chrysanthemum",
+      "delay": 200,
+      "description": "中心对称"
+    },
+    {
+      "type": "wave",
+      "time": 10,
+      "pattern": "close_in",
+      "group": "all",
+      "duration": 3,
+      "shell": "Blue_Burst",
+      "description": "合拢排浪"
+    },
+    {
+      "type": "finale",
+      "time": 25,
+      "shell": "Multi_Color",
+      "waves": 2,
+      "waveInterval": 500,
+      "description": "简单终场"
+    }
+  ],
+  "assistantMessage": "已为您设计简单的对称排浪演示方案，包含展翅、对称、合拢三种基本效果，适合测试高级指令系统。"
+}
+
+// ============================================================================
+// Key Points for AI
+// ============================================================================
+
+/**
+ * When generating responses, the AI should:
+ *
+ * 1. Always use "version": "advanced-v1" to trigger the interpreter
+ * 2. Use high-level commands (wave, symmetry, cascade, etc.) instead of individual events
+ * 3. Provide clear descriptions for each command
+ * 4. Match shell names to the theme (Red/Gold for national, Pink/Purple for romantic, Blue/Cyan for tech)
+ * 5. Use appropriate patterns:
+ *    - "open_wings" for grand openings
+ *    - "close_in" for dramatic closings
+ *    - "left_to_right" / "right_to_left" for sweeping effects
+ * 6. Include an assistantMessage explaining the design choices
+ * 7. Add notes about the theme and structure
+ *
+ * The interpreter will handle:
+ * - Calculating exact firing times
+ * - Determining which tubes to fire
+ * - Creating symmetric pairs
+ * - Generating wave sequences
+ * - All the complex math and logic
+ *
+ * This allows the AI to focus on artistic intent rather than technical details!
+ */

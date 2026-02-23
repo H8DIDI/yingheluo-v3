@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.vite/
+.wrangler/
+*.log
+.env
+.env.*
+.DS_Store
+
+# IDE / AI tool configs
+.claude/
+.cursor/
+.vscode/
+
+# Sensitive config (use env vars instead)
+wrangler.local.toml

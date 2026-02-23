@@ -1,0 +1,31 @@
+body { margin: 0; overflow: hidden; background-color: #000; }
+        #canvas-container { width: 100vw; height: 100vh; }
+        
+        .lil-gui.root {
+            position: absolute !important;
+            top: auto !important;
+            bottom: 20px !important;
+            right: 20px !important;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: monospace;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            flex-direction: column;
+            text-align: center;
+        }
+        #overlay span {
+            font-size: 14px;
+            color: #888;
+            margin-top: 15px;
+        }
+        .highlight { color: #ffaa00; font-weight: bold; }
