@@ -324,18 +324,25 @@ export const useProjectStore = create<ProjectState>((set) => ({
       replayToken: 0,
     })),
 
-  loadSpectacularShow: () =>
-    set((state) => ({
-      project: generateSpectacularShow(),
-      history: pushHistory(state.history, state.project),
-      selectedPosition: null,
-      selectedRack: null,
-      selectedEvent: null,
-      selectedCue: null,
-      currentTime: 0,
-      isPlaying: false,
-      replayToken: 0,
-    })),
+  loadSpectacularShow: () => {
+    try {
+      const project = generateSpectacularShow();
+      set((state) => ({
+        project,
+        history: pushHistory(state.history, state.project),
+        selectedPosition: null,
+        selectedRack: null,
+        selectedEvent: null,
+        selectedCue: null,
+        currentTime: 0,
+        isPlaying: false,
+        replayToken: 0,
+      }));
+    } catch (err) {
+      console.error('generateSpectacularShow failed:', err);
+      alert('震撼秀生成失败: ' + (err instanceof Error ? err.message : String(err)));
+    }
+  },
 
   createNewProject: () =>
     set((state) => ({
