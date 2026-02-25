@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>在线演示 — 萤合落烟花3D模拟器 | Live Demo</title>
+  <meta name="description" content="在线体验萤合落烟花3D模拟器：GPU粒子渲染、800管专业烟花秀实时预览、多种烟花效果演示。无需下载，浏览器直接运行。" />
+  <meta name="keywords" content="烟花模拟器,在线烟花,3D烟花演示,fireworks simulator,烟花秀预览,GPU粒子,WebGL烟花" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/demo/" />
+  <meta property="og:title" content="萤合落在线演示 — 3D烟花模拟器" />
+  <meta property="og:description" content="在线体验GPU粒子渲染的专业烟花秀3D模拟" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/demo/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "萤合落在线演示",
+    "description": "在线体验萤合落烟花3D模拟器",
+    "url": "https://yingheluo.dpdns.org/demo/"
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .demo-frame { width: 100%; height: 500px; border: 2px solid #f59e0b; border-radius: 8px; margin: 24px 0; background: #0a0a1a; }
+    .btn { display: inline-block; padding: 12px 28px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin: 8px 4px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+    .effect-card { background: #1a1a2e; padding: 16px; border-radius: 8px; border: 1px solid #333; }
+    .effect-card h3 { color: #f59e0b; margin-bottom: 8px; font-size: 1.1em; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> › 在线演示</div>
+    
+    <h1>🎆 萤合落在线演示</h1>
+    <p>直接在浏览器中体验专业烟花3D模拟器。支持电脑和手机，无需下载安装。</p>
+
+    <div style="text-align:center; margin: 32px 0;">
+      <a href="/" class="btn">▶ 启动烟花模拟器</a>
+    </div>
+
+    <h2>🎇 预设烟花秀</h2>
+    <p>萤合落内置多个专业编排方案，一键即可观赏：</p>
+    <div class="effects-grid">
+      <div class="effect-card">
+        <h3>🌟 震撼秀 (5分钟)</h3>
+        <p>800管专业编排，序幕→激情→梦幻→自然→终章五大篇章。金银开场，万紫千红收尾。</p>
+      </div>
+      <div class="effect-card">
+        <h3>🎆 对称秀</h3>
+        <p>左右翼完美对称燃放，中央轴呼应，感受工整之美。</p>
+      </div>
+      <div class="effect-card">
+        <h3>💥 史诗秀</h3>
+        <p>高密度快节奏编排，适合体验各种烟花效果的极限组合。</p>
+      </div>
+      <div class="effect-card">
+        <h3>🆕 自定义</h3>
+        <p>从空白方案开始，手动布置阵地、加载弹药、编排时间轴。</p>
+      </div>
+    </div>
+
+    <h2>🔬 烟花效果类型</h2>
+    <p>系统模拟了真实烟花的物理和化学特性，每种效果都有独立的粒子行为：</p>
+    <div class="effects-grid">
+      <div class="effect-card">
+        <h3>🌸 牡丹 (Peony)</h3>
+        <p>最经典的球形效果。金属盐发色，均匀球形扩散。</p>
+      </div>
+      <div class="effect-card">
+        <h3>🌊 柳 (Willow)</h3>
+        <p>长长的金色拖尾，如垂柳般优雅下垂。</p>
+      </div>
+      <div class="effect-card">
+        <h3>🌼 菊花 (Chrysanthemum)</h3>
+        <p>细密的球形粒子，燃烧到最后一刻才消失。</p>
+      </div>
+      <div class="effect-card">
+        <h3>✨ 十字星 (Crossette)</h3>
+        <p>粒子在空中分裂成4个方向的小爆炸。</p>
+      </div>
+      <div class="effect-card">
+        <h3>☄️ 彗星 (Comet)</h3>
+        <p>单颗大拖尾上升，划过夜空的明亮轨迹。</p>
+      </div>
+      <div class="effect-card">
+        <h3>⛲ 喷泉 (Fountain)</h3>
+        <p>地面向上喷射的持续火花效果。</p>
+      </div>
+    </div>
+
+    <h2>💻 技术参数</h2>
+    <ul>
+      <li><strong>GPU 粒子引擎</strong>：最高支持 100,000 粒子实时渲染</li>
+      <li><strong>自定义着色器</strong>：GLSL vertex + fragment shader，颜色温度衰减模拟金属盐冷却</li>
+      <li><strong>物理模拟</strong>：解析积分的指数衰减阻力 + 重力模型</li>
+      <li><strong>Bloom 后处理</strong>：5级 Mipmap 辉光，营造真实烟花光效</li>
+      <li><strong>兼容性</strong>：支持 Chrome、Firefox、Safari、Edge 及移动端浏览器</li>
+    </ul>
+
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>© 2026 萤合落 Yingheluo — 开源烟花燃放控制系统</p>
+    </footer>
+  </div>
+</body>
+</html>

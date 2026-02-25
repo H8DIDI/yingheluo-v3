@@ -81,7 +81,7 @@
 
         <h2 style="color:#f59e0b;margin-top:32px">✨ 核心功能</h2>
         <ul style="padding-left:20px">
-          <li><strong>3D实时烟花模拟预览</strong> — 50000粒子物理引擎，真实弹道模拟与金属盐冷却发色模型</li>
+          <li><strong>3D实时烟花模拟预览</strong> — 100000粒子GPU引擎，真实弹道模拟与金属盐冷却发色模型</li>
           <li><strong>800管专业阵地布局</strong> — 前线弧形、双翼包围、中央矩阵、后排高空多层立体编排</li>
           <li><strong>10+种烟花效果</strong> — 牡丹、菊花、柳、彗星、十字星、地雷、喷泉等，各有独立物理特性</li>
           <li><strong>AI智能编排助手</strong> — 自然语言描述需求，AI自动生成专业烟花秀方案</li>
@@ -93,7 +93,7 @@
         <h2 style="color:#f59e0b;margin-top:32px">🏗️ 技术架构</h2>
         <p>
           前端：React 19 + TypeScript + Vite 6 + Three.js + Zustand 状态管理<br/>
-          3D引擎：Three.js InstancedMesh + 自研物理引擎（二次方阻力模型）<br/>
+          3D引擎：Three.js + 自定义GLSL着色器 GPU粒子系统<br/>
           后端：Cloudflare Workers + D1 数据库<br/>
           部署：Cloudflare Pages（全球CDN加速）
         </p>
@@ -115,6 +115,7 @@
 
         <h2 style="color:#f59e0b;margin-top:32px">🔗 相关链接</h2>
         <ul style="padding-left:20px">
+          <li><a href="/demo/" style="color:#60a5fa">在线演示</a> — 直接体验烟花3D模拟器</li>
           <li><a href="/about/" style="color:#60a5fa">关于萤合落</a> — 项目背景与技术架构</li>
           <li><a href="/features/" style="color:#60a5fa">功能介绍</a> — 3D烟花模拟、AI编排、阵地管理详解</li>
           <li><a href="/liuyang/" style="color:#60a5fa">浏阳花炮</a> — 世界烟花之都的千年传承与数字化转型</li>
