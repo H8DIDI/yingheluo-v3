@@ -213,7 +213,11 @@ export function createPosition(
 
 /** Create demo project with professional hardware setup */
 function createDemoProject(): Project {
-  return generateGrandShow();
+  try {
+    return generateSpectacularShow();
+  } catch {
+    return generateGrandShow();
+  }
 }
 
 function createEmptyProject(): Project {
@@ -247,7 +251,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
   selectedRack: null,
   selectedEvent: null,
   currentTime: 0,
-  isPlaying: false,
+  isPlaying: true,
   replayToken: 0,
   history: [],
 
