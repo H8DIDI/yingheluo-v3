@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>☄️ 彗星烟花效果 - Comet — 萤合落烟花模拟器</title>
+  <meta name="description" content="彗星烟花（Comet）是单颗大粒子拖着明亮长尾划过夜空的壮丽效果。详解彗星烟花的化学原理、弹道物理、制作工艺与安全规范。" />
+  <meta name="keywords" content="彗星烟花,comet firework,拖尾烟花,流星烟花,单颗烟花,烟花效果,升空拖尾" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/comet/" />
+  <meta property="og:title" content="彗星烟花效果 — 萤合落" />
+  <meta property="og:description" content="彗星烟花是单颗大粒子拖着明亮长尾划过夜空的壮丽效果。详解化学原理与弹道物理。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/comet/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Article", "headline": "彗星烟花效果详解 — Comet", "description": "彗星烟花的化学原理、弹道物理、制作工艺与安全规范", "url": "https://yingheluo.dpdns.org/effects/comet/", "image": "https://yingheluo.dpdns.org/og-image.png", "author": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "datePublished": "2026-02-25", "dateModified": "2026-02-25" }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    { "@type": "Question", "name": "彗星烟花和流星烟花是一回事吗？", "acceptedAnswer": { "@type": "Answer", "text": "彗星（Comet）和流星（Shooting Star/Meteor）在烟花术语中有细微区别但常被混用。严格来说，彗星指的是单颗大粒子从炮筒发射后拖着长尾升空的效果——粒子本身在整个飞行过程中持续燃烧发光，轨迹如天文彗星掠过夜空。流星则更多指从礼花弹爆炸点向外飞射的单方向拖尾粒子，或者从高空向下划过的下落型效果。在实际使用中，两个术语经常互换。萤合落系统中统一使用Comet（彗星）来描述这种单颗大粒子拖尾效果。在日本花火术语中，类似效果叫"昇り"（のぼり/上升），专指升空阶段的拖尾效果。" } },
+    { "@type": "Question", "name": "彗星烟花的尾巴为什么那么长？", "acceptedAnswer": { "@type": "Answer", "text": "彗星烟花的长尾来自三个因素的叠加：①粒子尺寸大——彗星的粒子尺寸倍率为1.8×（所有效果中最大），大粒子含有更多药剂，燃烧产生的火焰面积更大、亮度更高；②拖尾保留率高达85%——仅次于垂柳（92%）和火箭（90%），粒子飞过的轨迹长时间保持可见；③低空气阻力（0.020）使粒子飞行速度衰减缓慢，在更长的距离上持续留下轨迹。此外，彗星粒子在飞行中不断脱落微小的燃烧碎屑——这些碎屑就是"尾巴"的实体，它们比主粒子轻得多，在空中停留更久，形成一条渐渐变暗的拖尾。" } },
+    { "@type": "Question", "name": "彗星烟花一般用什么颜色？", "acceptedAnswer": { "@type": "Answer", "text": "彗星烟花最常见的颜色是金色和银白色。金色彗星使用木炭和铁粉配方，拖尾呈温暖的金黄色调，是最经典的彗星形象。银白色彗星使用镁铝合金或钛粉，亮度极高，拖尾呈冷色调银白。彩色彗星也有，但不如金/银常见——因为彗星的大粒子需要高亮度才能产生视觉冲击力，而彩色金属盐（锶盐红、钡盐绿、铜盐蓝）的发光效率低于金属粉末的热辐射，所以彩色彗星的亮度会打折扣。近年来浏阳开发的"变色彗星"在升空过程中从金色渐变为红色再到绿色，通过多层药剂结构实现。" } }
+  ] }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 彗星</div>
+    <h1>☄️ 彗星烟花效果 - Comet</h1>
+
+    <p>彗星（Comet）是烟花效果中最具"画面感"的类型——一颗硕大的发光体拖着长长的明亮尾迹划过夜空，如同一颗彗星掠过地球上空。与牡丹、菊花等"爆炸扩散"型效果不同，彗星是"单体飞行"型效果：一颗大粒子从炮筒中射出后，在飞行的整个过程中持续燃烧发光，留下一道从地面延伸到高空的壮丽轨迹。彗星常用作升空阶段的视觉装饰，或作为独立效果在烟花秀的序幕中使用。</p>
+
+    <a href="/" class="btn">▶ 在线体验彗星效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>彗星粒子是烟花中体积最大的单颗星体（尺寸倍率1.8×），其化学配方需要同时满足两个看似矛盾的要求：①足够亮以在快速飞行中被清晰看到；②足够慢燃以在整个飞行过程中持续发光。</p>
+      <p style="margin-top:12px;"><strong>金色彗星配方</strong>：硝酸钾55%、木炭（柳木炭最佳）18%、硫磺6%、铁粉12%、糊精5%、防潮剂4%。粗粒木炭（40-60目）在高温下发出金黄色的黑体辐射光，铁粉提供额外的金色火花拖尾。这个配方的燃烧速度约1.5mm/s，一颗直径20mm的彗星粒子可以燃烧6-7秒。</p>
+      <p style="margin-top:12px;"><strong>银白彗星配方</strong>：高氯酸钾40%、镁铝合金粉30%、硝酸钡15%、糊精10%、酚醛树脂粉5%。镁铝合金在燃烧时温度可达2500°C以上，发出极其耀眼的银白色光。钡盐在这里既是氧化剂又是降温剂——控制反应不至于过快。银白彗星的亮度可以是金色的3-5倍，但燃烧时间略短。</p>
+      <p style="margin-top:12px;"><strong>拖尾的化学</strong>：彗星的长尾巴来自粒子在飞行中不断脱落的微小燃烧碎屑。粒子表面的药剂在高温下产生气泡和裂纹，微小碎片被气流剥离后在空中继续氧化发光——这些碎片就是拖尾的实体。木炭基配方的碎屑发光时间更长（碳的氧化速率慢），所以金色彗星的拖尾比银白彗星更长更柔和。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>彗星在萤合落引擎中的参数反映了"大粒子、慢速、长尾"的核心特征：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>0.6×</td><td>较低初速——大粒子重量大，加速慢</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>45°~90°</td><td>主要向上方飞行</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.020</td><td>低阻力——大粒子惯性大</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>85%</td><td>极长拖尾，完整飞行轨迹清晰可见</td></tr>
+        <tr><td>全球形扩散</td><td>否</td><td>单方向飞行</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>1.8×</td><td>所有效果中最大——模拟大型彗星粒子</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>1.5×</td><td>约3.75秒持续时间</td></tr>
+      </table>
+      <p style="margin-top:12px;">彗星的参数有一个有趣的物理逻辑：1.8×的大粒子意味着更大的质量，配合0.6×的低初速度，粒子的动能实际上与标准效果相当（E = ½mv²）。但大质量带来了低减速率——0.020的空气阻力对大粒子的影响远小于对牡丹小粒子的影响（牡丹阻力0.040但粒子只有1.0×大小）。结果是彗星粒子虽然起步慢但减速也慢，飞行轨迹又长又稳。85%的拖尾保留确保这条长轨迹从头到尾清晰可见。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>彗星烟花的灵感来源于自然界中彗星掠过夜空的壮观景象。人类对彗星的观察和敬畏贯穿整个文明史——从中国甲骨文中的彗星记录到哈雷彗星在西方引发的恐慌，彗星一直是夜空中最引人注目的天文现象。花炮匠人试图在烟花中复现这种壮丽的"长尾划过"效果，最终发展出了彗星烟花。</p>
+      <p style="margin-top:12px;">早期的彗星效果很粗糙——将一大块药饼直接放入炮筒发射，飞行中碎裂导致尾迹不稳定。18世纪末，意大利那不勒斯的烟花师发明了"压制彗星"技术——将药粉在模具中高压压制成致密的圆柱体或球体，大幅提高了飞行稳定性和拖尾均匀度。这一技术原理沿用至今。</p>
+      <p style="margin-top:12px;">在日本花火文化中，彗星对应的是"昇り星"（のぼりぼし）——字面意思是"升起的星"。日本花火师将昇り星视为礼花弹升空阶段的"名片"——一发好的礼花弹从发射到爆炸的几秒钟内，升空轨迹应该留下明亮稳定的拖尾，预告即将到来的精彩绽放。因此日本花火大赛的评分中，升空拖尾也是评判项之一。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>彗星粒子的制作与其他星体不同，它是"大号定制品"而非批量小星体：</p>
+      <p style="margin-top:12px;"><strong>压制成型</strong>：将配好的药粉装入金属模具中，使用液压机以5-20吨的压力压制成致密的圆柱体或截锥体。压制压力至关重要——太松则飞行中碎裂，太紧则燃烧不充分。经验丰富的工匠可以通过手感判断压力是否合适。成品密度约为1.5-2.0 g/cm³。</p>
+      <p style="margin-top:12px;"><strong>外形设计</strong>：彗星粒子通常为截锥形（底大顶小的圆台）而非球形。底面朝下放入炮筒，发射后底面迎风——这种气动外形既减小了空气阻力，又使粒子在飞行中自然保持稳定姿态（底重顶轻，像羽毛球一样）。</p>
+      <p style="margin-top:12px;"><strong>点火处理</strong>：彗星粒子的底面涂抹一层引火药（含黑火药和少量铝粉），确保在发射时由炮筒内的发射药直接点燃。如果彗星粒子飞出炮筒后才着火，就会出现"暗段"——升空头段没有拖尾，严重影响视觉效果。浏阳工匠的经验是将引火药层做到3-5mm厚，并在发射前检查底面有无裂纹。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>彗星烟花属于升空类产品，安全规范遵循 GB 24426 和 GB 10631 标准。特殊注意事项：</p>
+      <p style="margin-top:12px;">①彗星粒子重量大（可达50-200g），如果发射后姿态不稳（偏斜、翻滚），可能像抛射物一样飞向非预期方向。发射筒必须垂直固定，内壁光滑无异物；②彗星粒子在飞行末端仍然很热（500°C以上），落地后可能引燃枯草或其他可燃物。燃放区域的地面应清理可燃物或预先洒水；③彗星常用作升空展示效果，飞行高度可达200-400米。在机场、军事区域附近燃放时需要特别注意空域限制；④大型彗星粒子的压制过程存在爆炸风险——压制时药粉受到巨大压力和摩擦可能引燃。压制车间必须有防爆墙和泄压口。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳在彗星烟花方面的创新主要体现在升空效果的多样化：</p>
+      <p style="margin-top:12px;"><strong>"螺旋彗星"</strong>：在彗星粒子侧面开一个小孔，飞行时从孔中喷出气体产生侧向推力，使粒子边飞边旋转。从地面看，升空轨迹不是直线而是优美的螺旋线，如同DNA双螺旋结构。</p>
+      <p style="margin-top:12px;"><strong>"子母彗星"</strong>：大彗星粒子内部嵌入数颗小星体。大粒子飞到最高点开始减速时，内部的小星体被弹出，形成"彗星到达顶点后散开成星群"的效果——如同彗星靠近太阳时分裂的天文现象。</p>
+      <p style="margin-top:12px;"><strong>"双色对冲彗星"</strong>：从阵地左右两侧同时发射不同颜色的彗星（如左金右银），两条轨迹在天空中交叉形成X形。这需要精确计算发射角度和时间，萤合落系统的多阵地编排功能可以方便地设计这种对称效果。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/" class="current">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✨ 十字星烟花效果 - Crossette — 萤合落烟花模拟器</title>
+  <meta name="description" content="十字星烟花（Crossette）粒子在空中二次分裂成十字形，层层绽放如星星炸裂。详解十字星烟花的分裂原理、物理参数、制作工艺与安全规范。" />
+  <meta name="keywords" content="十字星烟花,crossette firework,分裂烟花,二次绽放,星形烟花,烟花效果,专业烟花" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/crossette/" />
+  <meta property="og:title" content="十字星烟花效果 — 萤合落" />
+  <meta property="og:description" content="十字星烟花粒子在空中二次分裂成十字形，层层绽放如星星炸裂。详解分裂原理与物理参数。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/crossette/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Article", "headline": "十字星烟花效果详解 — Crossette", "description": "十字星烟花的分裂原理、物理参数、制作工艺与安全规范", "url": "https://yingheluo.dpdns.org/effects/crossette/", "image": "https://yingheluo.dpdns.org/og-image.png", "author": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "datePublished": "2026-02-25", "dateModified": "2026-02-25" }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    { "@type": "Question", "name": "十字星烟花为什么叫Crossette？", "acceptedAnswer": { "@type": "Answer", "text": "Crossette这个名称来源于法语 croix（十字），因为这种烟花的星体在空中分裂时形成十字形（cross）方向的碎片轨迹。每颗星体在飞行到一定距离后发生二次爆裂，碎片沿上下左右四个方向飞散，形成一个小十字形图案。数十颗星体同时分裂时，天空中出现密密麻麻的小十字形，如同星星在空中炸裂。意大利语中也叫 crossetta（小十字），反映了这种烟花效果在文艺复兴时期意大利焰火表演中的流行。" } },
+    { "@type": "Question", "name": "十字星烟花的二次分裂是怎么实现的？", "acceptedAnswer": { "@type": "Answer", "text": "十字星的二次分裂靠星体内部的延时爆裂结构。每颗十字星星体内部嵌入了一个微型爆裂药丸——外层是正常的发光药剂（提供飞行中的亮光），中心是一个由延时药包裹的小型闪光药。星体被礼花弹爆炸抛出后，外层药剂点燃发光的同时，火焰缓慢地通过延时药层向中心推进。飞行约0.5-1秒后，火焰到达中心闪光药并引爆，产生的冲击力将星体炸成3-5个碎片向不同方向飞散。碎片本身仍在燃烧发光，形成二次绽放的视觉效果。制作难点在于延时药的精度——延时过短则星体在弹体附近就分裂（看不到飞行轨迹），延时过长则星体已熄灭才爆裂（看不到二次效果）。" } },
+    { "@type": "Question", "name": "十字星烟花和牡丹烟花可以组合吗？", "acceptedAnswer": { "@type": "Answer", "text": "可以，十字星与其他效果的组合是专业编排中的常见手法。最经典的组合是"牡丹+十字星"——先绽放一层大牡丹球形效果，然后从牡丹的粒子位置再分裂出密密麻麻的小十字形。这种效果叫"牡丹芯十字"或"牡丹变十字"，视觉上是"大球绽放后每个点又生出小十字"，层次感极强。在萤合落系统中，用户可以在时间轴编辑器上将牡丹和十字星效果叠加在同一波次中，或设置0.5秒的微延迟形成"先绽后裂"的效果。十字星还常与彗星组合——彗星拖着长尾升空，到达顶点后突然裂成十字形碎片，如"流星爆裂"般壮观。" } }
+  ] }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 十字星</div>
+    <h1>✨ 十字星烟花效果 - Crossette</h1>
+
+    <p>十字星（Crossette）是烟花效果中最具"惊喜感"的类型。礼花弹在空中爆炸后，星体向外飞散——但故事并没有在这里结束。飞行到一定距离后，每颗星体突然二次爆裂，碎片沿十字形方向飞散，在空中形成密密麻麻的小十字图案。这种"先飞后裂"的双重绽放效果极具层次感和视觉冲击力，如同星星在空中炸裂，因此也被称为"星裂"效果。</p>
+
+    <a href="/" class="btn">▶ 在线体验十字星效果</a>
+
+    <h2>🔬 化学原理与分裂机制</h2>
+    <div class="info-card">
+      <p>十字星效果的核心在于星体的"延时自爆"结构。每颗十字星星体由三层组成：</p>
+      <p style="margin-top:12px;"><strong>外层（发光层）</strong>：标准的金属盐发色配方，与牡丹星体相同。星体被抛出后外层首先点燃，在飞行过程中发出明亮的光芒。</p>
+      <p style="margin-top:12px;"><strong>中层（延时层）</strong>：缓燃药剂层，厚度仅1-2mm。火焰从外层慢慢渗透中层，消耗约0.5-1秒。这段时间就是星体的"飞行展示期"——观众看到的是发光的星体从爆炸中心向外飞行。</p>
+      <p style="margin-top:12px;"><strong>核心（爆裂药）</strong>：一个微型闪光药丸，包含高氯酸钾（KClO₄）和铝粉（Al）的混合物。当延时层的火焰到达核心时，闪光药瞬间引爆（反应极快，约5ms），产生的冲击波将星体残余部分炸成3-5个碎片。碎片本身仍在燃烧（外层药剂还未烧完），因此观众看到的是"每颗星变成一簇小星"。碎片飞散的方向取决于星体的内部结构——传统十字星在核心药丸四周预切四条沟槽，引导碎片沿十字形方向分裂。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>萤合落引擎中十字星的参数体现了"快速飞散+定向分裂"的物理特征：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>1.2×</td><td>所有球形效果中最快——星体需要飞远后再分裂</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>-17°~17°</td><td>窄角度扩散，4个方向定向发射</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.050</td><td>较高阻力，分裂后碎片快速减速</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>40%</td><td>适中拖尾，兼顾飞行轨迹和分裂后的碎片轨迹</td></tr>
+        <tr><td>全球形扩散</td><td>否</td><td>4方向定向扩散</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>0.9×</td><td>略小于牡丹</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>0.8×</td><td>较短持续时间——分裂后快速消散</td></tr>
+      </table>
+      <p style="margin-top:12px;">十字星的参数设计有一个巧妙的矛盾：1.2×的高初速让星体快速飞到远处（给分裂效果足够的展示空间），但0.050的高空气阻力和0.8×的短持续时间又让分裂后的碎片快速减速消散——这防止了碎片飞得太远造成"糊成一片"。-17°到17°的窄仰角范围模拟了十字形的4个方向约束，使碎片不是随机飞散而是形成规则的十字图案。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>十字星烟花的名称Crossette源自法语croix（十字）。这种效果最早出现在17世纪意大利的焰火表演中。意大利烟花师发现在星体中嵌入微量闪光药可以让星体在飞行中爆裂，经过反复实验，他们成功控制了爆裂的方向——通过在星体表面预刻沟槽来引导碎片的飞散路径。</p>
+      <p style="margin-top:12px;">18世纪法国烟花师进一步发展了十字星技术。在凡尔赛宫的焰火表演中，十字星被大量使用——因为十字形在基督教文化中具有神圣象征意义，在宗教节日的庆典烟花中尤其受欢迎。法国烟花师还发明了"双重十字星"——星体先分裂一次形成十字形，碎片飞行后再次分裂，在空中形成"十字中的十字"。</p>
+      <p style="margin-top:12px;">现代十字星烟花已经从简单的十字形发展出多种变体：三分裂（Y形）、五分裂（星形）、环形分裂等。但经典的四方向十字分裂仍然是最常见和最受欢迎的形式。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>十字星星体的制作是所有烟花星体中技术难度最高的之一，因为它需要精确控制"何时爆裂"和"往哪个方向爆裂"：</p>
+      <p style="margin-top:12px;"><strong>核心药丸制作</strong>：将闪光药（KClO₄ + Al粉）称量至0.01g精度，压制成直径2-3mm的微型药丸。药丸太大会导致爆裂过猛（星体被炸碎而非分裂），太小则冲击力不够（星体只是"崩开"而非飞散）。</p>
+      <p style="margin-top:12px;"><strong>延时层包裹</strong>：在核心药丸外面均匀裹上延时药层（缓燃黑火药+糊精粘结剂），厚度精确到0.3-0.5mm。延时药的配方和厚度决定了从点火到爆裂的延迟时间，误差要求在±0.1秒以内。</p>
+      <p style="margin-top:12px;"><strong>沟槽预切</strong>：在星体外层用刀具沿十字方向刻出4条浅槽（深度约为星体直径的1/3）。沟槽处的结构强度最低，爆裂时碎片优先沿沟槽方向飞散，形成规则的十字图案。浏阳工匠使用专用的旋转切刻工具，可以在流水线上快速完成沟槽制作。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>十字星烟花的安全规范在标准 GB 24426 基础上有额外注意事项：</p>
+      <p style="margin-top:12px;">①十字星的星体在空中二次爆裂时会产生向外飞散的碎片，飞散范围比普通牡丹略大。安全距离应在同口径标准值基础上增加10%；②十字星的爆裂药丸含有高氯酸钾和铝粉——这是敏感度较高的混合物，储运过程中应避免剧烈震动和摩擦；③制作十字星星体时必须在防静电工作台上操作，操作人员需佩戴防静电手环——核心闪光药对静电极度敏感；④十字星弹的品质检验比普通弹更严格，需要抽样试射检查分裂均匀度和延时精度。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳是全球十字星烟花的最大生产基地。浏阳工匠在十字星技术方面的创新包括：</p>
+      <p style="margin-top:12px;"><strong>"五彩十字"</strong>：分裂后的4个碎片颜色各不相同（红+绿+蓝+金），通过在星体沟槽的四个象限中分别嵌入不同颜色的药剂实现。这种多色十字星在国际烟花大赛中屡获好评。</p>
+      <p style="margin-top:12px;"><strong>"鱼变十字"</strong>：将十字星星体设计为带尾翅的流线形——飞行时像鱼在空中游动，爆裂后变成十字形。这种"鱼化龙"式的变化效果在春节庆典烟花中特别受欢迎。</p>
+      <p style="margin-top:12px;"><strong>超小口径十字星</strong>：浏阳成功将十字星技术缩小到2寸（50mm）口径，使普通民用组合烟花也能包含十字星效果。此前十字星因制作精度要求高，一般只出现在4寸以上的专业礼花弹中。浏阳的微型化技术使十字星走入千家万户。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/" class="current">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

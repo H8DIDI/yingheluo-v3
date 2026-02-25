@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌊 垂柳烟花效果 - Willow — 萤合落烟花模拟器</title>
+  <meta name="description" content="垂柳烟花（Willow）粒子如柳枝般缓缓下垂，形成金色瀑布倾泻的震撼效果，留空时间极长。详解垂柳烟花的化学原理、物理参数、制作工艺与安全规范。" />
+  <meta name="keywords" content="垂柳烟花,willow firework,瀑布烟花,下垂烟花,金色瀑布,拖尾烟花,浏阳烟花" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/willow/" />
+  <meta property="og:title" content="垂柳烟花效果 — 萤合落" />
+  <meta property="og:description" content="垂柳烟花粒子如柳枝般缓缓下垂，形成金色瀑布倾泻的震撼效果。详解化学原理与物理参数。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/willow/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Article", "headline": "垂柳烟花效果详解 — Willow", "description": "垂柳烟花的化学原理、弹道物理、制作工艺与安全规范", "url": "https://yingheluo.dpdns.org/effects/willow/", "image": "https://yingheluo.dpdns.org/og-image.png", "author": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "datePublished": "2026-02-25", "dateModified": "2026-02-25" }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    { "@type": "Question", "name": "垂柳烟花为什么会下垂？", "acceptedAnswer": { "@type": "Answer", "text": "垂柳烟花的下垂效果来自精心设计的物理参数组合。首先，粒子初速度相对较低（速度倍率仅0.7×），向上的动能较小；其次，空气阻力极低（0.015，所有球形效果中最低），粒子在水平方向减速很慢但垂直方向受重力持续加速下落；第三，拖尾保留率高达92%（所有效果中最高），使下落过程的完整轨迹清晰可见。三者叠加的结果是：粒子先向外扩散，然后在重力作用下逐渐弯曲向下，形成优美的抛物线弧形——如同柳枝从高处垂落，2倍于标准的持续时间让这个下垂过程缓慢而优雅。" } },
+    { "@type": "Question", "name": "垂柳烟花和瀑布烟花是一回事吗？", "acceptedAnswer": { "@type": "Answer", "text": "垂柳（Willow）和瀑布（Waterfall/Niagara）是相关但不同的概念。垂柳是一种升空爆炸的礼花弹效果——在高空爆炸后粒子向四周扩散然后缓缓下垂，形成球形的"柳枝"。瀑布则通常是一种固定装置效果——将多个喷泉或慢燃管沿桥梁、建筑物或架子的顶部一字排列，点燃后火花从高处向下流淌，形成类似尼亚加拉瀑布的效果。两者的视觉效果有相似之处（都是火花从高处向下流淌），但发射方式和应用场景完全不同。在萤合落系统中模拟的垂柳是升空爆炸型效果。" } },
+    { "@type": "Question", "name": "垂柳烟花适合什么场合使用？", "acceptedAnswer": { "@type": "Answer", "text": "垂柳烟花因其优雅缓慢的视觉节奏，特别适合以下场合：①浪漫婚礼——金色垂柳如同黄金雨从天而降，是婚礼烟花秀的首选效果之一；②音乐烟花秀的慢板段落——垂柳2倍的持续时间非常适合配合舒缓的音乐旋律；③大型庆典的过渡段——在两个激烈齐射段之间用垂柳做过渡，给观众一个视觉"呼吸"的空间；④跨年倒计时——午夜钟声敲响的瞬间用金色垂柳铺满天空，营造"时间静止"的仪式感。不建议用于节奏快的段落，因为垂柳的下落需要时间展开，快节奏中会被后续效果覆盖。" } }
+  ] }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 垂柳</div>
+    <h1>🌊 垂柳烟花效果 - Willow</h1>
+
+    <p>垂柳（Willow）是所有烟花效果中最优雅、最抒情的一种。爆炸后粒子并不像牡丹那样快速扩散消散，而是如柳枝般缓缓下垂，形成一片从天空倾泻而下的金色瀑布。粒子的发光轨迹从爆炸中心一直延伸到下落的末端，持续时间是牡丹的两倍，在夜空中留下壮观的"光之瀑布"。垂柳效果常用于烟花秀的慢板段落和浪漫场景，金色垂柳更是婚礼烟花的首选。</p>
+
+    <a href="/" class="btn">▶ 在线体验垂柳效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>垂柳效果的经典颜色是金色/金黄色，这来自两种发光机制的叠加：</p>
+      <p style="margin-top:12px;"><strong>碳的黑体辐射</strong>：木炭颗粒在高温下发出连续光谱的橙黄色光，是金色垂柳的主要光源。木炭在烟花化学中既是燃料又是发光体。垂柳配方中木炭含量通常高于其他效果（15-20%），且使用粗粒木炭（60-100目）以降低燃烧速率。</p>
+      <p style="margin-top:12px;"><strong>钠的焰色反应</strong>：即使配方中不专门添加钠盐，原料中微量的钠杂质也会在高温下发出强烈的589nm黄光（钠D线）。这使得金色垂柳的色调偏暖黄。要制作纯白色垂柳则需要使用镁铝合金（Magnalium）替代木炭，但成本更高。</p>
+      <p style="margin-top:12px;"><strong>超慢燃配方</strong>：垂柳需要2倍于标准的持续时间，因此星体使用极慢的燃烧配方。典型垂柳星体配方：硝酸钾50%、木炭20%、硫磺8%、糊精10%、铁粉12%。极低的氧化剂比例使反应缓慢持久，铁粉在末端提供额外的金色火花"尾巴"。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>垂柳在萤合落引擎中的参数组合是所有效果中最独特的：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>0.7×</td><td>较低初速度，粒子不飞太远</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>6°~54°</td><td>仅上半球偏上方向——模拟向上喷射后下垂</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.015</td><td>所有效果中最低——粒子长时间保持运动</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>92%</td><td>所有效果中最高——几乎完全可见的轨迹</td></tr>
+        <tr><td>全球形扩散</td><td>否</td><td>仅上半球，重力使其形成下垂弧线</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>0.7×</td><td>细小粒子，轨迹更纤细</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>2.0×</td><td>所有效果中最长——约5秒持续</td></tr>
+      </table>
+      <p style="margin-top:12px;">垂柳的参数设计是一个精妙的平衡：0.7×的低初速度确保粒子不会飞得太远；0.015的极低空气阻力让粒子在低速下仍能维持运动很长时间；仅向上半球扩散的粒子在重力作用下逐渐弯曲向下形成抛物线弧形；92%的拖尾保留让整条弧线从始至终清晰可见；2.0×的持续时间让这个优美的下垂过程展开得足够缓慢。最终效果：粒子先向上和向外扩散，然后缓缓弯曲下垂，如无数条金色丝线从天空垂落。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>垂柳效果的命名来源于其与垂柳树的相似性——柳枝从高处自然下垂的姿态与这种烟花的下落轨迹如出一辙。在中国传统文化中，柳与离别、思念联系在一起（"折柳送别"），因此垂柳烟花也常带有一种抒情的美学意味。</p>
+      <p style="margin-top:12px;">历史上，垂柳效果的实现一度是花炮工艺中的难题。早期的花炮匠人可以做出快速扩散的牡丹效果，但要让粒子持续发光数秒并缓缓下落需要极慢的燃烧速率——而燃烧太慢又容易导致星体在空中熄灭。18世纪浏阳工匠突破了这一难题，开发出"阴燃配方"——使星体在不冒明火的状态下持续散发光芒，大幅延长了发光时间。这一技术使垂柳效果从不稳定的实验品变成了可靠的量产产品。</p>
+      <p style="margin-top:12px;">在西方烟花传统中，垂柳效果在19世纪末20世纪初随着意大利和西班牙烟花师的创新而流行起来。英文中 Willow（垂柳）这一命名也反映了同样的视觉联想。现代大型烟花秀中，垂柳是使用频率仅次于牡丹和菊花的第三大效果。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>垂柳烟花的星体制作是所有效果中最考验耐心的。核心挑战是让星体在5秒以上的飞行过程中持续发光而不中途熄灭：</p>
+      <p style="margin-top:12px;"><strong>星体结构</strong>：垂柳星体采用"实心滚制"工艺——将配好的药粉在滚桶中反复滚制、喷水、干燥，层层增长。成品星体的密度非常高（比牡丹星体重30-50%），这确保了在低速飞行中有足够的热容量维持持续燃烧。</p>
+      <p style="margin-top:12px;"><strong>分段配方</strong>：高端垂柳星体采用两段式结构——外层为较快燃烧的"起始药"，确保星体在爆炸后立即点燃；内层为极慢的"续燃药"，负责漫长的下垂发光阶段。这种设计避免了单一慢速配方可能导致的"开头暗淡"问题。</p>
+      <p style="margin-top:12px;"><strong>弹壳要求</strong>：垂柳弹的壳体厚度介于牡丹和菊花之间。不需要菊花那样的超厚壳体（因为垂柳不需要极高的初速度），但比牡丹稍厚，以提供均匀的爆炸力将重星体推到足够的扩散范围。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>垂柳烟花的安全注意事项除遵循 GB 24426 标准外，还有其特殊性：</p>
+      <p style="margin-top:12px;">①垂柳粒子的下落范围比牡丹和菊花更大——粒子在5秒的持续时间内会下落很长距离，最低点可能比爆炸点低100-200米。因此在地面安全距离之外，还需要确保垂柳下落区域没有可燃物；②垂柳的星体密度高、重量大，即使已经熄灭的星体残渣从高空落下也具有一定冲击力。大口径垂柳弹的安全距离应比标准值增加15-20%；③垂柳效果的烟雾较大（慢速燃烧产生更多烟雾），连续多发垂柳可能在阵地上空形成浓厚烟幕，影响后续烟花的可见度。编排时应注意风向和间隔时间。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳在垂柳烟花方面的代表作是<strong>"锦冠柳"</strong>——先在高空绽放一层彩色牡丹作为"冠"，然后从牡丹位置倾泻下大量金色垂柳如同"锦"。这种"先绽后垂"的双层效果极其壮观，是浏阳花炮的拳头出口产品之一。</p>
+      <p style="margin-top:12px;">浏阳还发展了<strong>"银柳"</strong>——使用镁铝合金替代传统木炭+铁粉配方，产生纯银白色的垂柳效果。银柳比金柳更明亮，在城市灯光较强的环境中视觉冲击力更好。银柳的制作难度更高（镁铝合金对湿度敏感，制作过程需要严格控温控湿），价格也更贵。</p>
+      <p style="margin-top:12px;">在2019年国庆70周年庆典烟花表演中，天安门广场上空的巨型金色垂柳效果给全国观众留下了深刻印象——数百发垂柳弹同时绽放，形成一道从天而降的金色光幕，持续近10秒。这批垂柳弹正是浏阳花炮企业特别定制的。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/" class="current">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

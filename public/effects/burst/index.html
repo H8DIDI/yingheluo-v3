@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💥 齐射烟花效果 - Burst — 萤合落烟花模拟器</title>
+  <meta name="description" content="齐射（Burst）是多发烟花同步爆炸的专业编排手法，瞬间填满夜空。详解齐射烟花的编排原理、物理参数、点火技术与安全规范。" />
+  <meta name="keywords" content="齐射烟花,burst firework,烟花齐射,同步烟花,连珠烟花,烟花编排,终章齐射" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/burst/" />
+  <meta property="og:title" content="齐射烟花效果 — 萤合落" />
+  <meta property="og:description" content="齐射是多发烟花同步爆炸的专业编排手法，瞬间填满夜空。详解编排原理、物理参数与点火技术。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/burst/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "齐射烟花效果详解 — Burst",
+    "description": "多发烟花同步爆炸的专业编排手法与点火技术原理",
+    "url": "https://yingheluo.dpdns.org/effects/burst/",
+    "image": "https://yingheluo.dpdns.org/og-image.png",
+    "author": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "datePublished": "2026-02-25",
+    "dateModified": "2026-02-25"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "烟花齐射是怎么做到同步的？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "现代烟花齐射依靠电子点火系统（也叫电子引火系统）实现精确同步。每个烟花炮筒的引线末端连接一个电子点火头（电点火管），所有点火头通过电缆连接到中央控制台。控制台根据预设的时间程序，在同一时刻向所有目标炮筒发送点火电流（通常为直流12-36V），电流通过电阻丝加热引燃火药。现代系统的同步精度可达±5毫秒，肉眼完全无法分辨时间差。萤合落系统在编排界面中提供了"齐射模式"，设计师只需选择目标炮筒组，系统自动将它们的发射时间对齐。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "齐射和连珠有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "齐射（Salvo/Burst）是指多发烟花在同一瞬间同步发射和爆炸，强调的是"同时"。连珠（Rapid Fire/Sequence）则是多发烟花以极短间隔（通常50-200毫秒）依次发射，形成"哒哒哒"的连续效果。两者视觉效果不同：齐射是瞬间"轰"一下铺满天空，连珠则是快速连续的密集绽放。在萤合落系统中，齐射通过"同步发射"模式实现，连珠则通过"波浪发射"模式并设置极短的延迟间隔来实现。专业烟花秀中两者常搭配使用——先用连珠做铺垫，最后一齐射收尾。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "烟花秀的终章齐射一般用多少发？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "终章齐射（Grand Finale）的发数取决于秀的规模。小型商业烟花秀的终章一般20-50发同步齐射；中型市政庆典级别为100-300发；大型国际级烟花秀（如浏阳国际烟花大赛、悉尼跨年）的终章可达500-2000发以上。齐射通常不是只放一轮——大型终章会设计3-5轮密集齐射，每轮之间间隔1-3秒，形成持续30秒到1分钟的"铺天盖地"效果。萤合落系统的800管专业阵地布局可以支持单轮最多800发齐射编排。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 齐射</div>
+    <h1>💥 齐射烟花效果 - Burst</h1>
+
+    <p>齐射（Burst）是专业烟花秀中最震撼的编排手法——多发烟花在同一瞬间同步发射并爆炸，将整片夜空瞬间点亮。这不是一种独立的烟花"种类"，而是一种发射和编排方式：任何类型的烟花（牡丹、菊花、垂柳等）都可以用齐射模式发射。齐射的精髓在于"数量×同步"带来的压倒性视觉冲击，是几乎所有大型烟花秀终章（Grand Finale）的标配。</p>
+
+    <a href="/" class="btn">▶ 在线体验齐射效果</a>
+
+    <h2>🔬 编排原理</h2>
+    <div class="info-card">
+      <p>齐射的核心挑战是"同步"。传统手工点火时代，齐射需要多名烟花师在信号统一后同时点燃各自负责的炮筒，同步精度只能达到±0.5秒，且存在安全隐患。现代电子点火系统彻底解决了这个问题。</p>
+      <p style="margin-top:12px;">电子点火系统由中央控制台、分线盒和电子点火头三部分组成。控制台根据预编程的时间码（通常精确到毫秒级）向各炮筒发送点火脉冲。每个电子点火头内部有一根电阻丝，接收12-36V直流电后瞬间加热到800°C以上引燃火药。系统同步精度可达±5ms，远超人眼的时间分辨极限（约±30ms）。</p>
+      <p style="margin-top:12px;">在编排设计层面，齐射不只是"所有炮筒同时开火"这么简单。专业编排会精心设计齐射的空间分布：中央密集两侧疏松的"钻石齐射"、从左到右依次微延迟的"波浪齐射"、先低后高的"阶梯齐射"等。萤合落系统支持所有这些齐射模式，设计师可以在时间轴编辑器中直观地排布每一发的位置和时间。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>在萤合落物理引擎中，齐射效果作为基准参数配置：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>1.0×</td><td>标准速度，作为其他效果的基准</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>-90°~90°</td><td>全球形扩散</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.045</td><td>中等偏高，确保不遮挡后续波次</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>35%</td><td>适中的拖尾长度</td></tr>
+        <tr><td>全球形扩散</td><td>是</td><td>360°均匀扩散</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>1.0×</td><td>标准粒子尺寸</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>1.0×</td><td>标准持续时间</td></tr>
+      </table>
+      <p style="margin-top:12px;">齐射的震撼感主要来自"数量叠加"而非单发参数的极端化。当100发标准参数的烟花同时在天空绽放时，粒子总数可达数百万级，光照强度叠加使整片天空亮如白昼。在萤合落引擎中，齐射模式会自动启用GPU粒子系统的批量渲染优化，确保上万个同时活跃的粒子仍能流畅渲染。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>齐射的概念与烟花本身一样古老。中国宋代的"百子连环"就是最早的齐射雏形——将多个烟火筒用引线串联，一根总引线点燃后依次或同时引爆。南宋《梦粱录》记载了杭州元宵节"百十万只烟火同时燃放"的盛况。</p>
+      <p style="margin-top:12px;">现代齐射技术的革命来自电子点火系统的发明。1980年代美国Pyrodigital公司开发了第一代计算机控制的电子点火系统，使得数千发烟花可以由一名操作员通过电脑精确控制。这直接催生了"音乐烟花秀"——烟花的发射时间与音乐节拍精确同步，齐射落在重音上，连珠配合旋律，形成视听一体的艺术表演。</p>
+      <p style="margin-top:12px;">21世纪以来，齐射规模不断刷新纪录。2020年迪拜跨年烟花秀在世界最高建筑哈利法塔及周边建筑上同步燃放超过10万发烟花，终章齐射持续超过1分钟，被吉尼斯认证为世界最大烟花秀之一。</p>
+    </div>
+
+    <h2>🔧 点火技术</h2>
+    <div class="info-card">
+      <p>实现精确齐射的关键技术是电子点火系统。目前主流系统包括美国Pyrodigital、Firemaster，意大利Pyromate，以及中国自主研发的多款系统。一套典型的专业系统包括：</p>
+      <p style="margin-top:12px;">①<strong>中央控制台</strong>：运行编排软件，存储时间程序，实时发送点火指令。支持SMPTE时间码同步，可与音乐播放系统联动。</p>
+      <p style="margin-top:12px;">②<strong>分线盒（Field Module）</strong>：分布在燃放阵地各处，每个分线盒可控制20-100个通道。通过数据总线与控制台通信，收到指令后向对应通道发送点火电流。</p>
+      <p style="margin-top:12px;">③<strong>电子点火头（E-match）</strong>：插入每个烟花的引线中，接收电流后引燃。点火头内部电阻丝的电阻通常为1-3Ω，所需点火电流为0.5-2A。系统在燃放前会逐一检测每个点火头的通断，确保100%可靠。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>齐射燃放的安全要求是所有模式中最严格的，因为大量烟花同时发射意味着风险也在叠加。根据 GB 24426《烟花爆竹 大型焰火燃放安全技术规程》：</p>
+      <p style="margin-top:12px;">①安全距离按最大口径烟花计算，且齐射数量超过50发时应在标准安全距离基础上增加20%；②齐射前必须进行全部通道的通断测试，任何一个点火头断路都应修复或跳过；③齐射时的炮筒固定要求更高，因为多筒同时发射的后坐力叠加可能导致架子倾倒；④终章齐射结束后必须等待至少15分钟再进入阵地检查，确认所有炮筒已发射完毕且无延迟点火的哑弹。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳的烟花编排团队在齐射设计方面积累了丰富经验。浏阳国际烟花艺术节（每两年举办一次）是全球最高水平的烟花赛事之一，参赛队伍都会在终章环节展示自己的齐射设计功力。浏阳本地队伍擅长"色彩渐变齐射"——在齐射中精心安排每一发的颜色，使整片天空呈现从红到紫的完整光谱渐变。</p>
+      <p style="margin-top:12px;">浏阳还在电子点火系统方面进行了国产化替代。多家浏阳企业开发了自主知识产权的点火控制系统，成本仅为进口系统的1/3-1/5，同步精度也达到了国际水准。这使得即使是中小规模的商业烟花秀也能使用电子点火，大幅提升了齐射的精确度和安全性。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/" class="current">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

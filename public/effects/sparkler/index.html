@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✨ 仙女棒烟花效果 - Sparkler — 萤合落烟花模拟器</title>
+  <meta name="description" content="仙女棒（Sparkler）是全世界最普及的手持烟花，金属丝上的药剂燃烧后火花四溅如星光。详解仙女棒的化学原理、金属粉末配方、制作工艺与安全使用指南。" />
+  <meta name="keywords" content="仙女棒,sparkler,手持烟花,电光花,冷焰火,手花,烟花棒" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/sparkler/" />
+  <meta property="og:title" content="仙女棒烟花效果 — 萤合落" />
+  <meta property="og:description" content="仙女棒是全世界最普及的手持烟花，金属丝上的药剂燃烧后火花四溅。详解化学原理与制作工艺。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/sparkler/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "仙女棒烟花效果详解 — Sparkler",
+    "description": "仙女棒手持烟花的化学原理、金属粉末配方、制作工艺与安全使用指南",
+    "url": "https://yingheluo.dpdns.org/effects/sparkler/",
+    "image": "https://yingheluo.dpdns.org/og-image.png",
+    "author": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "datePublished": "2026-02-25",
+    "dateModified": "2026-02-25"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "仙女棒的温度有多高？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "仙女棒的燃烧温度根据配方不同在900°C到1500°C之间。普通铁粉仙女棒的火花温度约为900-1100°C，使用铝粉或镁粉的高亮度仙女棒火花温度可达1200-1500°C。但由于火花颗粒极小（直径约0.1-0.5mm），热容量很低，接触皮肤后瞬间冷却，通常只会造成轻微灼伤而不会引发严重烧伤。然而仙女棒的金属丝本体温度也很高（约600-800°C），燃烧结束后的残余金属丝仍然是烫的，需要等待冷却后再丢弃。这也是仙女棒最常见的安全事故原因——人们忘记刚燃完的金属丝依然极烫。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "冷焰火和普通仙女棒有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "冷焰火（Cold Spark/Indoor Sparkler）是专门为室内使用设计的特殊仙女棒。它使用钛金属粉末（Ti）或锆粉（Zr）作为主要燃料，搭配特殊的低温配方，使火花温度控制在60-120°C（远低于普通仙女棒的900°C以上）。冷焰火的火花接触皮肤或可燃物后几乎不会引发燃烧，因此可以安全地在室内婚礼、演唱会和舞台表演中使用。外观上冷焰火的火花通常为银白色或金色，亮度高但持续时间短。缺点是成本远高于普通仙女棒（约10-20倍），且颜色选择有限，目前主要是银白和金色两种。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "仙女棒为什么会发出不同颜色的火花？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "仙女棒火花的颜色由金属粉末的种类决定。铁粉（Fe）产生金黄色/橙色火花——这是最经典的仙女棒颜色，铁粒子在空气中被氧化时发出的光；铝粉（Al）产生明亮的银白色火花；镁粉（Mg）也产生白色但更耀眼；钛粉（Ti）产生银白色带蓝色调的细密火花。要产生红、绿、蓝等颜色的火花，需要在药剂中添加对应的金属盐化合物：锶盐（红）、钡盐（绿）、铜盐（蓝）。但由于仙女棒的燃烧温度和环境条件限制，彩色仙女棒的颜色纯度不如升空烟花，通常带有一定的黄/白底色。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 仙女棒</div>
+    <h1>✨ 仙女棒烟花效果 - Sparkler</h1>
+
+    <p>仙女棒（Sparkler），也叫电光花、手花、烟花棒，是全世界最普及、最亲民的烟花形式。一根金属丝上裹着含金属粉末的药剂，点燃后火花四溅如漫天星光，可以安全地手持挥舞。从美国独立日到印度排灯节，从欧洲圣诞夜到中国春节，仙女棒跨越了文化和国界，是人类共同的烟花记忆。在婚礼、生日派对和户外庆典中，仙女棒更是营造浪漫氛围的首选。</p>
+
+    <a href="/" class="btn">▶ 在线体验仙女棒效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>仙女棒的化学反应原理与升空烟花不同。它不依赖爆炸性的快速反应，而是通过金属粉末在空气中的缓慢氧化燃烧产生火花。药剂的三大核心成分：</p>
+      <p style="margin-top:12px;"><strong>①氧化剂</strong>：提供氧气维持燃烧。常用高氯酸钡 Ba(ClO₄)₂ 或硝酸钡 Ba(NO₃)₂。钡盐同时起到粘结和发色作用——纯钡盐火焰呈绿色，但在仙女棒中被金属粉末的强光掩盖。</p>
+      <p style="margin-top:12px;"><strong>②金属粉末（燃料）</strong>：产生火花的主体。铁粉是最常用的——铁粒子从药剂中飞出后在空气中被氧化（4Fe + 3O₂ → 2Fe₂O₃），氧化过程释放大量热能使铁粒子发光，产生特征性的金黄色/橙色火花。铝粉（Al）、镁粉（Mg）和钛粉（Ti）产生更亮的银白色火花。火花的"分叉"效果来自铁粒子在燃烧过程中的碎裂——高温氧化使粒子表面膨胀裂开，碎片飞向不同方向形成树枝状轨迹。</p>
+      <p style="margin-top:12px;"><strong>③粘结剂</strong>：将金属粉末和氧化剂粘合在金属丝上。常用糊精（dextrin）或虫胶（shellac），用水或酒精调成糊状后裹在金属丝上晾干。粘结剂的用量需精确控制——太少则药剂脱落，太多则燃烧不充分。</p>
+    </div>
+
+    <h2>⚙️ 燃烧物理</h2>
+    <div class="info-card">
+      <p>仙女棒的燃烧物理与升空烟花有本质区别。升空烟花的粒子获得极高初速度后在空中减速消散，而仙女棒的火花是从静态燃烧点被"弹射"出去的。</p>
+      <p style="margin-top:12px;">火花产生机制：药剂燃烧时，内部的金属粉末被加热到熔点以上（铁的熔点1538°C），形成微小的熔融液滴。液滴被燃烧产生的气流和热膨胀力弹射出药剂表面，以2-5 m/s的初速度径向飞出。在空气中，铁液滴继续氧化燃烧，温度维持在900-1100°C，发出金黄色光芒。由于液滴极小（0.1-0.5mm），质量仅约0.01-0.1mg，空气阻力使其在飞行几厘米后迅速减速并冷却熄灭。</p>
+      <p style="margin-top:12px;">燃烧速度通常为1-2 cm/s，一根30cm的标准仙女棒可燃烧15-30秒。燃烧方向从点燃端向另一端单向推进，不会回头燃烧。整个燃烧过程的总热量释放约为500-1000焦耳，远低于同等尺寸的鞭炮。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>仙女棒的历史可以追溯到中世纪欧洲的铁匠传统。铁匠在锻造过程中发现，将铁屑撒入火中会产生耀眼的金色火花。这一发现后来被烟火师利用，将铁粉混入可燃药剂中制成手持式烟花。</p>
+      <p style="margin-top:12px;">17世纪德国和意大利的宫廷庆典中已经出现仙女棒的早期形态——当时被称为"火雨棒"（Feuerregen）或"闪光棒"（Spritzkerzle）。18世纪工业革命后，大规模生产的铁丝和标准化的金属粉末使仙女棒的成本大幅下降，开始走入平民百姓家。</p>
+      <p style="margin-top:12px;">20世纪中叶，仙女棒成为全球性的节庆符号。在美国，仙女棒是7月4日独立日庆祝活动的标志——据美国烟花协会统计，每年独立日期间美国消费的仙女棒超过2亿支。在印度排灯节（Diwali），仙女棒（当地称为 phuljhari）更是必不可少的传统。日本的手持花火（手持花火/てもちはなび）也是夏季风物诗的经典元素。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>仙女棒的制作工艺相对简单，但规模化生产需要严格的质量控制。核心工序：</p>
+      <p style="margin-top:12px;"><strong>①配料</strong>：将氧化剂、金属粉末、粘结剂按配比混合。经典金色仙女棒配方：高氯酸钡35%、铁粉40%、铝粉5%、糊精15%、水（调配用）。混合过程必须在防静电环境中进行，避免金属粉末被意外点燃。</p>
+      <p style="margin-top:12px;"><strong>②蘸药</strong>：将金属丝（通常为0.8-1.2mm直径的铁丝或钢丝，长度20-50cm）浸入药剂浆料中，取出后旋转使药层均匀分布。药层厚度约2-4mm，覆盖金属丝上半段（下半段留作手持部分）。工业化生产使用自动蘸药机，每分钟可处理数百根。</p>
+      <p style="margin-top:12px;"><strong>③干燥</strong>：蘸药后的仙女棒需要自然晾干或低温烘干12-24小时。干燥不充分会导致药层开裂脱落，过度干燥则使药层变脆。浏阳的仙女棒工厂通常利用湖南温暖湿润的气候条件自然晾干，生产成本更低。</p>
+      <p style="margin-top:12px;"><strong>④包装</strong>：干燥后的仙女棒用防潮材料包装，每包通常5-20根。包装上必须标注安全警示和使用说明。出口产品还需通过目标国的安全检测认证（如美国的CPSC认证、欧盟CE标志）。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>仙女棒虽然是最安全的烟花类型之一，但每年仍有因使用不当导致的烧伤和火灾事故。根据 GB 10631《烟花爆竹 安全与质量》和各国安全标准：</p>
+      <p style="margin-top:12px;">①建议6岁以上儿童在成人监护下使用，3岁以下儿童不得接触；②使用时保持手臂伸直，与身体和他人保持至少60cm距离；③在户外通风处使用，避免在封闭室内点燃（普通仙女棒，非冷焰火）；④燃完的金属丝仍然极烫（约300-500°C），必须放入水桶中冷却后再丢弃——这是仙女棒最常见的安全盲点；⑤不要将多根仙女棒捆在一起同时点燃，集束燃烧产生的热量可能导致金属丝熔化和药剂爆燃；⑥存储时保持干燥，受潮的仙女棒可能出现不稳定燃烧或突然熄灭后复燃。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳是全球最大的仙女棒出口生产基地。浏阳花炮产业区的仙女棒年产量超过50亿支，出口到全球100多个国家和地区。浏阳仙女棒在以下方面具有独特优势：</p>
+      <p style="margin-top:12px;"><strong>成本优势</strong>：浏阳拥有完整的供应链——从金属丝拉拔、化工原料到包装印刷一条龙本地化，使浏阳仙女棒的生产成本比其他产地低30-40%。</p>
+      <p style="margin-top:12px;"><strong>品种创新</strong>：浏阳工匠开发了多种特色仙女棒——"变色仙女棒"（药剂分段配不同金属盐，燃烧过程中颜色渐变）、"心形仙女棒"（金属丝弯成心形，婚礼专用）、"字母仙女棒"（弯成英文字母形状，可拼出 LOVE、HAPPY 等字样）。这些创意产品的利润率是普通仙女棒的5-10倍。</p>
+      <p style="margin-top:12px;"><strong>冷焰火专利</strong>：浏阳多家企业持有室内冷焰火（Cold Spark）的核心专利。浏阳产的冷焰火设备已广泛用于全球的婚礼、演唱会和影视制作，单台设备出口价格可达数千元。这是浏阳花炮产业从低附加值的传统鞭炮向高附加值的创意产品转型的典型案例。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/" class="current">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌸 牡丹烟花效果 - Peony — 萤合落烟花模拟器</title>
+  <meta name="description" content="牡丹（Peony）是最经典的烟花效果，爆炸后粒子向四面八方均匀扩散，形成完美球形。详解牡丹烟花的化学原理、物理参数、制作工艺与安全规范。" />
+  <meta name="keywords" content="牡丹烟花,peony firework,球形烟花,烟花效果,经典烟花,礼花弹,浏阳烟花" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/peony/" />
+  <meta property="og:title" content="牡丹烟花效果 — 萤合落" />
+  <meta property="og:description" content="牡丹是最经典的烟花效果，粒子球形均匀扩散。详解化学原理、物理参数与制作工艺。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/peony/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "牡丹烟花效果详解 — Peony",
+    "description": "牡丹烟花的化学原理、物理参数、制作工艺与安全规范",
+    "url": "https://yingheluo.dpdns.org/effects/peony/",
+    "image": "https://yingheluo.dpdns.org/og-image.png",
+    "author": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "datePublished": "2026-02-25",
+    "dateModified": "2026-02-25"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "牡丹烟花和菊花烟花有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "牡丹和菊花是最容易混淆的两种烟花效果，关键区别在于拖尾长度和粒子持续时间。牡丹的粒子拖尾较短（拖尾保留30%），绽放后形成一个饱满的亮球然后快速消散，整体效果圆润明亮。菊花的粒子拖尾极长（保留75%），粒子燃烧到飞行轨迹的最末端才消失，在夜空中留下完整的球形线条轮廓——像是用光线画出的菊花花瓣。简单记忆：牡丹是"亮球"，菊花是"线球"。在萤合落系统中，菊花的持续时间是牡丹的1.4倍，空气阻力更小（0.025 vs 0.040），粒子飞得更远。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么牡丹烟花叫"牡丹"？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "牡丹烟花的命名来源于其绽放形态与牡丹花的相似性。牡丹花以"层层叠叠、饱满圆润"的花型著称，被誉为"花中之王"。牡丹烟花爆炸后粒子向四面八方均匀扩散形成的完美球形，正如一朵硕大的牡丹花在夜空中盛开——每一颗粒子如同一片花瓣，整体形态饱满、圆润、对称。这个命名在中国花炮行业中使用了数百年。在英文中 Peony（牡丹）同样是这种烟花效果的标准术语，说明这一命名已被国际烟花界普遍接受。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "一发牡丹烟花大概多少钱？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "牡丹烟花的价格取决于口径、颜色和品质。浏阳产的专业礼花弹：3英寸（75mm）牡丹弹约15-30元/发；4英寸（100mm）约30-60元/发；6英寸（150mm）约80-200元/发；8英寸（200mm）约200-500元/发；12英寸（300mm）以上的大型牡丹弹可达1000-3000元/发。价格还受颜色影响——蓝色牡丹最贵（铜盐配方难度高），红色和金色最便宜。出口到欧美市场后价格通常翻2-5倍。民用组合烟花中包含牡丹效果的产品价格更亲民，一个含20-50发的组合箱约200-800元。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 牡丹</div>
+    <h1>🌸 牡丹烟花效果 - Peony</h1>
+
+    <p>牡丹（Peony）是最经典、最常见的烟花效果，也是大多数人心中"烟花"的标准形象。礼花弹在空中爆炸后，数百颗星体向四面八方均匀扩散，形成一个饱满圆润的球形光团——如同一朵硕大的牡丹花在夜空中瞬间盛开。牡丹效果以其形态的完美对称性和色彩的饱和度著称，是专业烟花秀中使用频率最高的效果类型，也是衡量花炮工艺水平的基准效果。</p>
+
+    <a href="/" class="btn">▶ 在线体验牡丹效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>牡丹烟花的颜色来自金属盐的焰色反应。不同金属元素的外层电子在高温下被激发到高能级，回落到基态时释放特定波长的光子：</p>
+      <p style="margin-top:12px;"><strong>红色</strong>：碳酸锶 SrCO₃ 或硝酸锶 Sr(NO₃)₂，发射波长610-690nm。锶盐是最常用的红色发色剂，在高温下分解为 SrO 并释放出特征红光。反应式：SrCO₃ → SrO + CO₂↑，SrO* → SrO + hν（红光）。</p>
+      <p style="margin-top:12px;"><strong>绿色</strong>：氯化钡 BaCl₂ 或硝酸钡 Ba(NO₃)₂，发射波长505-535nm。钡盐在含氯环境中形成 BaCl* 分子发出绿光。</p>
+      <p style="margin-top:12px;"><strong>蓝色</strong>：氧化铜 CuO 或碳酸铜 CuCO₃，发射波长420-460nm。蓝色是最难制作的烟花颜色——铜盐只在1000-1200°C的窄温度范围内发出理想蓝光，温度过高则分解失色。</p>
+      <p style="margin-top:12px;"><strong>金色/银白色</strong>：铁粉（Fe）产生金色火花，镁铝合金（Magnalium）产生银白色闪光。这些金属粉末的发光机制是热辐射（黑体辐射）而非焰色反应。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>在萤合落物理引擎中，牡丹作为基准效果，参数值为标准参考：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>1.0×</td><td>基准速度，初速度约10-28 m/s</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>-90°~90°</td><td>全球形扩散（360°均匀）</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.040</td><td>中等阻力，球形展开后缓慢减速</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>30%</td><td>短拖尾——亮球型而非线条型</td></tr>
+        <tr><td>全球形扩散</td><td>是</td><td>粒子覆盖完整球面</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>1.0×</td><td>标准尺寸</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>1.0×</td><td>标准持续时间约2.5秒</td></tr>
+      </table>
+      <p style="margin-top:12px;">牡丹效果的物理精髓在于"均匀球形扩散"。全范围的仰角（-90°到+90°）确保粒子覆盖完整球面，1.0×的速度倍率使球形展开速度适中——既不会太快来不及看清，也不会太慢显得拖沓。0.040的空气阻力系数让粒子在展开到最大半径后逐渐减速、下落，形成牡丹花"先盛放后凋零"的自然过程。30%的低拖尾保留使牡丹呈现为"亮点球"而非"线条球"，与菊花形成鲜明对比。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>牡丹型烟花的历史与中国花炮技术的发展密不可分。唐宋时期，花炮匠人已经掌握了在竹筒中装药并发射到空中爆炸的技术。宋代《武林旧事》中记载的"地老鼠""流星""架子烟火"等品种中，就包含了类似牡丹效果的球形绽放烟花。</p>
+      <p style="margin-top:12px;">明代是牡丹烟花定型的关键时期。明代花炮匠人发明了"亮珠"技术——将金属盐和氧化剂按配方混合后搓成小球（星体），干燥后装入礼花弹中。点燃后这些亮珠被均匀抛射到空中，形成完美的球形效果。这一技术原理至今未变，只是配方和工艺不断精进。</p>
+      <p style="margin-top:12px;">清代乾隆年间，浏阳花炮开始形成产业规模。浏阳工匠在牡丹效果的"球形均匀度"上精益求精，发展出独特的"层装法"——在礼花弹球壳内部将星体按同心圆层次排列，确保爆炸后各方向的星体密度一致。这种工艺使浏阳牡丹弹的球形对称性远超其他产地，奠定了浏阳在世界花炮界的领先地位。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>一发标准牡丹礼花弹的制作包含以下关键工序：</p>
+      <p style="margin-top:12px;"><strong>①星体制作</strong>：将金属盐（发色剂）、氧化剂（硝酸钾/高氯酸钾）、燃料（木炭/硫磺/铝粉）和粘结剂按配方混合，加水搓成直径3-10mm的小球。星体需要多次包裹——内层为点火药，中层为效果药，外层为保护药。每次包裹后都需要干燥，一颗星体的制作周期可达3-7天。</p>
+      <p style="margin-top:12px;"><strong>②弹壳制作</strong>：传统浏阳工艺使用牛皮纸和浆糊层层糊裱成球形外壳（称为"壳子"），干燥后质地坚硬。壳体厚度和强度直接影响爆炸力度——太薄则炸不开星体，太厚则弹壳碎片飞散危险。现代工艺也使用塑料半球壳。</p>
+      <p style="margin-top:12px;"><strong>③装药</strong>：将制好的星体按层次排列在弹壳内，中央放置爆炸药（通常为膨胀珍珠岩与黑火药的混合物）。浏阳传统的"层装法"将星体排成2-3层同心球面，每层之间用薄纸隔开，确保爆炸时各层依次绽放。</p>
+      <p style="margin-top:12px;"><strong>④封壳与引线</strong>：将两个半球壳合拢、用牛皮纸条粘合封口，安装延时引线。引线的延时时间必须精确——从发射到爆炸通常3-5秒，过短则在低空爆炸危险，过长则烟花飞过最高点后下落才爆炸（称为"低头"），效果不佳。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>牡丹烟花作为最常见的升空效果，安全规范遵循 GB 24426《烟花爆竹 大型焰火燃放安全技术规程》：</p>
+      <p style="margin-top:12px;">①安全距离根据口径确定：75mm（3寸）不少于100米、100mm（4寸）不少于150米、150mm（6寸）不少于200米、200mm（8寸）不少于300米、300mm（12寸）不少于400米。②发射筒口径必须与礼花弹口径匹配，过大会导致弹体偏斜，过小会造成膛压过高爆筒。③每次装填只能放一发弹，严禁在发射筒内叠放。④风力超过5级时停止燃放——高空风会将爆炸后的星体和弹壳碎片吹向观众区。⑤燃放后至少等待15分钟再进入阵地检查哑弹。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳是全球公认的牡丹烟花制作水平最高的产地。浏阳牡丹弹的核心竞争力在于"球形对称性"——国际烟花大赛的评分标准中，球形效果的圆度是最重要的指标之一，浏阳工匠在这方面有数百年的积累。</p>
+      <p style="margin-top:12px;">浏阳的"变色牡丹"是独门绝技——星体在飞行过程中颜色发生变化。实现原理是星体的多层结构：外层先燃烧呈现第一种颜色（如红色），内层随后露出呈现第二种颜色（如绿色），甚至可以做到三变色。一发变色牡丹弹在空中先绽放为红色球形，然后逐渐变成绿色，最后闪烁银色消散——三秒之内呈现三种颜色，令人叹为观止。</p>
+      <p style="margin-top:12px;">浏阳还研发了"芯变牡丹"——在牡丹弹中央嵌入一个小型二次效果弹。大球先绽放，2秒后中央的小弹再爆炸形成一个不同颜色的小球形效果，形成"球中球"的视觉层次。这种设计在国庆70周年庆典烟花表演中被大量使用。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/" class="current">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

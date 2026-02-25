@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌼 菊花烟花效果 - Chrysanthemum — 萤合落烟花模拟器</title>
+  <meta name="description" content="菊花烟花（Chrysanthemum）粒子拖尾极长，燃烧到最后一刻才消失，在夜空中留下完整球形轮廓。日本花火大会的标志效果。详解化学原理、物理参数与制作工艺。" />
+  <meta name="keywords" content="菊花烟花,chrysanthemum firework,日本花火,割物,细密烟花,拖尾烟花,花火大会" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/chrysanthemum/" />
+  <meta property="og:title" content="菊花烟花效果 — 萤合落" />
+  <meta property="og:description" content="菊花烟花粒子拖尾极长，在夜空中留下完整球形轮廓。日本花火大会标志效果。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/chrysanthemum/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "菊花烟花效果详解 — Chrysanthemum",
+    "description": "菊花烟花的化学原理、物理参数、日本割物工艺与安全规范",
+    "url": "https://yingheluo.dpdns.org/effects/chrysanthemum/",
+    "image": "https://yingheluo.dpdns.org/og-image.png",
+    "author": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "datePublished": "2026-02-25",
+    "dateModified": "2026-02-25"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "日本花火大会的割物是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "割物（わりもの/Warimono）是日本花火术语，指爆炸后形成完美球形的烟花弹——正是菊花效果的日语名称。"割"字意为"裂开"，"物"指"东西"，合起来就是"裂开的东西"——形象地描述了礼花弹在空中裂开绽放的过程。日本花火大会对割物的评判极其严苛：球形必须完美圆润、无明显空洞；粒子飞行轨迹必须从中心到末端完整可见（即菊花效果的长拖尾特征）；颜色必须均匀饱满。日本花火师制作一发顶级割物需要数月时间，每一颗星体都要手工搓制并精确排布。大曲花火大赛（日本最高级别花火竞技赛）的冠军作品，其球形圆度误差通常小于5%。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "菊花烟花为什么拖尾那么长？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "菊花烟花的长拖尾来自星体的特殊配方。与牡丹的"快速闪亮"不同，菊花星体使用缓燃配方——金属粉末含量更低但燃烧更持久。具体来说：①氧化剂（硝酸钾）的比例降低5-10%，使反应速度变慢；②金属粉末粒径更大（100-200微米 vs 牡丹的50-100微米），大颗粒燃烧速度更慢；③添加适量的减速剂（如碳酸钙）降低反应温度。在萤合落引擎中，菊花的拖尾保留率为75%（牡丹仅30%），空气阻力0.025（低于牡丹的0.040），使粒子飞得更远、亮得更久，形成从中心到边缘完整可见的长轨迹线条。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "菊花烟花和牡丹烟花哪个更贵？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "菊花烟花通常比同口径的牡丹贵20-50%。原因是菊花的制作难度更高：①星体的缓燃配方更复杂，需要精确控制燃烧速度；②对球形对称性要求更高——菊花的长拖尾会放大任何不均匀，牡丹的短拖尾则能掩盖微小缺陷；③日本进口的高端割物菊花弹价格更是牡丹弹的3-5倍。浏阳产的菊花弹在性价比方面有优势——3寸菊花弹约25-40元/发，6寸约120-280元/发，品质接近日本产品但价格仅为其1/3。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 菊花</div>
+    <h1>🌼 菊花烟花效果 - Chrysanthemum</h1>
+
+    <p>菊花（Chrysanthemum）是与牡丹齐名的经典烟花效果，但两者的视觉风格截然不同。菊花的粒子拖着长长的发光轨迹飞行，一直燃烧到飞行末端才消失，在夜空中描绘出一个由无数光线组成的完美球形——如同一朵硕大的菊花，每条光线就是一片纤细的花瓣。菊花效果是日本花火文化的灵魂，日本的"割物"（Warimono）花火大赛以菊花效果的完美度作为最高评判标准。</p>
+
+    <a href="/" class="btn">▶ 在线体验菊花效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>菊花效果与牡丹最本质的化学差异在于星体的燃烧速率。菊花使用"缓燃配方"——通过调整氧化剂和燃料的比例和粒径，使星体燃烧更慢、更持久：</p>
+      <p style="margin-top:12px;"><strong>氧化剂</strong>：硝酸钾（KNO₃）比例降低到55-65%（牡丹通常65-75%），反应速度相应变慢。部分配方用硝酸钡 Ba(NO₃)₂ 替代部分硝酸钾，钡盐的分解温度更高，进一步降低反应速率。</p>
+      <p style="margin-top:12px;"><strong>金属粉末</strong>：使用更大粒径的金属颗粒（100-200μm，牡丹用50-100μm）。大颗粒的比表面积更小，氧化速度更慢，但单颗燃烧时间更长。这是菊花长拖尾的物理基础。</p>
+      <p style="margin-top:12px;"><strong>减速剂</strong>：添加碳酸钙（Cite）或草酸钠等惰性填料，降低整体反应温度和速率。日本花火师的秘诀是在星体中加入微量的天然漆（urushi），漆在燃烧时产生独特的金色调，同时起到减速作用。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>萤合落引擎中菊花效果的参数体现了"远飞长亮"的核心特征：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>与牡丹对比</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>1.1×</td><td>比牡丹快10%，飞得更远</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>-90°~90°</td><td>同为全球形扩散</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.025</td><td>比牡丹低37.5%，减速更慢</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>75%</td><td>牡丹的2.5倍——核心差异</td></tr>
+        <tr><td>全球形扩散</td><td>是</td><td>相同</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>0.85×</td><td>比牡丹小15%，更纤细</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>1.4×</td><td>比牡丹持续时间长40%</td></tr>
+      </table>
+      <p style="margin-top:12px;">这组参数完美诠释了菊花效果的物理特征：1.1×的速度让粒子展开半径更大；0.025的低阻力让粒子飞得更远再减速；75%的拖尾保留让每颗粒子从起点到终点的完整轨迹清晰可见；0.85×的小粒子尺寸使轨迹线条更纤细优雅；1.4×的持续时间让整个效果在夜空中停留近3.5秒，给观众足够时间欣赏完整的球形轮廓。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>菊花效果在中国和日本都有深厚的文化根源。在中国，菊花自古被视为"花中隐士"，与梅兰竹并称"四君子"。花炮匠人将烟花效果命名为"菊花"，既描述了其形态特征，也赋予了文化意味。</p>
+      <p style="margin-top:12px;">但真正将菊花烟花推向极致的是日本。花火技术在16世纪经中国传入日本后，日本花火师对菊花效果产生了近乎执念的追求。日本花火文化中有一个核心美学概念叫"盆"（ぼん）——指烟花在夜空中绽放后形成的球形轮廓。完美的"盆"要求：①球形绝对圆润；②所有粒子轨迹从中心到末端清晰可见；③颜色均匀饱满；④留空时间足够长。这些要求完美契合了菊花效果的物理特征。</p>
+      <p style="margin-top:12px;">日本三大花火大会——大曲全国花火竞技大会、土浦全国花火竞技大会和长冈花火大会——每年吸引数百万观众。其中大曲大会的"割物竞技"专项是菊花效果的最高殿堂，参赛花火师为一发完美的菊花弹可以准备一整年。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>菊花烟花的制作比牡丹更精细，对星体质量和排布精度的要求极高：</p>
+      <p style="margin-top:12px;"><strong>①星体制作</strong>：菊花星体的制作工艺称为"掛け星"（日语）或"附药法"。将核心颗粒放入滚筒中，反复喷洒药浆并撒上干粉，一层层地把药剂"长"到颗粒上。每层厚度约0.1-0.3mm，一颗直径8mm的菊花星体可能需要20-30层包裹，历时5-7天。缓慢的层层包裹确保每层药剂密度均匀，燃烧速率一致。</p>
+      <p style="margin-top:12px;"><strong>②精确排球</strong>：菊花弹对球形对称性的要求极高，因为长拖尾会放大任何不均匀。日本花火师使用木制模具将星体逐颗排列在弹壳内壁，确保每颗星体与球心的距离相同（误差小于1mm）。一发12寸（300mm）菊花弹内部可能有1000-2000颗星体，全部手工排布。</p>
+      <p style="margin-top:12px;"><strong>③壳体工艺</strong>：日本花火使用多层牛皮纸"貼り"（糊裱）工艺制作弹壳，层数可达10-30层。更多的层数意味着弹壳更厚更坚硬，爆炸时需要更大的内压才能炸开——这反而使得爆炸更猛烈均匀，星体的初速度更高更一致。浏阳的菊花弹工艺也采用了类似的多层裱糊技术。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>菊花烟花的安全规范与同口径的牡丹相同，遵循 GB 24426 标准。但由于菊花效果的留空时间更长（1.4倍于牡丹），在编排中需要额外注意时间间隔——两轮菊花之间至少留4秒间隔，避免前一轮的长拖尾尚未消散就被后一轮覆盖，影响视觉效果并导致烟雾积累。</p>
+      <p style="margin-top:12px;">大口径菊花弹（8寸以上）的弹壳碎片飞散范围比牡丹更大——因为菊花弹的壳体更厚更重，爆炸后碎片动能更高、飞行距离更远。因此在实际燃放中，大口径菊花弹的安全距离通常比标准值再增加10-15%。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳在菊花烟花制作方面兼收并蓄，既有传承数百年的中国传统工艺，又积极学习日本花火技术。近年来浏阳多家企业与日本花火师建立了技术交流合作关系，引进了日本的精密排球工艺和缓燃配方技术。</p>
+      <p style="margin-top:12px;">浏阳的特色菊花产品包括：<strong>"千轮菊"</strong>——在一发弹中装载上千颗极细小的星体，绽放时形成异常细密的菊花效果；<strong>"变色菊"</strong>——星体在飞行中变色（如金→红→绿），结合了牡丹的变色技术和菊花的长拖尾特征；<strong>"八重菊"</strong>——弹壳分两层，内外两层星体以不同时差绽放，形成"菊中有菊"的双层效果。</p>
+      <p style="margin-top:12px;">在国际市场上，浏阳菊花弹以极高的性价比著称。一发6寸浏阳菊花弹的价格约为同品质日本产品的1/3，但球形圆度和颜色均匀度已经非常接近日本水准，深受各国烟花秀运营商青睐。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/" class="current">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

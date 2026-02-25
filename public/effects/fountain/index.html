@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⛲ 喷泉烟花效果 - Fountain — 萤合落烟花模拟器</title>
+  <meta name="description" content="喷泉烟花（Fountain）从地面持续喷射火花如喷泉般涌出，可持续数十秒，安全距离小。详解喷泉烟花的化学原理、物理参数、制作工艺与安全规范。" />
+  <meta name="keywords" content="喷泉烟花,fountain firework,地面烟花,吐珠,花束,持续烟花,安全烟花,冷焰火" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/fountain/" />
+  <meta property="og:title" content="喷泉烟花效果 — 萤合落" />
+  <meta property="og:description" content="喷泉烟花从地面持续喷射火花如喷泉涌出，可持续数十秒。详解化学原理与制作工艺。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/fountain/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Article", "headline": "喷泉烟花效果详解 — Fountain", "description": "喷泉烟花的化学原理、物理参数、制作工艺与安全规范", "url": "https://yingheluo.dpdns.org/effects/fountain/", "image": "https://yingheluo.dpdns.org/og-image.png", "author": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" }, "datePublished": "2026-02-25", "dateModified": "2026-02-25" }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    { "@type": "Question", "name": "喷泉烟花可以在室内使用吗？", "acceptedAnswer": { "@type": "Answer", "text": "普通喷泉烟花不可以在室内使用——它的火花温度高达800-1200°C，会引燃可燃物并产生有害烟雾。但专门设计的室内冷焰火（Cold Spark Fountain）可以安全地在室内使用。冷焰火使用钛金属粉或锆粉作为燃料，配合特殊的低温配方，火花温度仅60-120°C，接触皮肤或可燃物后几乎不会造成燃烧。冷焰火广泛用于婚礼、演唱会、综艺节目等室内场合。浏阳是全球最大的冷焰火生产基地，多家企业持有相关专利。需要注意的是，即使是冷焰火也会产生少量烟雾和金属粉尘，室内使用时应确保良好通风。" } },
+    { "@type": "Question", "name": "喷泉烟花能持续多长时间？", "acceptedAnswer": { "@type": "Answer", "text": "喷泉烟花的持续时间取决于药筒的长度和直径。小型民用喷泉（直径20-30mm，高150mm）通常持续15-30秒；中型喷泉（直径40-60mm，高200-300mm）持续30-60秒；大型专业舞台喷泉（直径80-120mm，高400mm以上）可持续1-3分钟。最长的"超级喷泉"通过串联多个药柱可以持续5分钟以上。喷泉的持续时间还受药剂配方影响——含铝粉比例高的配方燃烧更快但更亮，含铁粉为主的配方燃烧更慢但亮度稍低。专业编排中通常使用多个喷泉以不同延时依次点燃，形成"接力"效果，让火花持续不断。" } },
+    { "@type": "Question", "name": "喷泉烟花喷多高？", "acceptedAnswer": { "@type": "Answer", "text": "喷泉烟花的喷射高度主要取决于喷口直径和内部压力。小型民用喷泉喷射高度1-3米；中型舞台喷泉3-8米；大型专业喷泉可达8-15米。在萤合落引擎中，喷泉的速度倍率为0.5×（最低），仰角范围36°~81°（锥形喷射），空气阻力0.080（最高）——这组参数意味着火花以较低速度在窄锥形范围内喷出，且迅速减速下落，模拟了喷泉火花"喷出后很快回落"的真实物理行为。喷射高度可以通过调整喷口大小来控制——喷口越小，内部气压越高，火花喷得越高但量更少。" } }
+  ] }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 喷泉</div>
+    <h1>⛲ 喷泉烟花效果 - Fountain</h1>
+
+    <p>喷泉（Fountain）是最安全、最持久、也是最贴近日常生活的烟花效果。一个圆筒或锥形容器放在地面上，点燃后从顶部持续喷射出密集的火花——如同一座金色喷泉在地面上涌出。与升空爆炸的礼花弹不同，喷泉是"持续燃烧型"效果，可以连续喷射数十秒甚至数分钟。喷泉的安全距离小、噪音低、观赏性好，是家庭庆祝、婚礼派对和舞台表演中最受欢迎的烟花产品。</p>
+
+    <a href="/" class="btn">▶ 在线体验喷泉效果</a>
+
+    <h2>🔬 化学原理</h2>
+    <div class="info-card">
+      <p>喷泉烟花的化学反应是持续、可控的——不像礼花弹那样瞬间爆炸，而是药剂在筒内从点火端缓慢、稳定地向另一端推进燃烧。</p>
+      <p style="margin-top:12px;"><strong>药剂配方</strong>：喷泉的基础配方与仙女棒类似但更精细。经典金色喷泉：硝酸钾50%、铝粉（200目）15%、铁粉（80目）15%、硫磺5%、木炭5%、糊精8%、碳酸氢钠2%（降速剂）。铁粉产生金色火花，铝粉提供额外亮度，碳酸氢钠在燃烧时分解吸热降低反应速率。</p>
+      <p style="margin-top:12px;"><strong>火花产生机制</strong>：药剂在筒内燃烧时，金属粉末（铁粉、铝粉）受热熔化成微滴，被燃烧产生的高压气体从喷口高速吹出。金属微滴在空气中继续氧化燃烧（4Fe + 3O₂ → 2Fe₂O₃），产生明亮的火花。铁微滴的氧化反应还会导致微滴膨胀碎裂，形成分叉的火花轨迹——这就是喷泉火花呈现"树枝状"的原因。</p>
+      <p style="margin-top:12px;"><strong>颜色变化</strong>：高端喷泉通过在药筒中分段装填不同配方的药柱来实现颜色变化——底段（先燃烧）为金色，中段为红色（加锶盐），上段为绿色（加钡盐）。点燃后喷泉自动从金色变红色再变绿色，一筒呈现三种颜色。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>萤合落引擎中喷泉效果的参数反映了"低矮持续、密集喷射"的特征：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>0.5×</td><td>所有效果中最低——火花喷射速度不高</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>36°~81°</td><td>锥形喷射，主要向上偏斜</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.080</td><td>所有效果中最高——微小火花极易减速</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>15%</td><td>最低拖尾——火花快速闪烁而非留下轨迹</td></tr>
+        <tr><td>全球形扩散</td><td>否</td><td>锥形喷射</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>0.5×</td><td>所有效果中最小——微小火花颗粒</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>0.6×</td><td>单颗火花持续时间短（但持续有新火花产生）</td></tr>
+      </table>
+      <p style="margin-top:12px;">喷泉的参数几乎处处是"最小值"——最低的速度、最高的阻力、最小的粒子、最短的单粒子持续时间。但这正是喷泉效果的核心：每颗火花都很小很短暂，但因为每秒有成百上千颗新火花从喷口涌出，整体视觉效果是密集、持续、流动的"火花之泉"。这与升空烟花"一次性爆发、大粒子、长持续"的逻辑完全相反。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>喷泉是人类最早掌握的烟花形式之一。中国唐代的"药发傀儡"表演中就使用了类似喷泉的地面火花效果——将火药装在竹筒中固定在舞台机关上，点燃后喷射火花配合傀儡表演。这是有记载的最早的"舞台特效"。</p>
+      <p style="margin-top:12px;">在欧洲，喷泉烟花在文艺复兴时期的意大利宫廷焰火中占据核心地位。16-17世纪的焰火展示以地面效果为主（当时升空技术还不成熟），大量喷泉被排列成几何图案——圆形、星形、字母形——在地面上形成壮观的"火之花园"。佛罗伦萨美第奇家族的庆典记录中详细描述了数百个喷泉同时喷射形成"火之迷宫"的盛况。</p>
+      <p style="margin-top:12px;">19世纪工业化时代，喷泉烟花成为第一种大规模工业化生产的烟花产品。结构简单、安全性高、制作门槛低的特点使其迅速普及到普通家庭。今天，喷泉烟花在全球烟花消费量中占比约30-40%，是销量最大的烟花品类。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>喷泉烟花的制作相对简单但对一致性要求高，因为市场需要大批量标准化产品：</p>
+      <p style="margin-top:12px;"><strong>药筒制作</strong>：外壳为硬纸筒或塑料筒（直径20-120mm，高度100-400mm）。筒底用粘土塞封闭，顶部留一个喷口（直径为筒径的1/3-1/2）。喷口大小直接决定喷射高度和密度——口小则压力大、喷得高但火花少，口大则压力低、喷得矮但火花密集。</p>
+      <p style="margin-top:12px;"><strong>装药</strong>：将混合好的药剂分层装入筒中，每层用压实锤压紧。装药密度必须均匀——过松则燃烧不稳定（忽大忽小），过紧则可能"闷火"（内部压力过大导致筒底炸开而非从喷口喷出）。大型工厂使用自动化装药机，可控制每层的压实力和药量误差在±2%以内。</p>
+      <p style="margin-top:12px;"><strong>多效果喷泉</strong>：高端喷泉产品在筒内分段装填不同颜色和效果的药柱——底层金色、中层红色、顶层绿色加哨子声。段与段之间用薄层延时药隔开。有的产品还在药柱中嵌入小型"吐珠"（微型礼花弹），喷泉喷射的同时偶尔弹出一颗小礼花在1-2米高度爆炸，增加惊喜感。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>喷泉是所有烟花中安全等级最高的类型之一。根据 GB 10631 标准，C级（个人燃放级）喷泉产品的安全距离仅需3-5米。但仍有以下注意事项：</p>
+      <p style="margin-top:12px;">①喷泉必须放在平稳的硬质地面上（水泥、石砖），严禁放在松软泥地或草地上——底部粘土塞在燃烧时可能软化，导致火焰从底部泄漏；②确保喷口朝正上方，倾斜的喷泉会将火花喷向侧面造成烧伤或引燃周围物体；③不要将喷泉放在有顶棚的地方——虽然火花看起来不高，但偶尔会有单颗火花飞到3-5米以上；④多个喷泉之间保持至少50cm间距，避免热辐射互相影响导致燃烧失控；⑤燃烧结束后等待3分钟再接近，确认筒体已冷却——喷泉筒壁在燃烧结束时温度可达200-400°C。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳是全球喷泉烟花产量最大的产地，年产量超过10亿筒，出口到全球150多个国家。浏阳喷泉的竞争优势：</p>
+      <p style="margin-top:12px;"><strong>极致性价比</strong>：浏阳拥有从原材料到成品的完整产业链——化工原料、纸筒制作、装药灌装、包装印刷全部本地化。一筒标准金色喷泉的出厂成本可低至1-2元人民币，终端售价在海外市场为1-5美元，利润空间可观。</p>
+      <p style="margin-top:12px;"><strong>创意产品</strong>：浏阳开发了大量创意喷泉产品——"生日蛋糕喷泉"（专为蛋糕设计的微型冷焰火）、"舞台冷焰火机"（电控重复使用的冷焰火喷射设备）、"手持喷泉棒"（加长版仙女棒，喷泉+手持的结合）、"字母/数字喷泉"（筒体做成字母或数字形状）。</p>
+      <p style="margin-top:12px;"><strong>冷焰火技术领先</strong>：浏阳在室内冷焰火（Cold Spark）领域全球领先。浏阳产的电控冷焰火机可以通过DMX512协议与灯光控制台联动，实现与舞台灯光和音乐的精确同步。这种设备已广泛用于全球的演唱会、婚礼和综艺节目，单台设备价格从几百到数千元不等，是浏阳花炮产业高附加值转型的标杆产品。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/" class="current">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>

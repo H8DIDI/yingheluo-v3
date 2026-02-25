@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚀 火箭烟花效果 - Rocket — 萤合落烟花模拟器</title>
+  <meta name="description" content="火箭烟花（Rocket）自带推进动力升空，拖着明亮火尾划过夜空，到达顶点后爆炸绽放。详解火箭烟花的推进原理、弹道物理、制作工艺与安全规范。" />
+  <meta name="keywords" content="火箭烟花,rocket firework,窜天猴,冲天炮,火箭炮,烟花火箭,飞天烟花" />
+  <link rel="canonical" href="https://yingheluo.dpdns.org/effects/rocket/" />
+  <meta property="og:title" content="火箭烟花效果 — 萤合落" />
+  <meta property="og:description" content="火箭烟花自带推进动力升空，拖着明亮火尾划过夜空。详解推进原理、弹道物理与制作工艺。" />
+  <meta property="og:url" content="https://yingheluo.dpdns.org/effects/rocket/" />
+  <meta property="og:image" content="https://yingheluo.dpdns.org/og-image.png" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "火箭烟花效果详解 — Rocket",
+    "description": "火箭烟花的推进原理、弹道物理、制作工艺与安全规范",
+    "url": "https://yingheluo.dpdns.org/effects/rocket/",
+    "image": "https://yingheluo.dpdns.org/og-image.png",
+    "author": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "publisher": { "@type": "Organization", "name": "萤合落 Yingheluo" },
+    "datePublished": "2026-02-25",
+    "dateModified": "2026-02-25"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "火箭烟花能飞多高？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "火箭烟花的飞行高度取决于推进药量、弹体重量和空气阻力。小型民用火箭烟花（窜天猴类）飞行高度通常在30-80米；中型专业火箭可达100-200米；大型特种火箭烟花可达300-500米以上。飞行高度受空气阻力显著影响——萤合落引擎中火箭的阻力系数仅为0.003（所有效果中最低），反映了火箭流线型外形带来的低风阻特性。实际中，火箭的尾翼设计（导向杆或尾翅）对稳定飞行和最终高度也有关键影响。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "窜天猴和专业火箭烟花有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "窜天猴（也叫冲天炮、飞天鼠）是最常见的民用火箭烟花，结构简单：一根竹签或塑料杆作为导向杆，顶端绑一个小型药筒。点燃后药筒喷射推进，带着导向杆升空，到顶后发出响声或小型闪光。专业火箭烟花则复杂得多：①弹体更大（口径可达50-100mm）；②有多级推进结构，先推进升空再引爆效果弹头；③弹头可以装载与礼花弹相同的星体配方，在顶点绽放出牡丹、菊花等效果；④使用导向尾翅而非竹签，飞行轨迹更稳定。专业火箭的造价是窜天猴的数百倍。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "火箭烟花为什么会发出啸叫声？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "火箭烟花的啸叫声来自推进药的特殊配方和排气口设计。当推进药含有高比例的高氯酸钾（KClO₄）和有机燃料时，燃烧会产生间歇性的压力脉动（频率在2000-4000Hz），通过排气口形成高频声波，人耳听到的就是尖锐的啸叫声。有些火箭专门设计了"哨子"结构——在排气口处设置一个小型共振腔，利用空气动力学共振放大声音。浏阳花炮的"叫鸡"就是一种带哨子结构的火箭烟花，因其升空时发出类似鸡叫的声音而得名。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.8; }
+    nav { background: #1a1a2e; padding: 12px 20px; display: flex; gap: 20px; align-items: center; border-bottom: 1px solid #333; flex-wrap: wrap; }
+    nav a { color: #f59e0b; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #fbbf24; }
+    .content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { color: #f59e0b; font-size: 2em; margin-bottom: 16px; }
+    h2 { color: #f59e0b; margin-top: 32px; margin-bottom: 12px; }
+    .breadcrumb { color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #60a5fa; }
+    .info-card { background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333; margin: 16px 0; }
+    .param-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .param-table th { text-align: left; color: #f59e0b; padding: 8px; border-bottom: 2px solid #333; }
+    .param-table td { padding: 8px; border-bottom: 1px solid #222; }
+    .btn { display: inline-block; padding: 10px 24px; background: #f59e0b; color: #0f0f23; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 24px; }
+    .btn:hover { background: #fbbf24; }
+    .effects-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .effects-nav a { padding: 6px 14px; background: #1a1a2e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; text-decoration: none; font-size: 0.9em; }
+    .effects-nav a:hover, .effects-nav a.current { border-color: #f59e0b; color: #f59e0b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #333; color: #666; text-align: center; }
+    footer a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🎆 萤合落</a>
+    <a href="/about/">关于</a>
+    <a href="/features/">功能</a>
+    <a href="/effects/">效果</a>
+    <a href="/demo/">演示</a>
+    <a href="/liuyang/">浏阳花炮</a>
+  </nav>
+  <div class="content">
+    <div class="breadcrumb"><a href="/">首页</a> &rsaquo; <a href="/effects/">烟花效果</a> &rsaquo; 火箭</div>
+    <h1>🚀 火箭烟花效果 - Rocket</h1>
+
+    <p>火箭烟花（Rocket）是唯一一种自带推进动力的烟花类型。与其他烟花依靠发射药在炮筒内"炮射"升空不同，火箭烟花通过自身的推进药持续燃烧产生推力，拖着明亮的火尾自地面直冲云霄。到达飞行顶点后，弹头中的效果药被引燃，绽放出各种绚丽图案。火箭烟花是人类最早的"火箭"实践——现代航天火箭的基本原理，正是从中国古代的烟花火箭演变而来。</p>
+
+    <a href="/" class="btn">▶ 在线体验火箭效果</a>
+
+    <h2>🔬 推进原理</h2>
+    <div class="info-card">
+      <p>火箭烟花的推进原理与航天火箭完全相同——牛顿第三定律的反作用力。推进药（通常为黑火药或改进型配方）在密封的燃烧室中快速燃烧，产生大量高温高压气体。气体通过底部的喷嘴高速喷出，根据动量守恒定律，烟花弹体获得向上的推力。</p>
+      <p style="margin-top:12px;">推进药的典型配方为：硝酸钾（KNO₃）62-75%、木炭（C）12-18%、硫磺（S）8-15%。燃烧反应的主要方程式为：2KNO₃ + 3C + S → K₂S + N₂↑ + 3CO₂↑。产生的氮气和二氧化碳提供推力，同时碳的不完全燃烧产生明亮的橙黄色火焰拖尾。高端火箭会在推进药中添加铝粉（Al）或钛粉（Ti）以增加尾迹亮度和视觉效果。</p>
+      <p style="margin-top:12px;">火箭的飞行弹道受三个力控制：①推力（推进药燃烧期间持续提供，通常持续1-3秒）；②重力（恒定向下，g=9.8m/s²）；③空气阻力（与速度平方成正比）。推进药燃尽后，火箭依靠惯性继续上升直到速度降为零，此时到达最高点，延时引信引爆效果弹头。</p>
+    </div>
+
+    <h2>⚙️ 物理模拟参数</h2>
+    <div class="info-card">
+      <p>在萤合落物理引擎中，火箭效果的参数反映了其独特的推进飞行特性：</p>
+      <table class="param-table">
+        <tr><th>参数</th><th>值</th><th>说明</th></tr>
+        <tr><td>速度倍率 (speedMult)</td><td>1.0×</td><td>标准速度</td></tr>
+        <tr><td>仰角范围 (elevationRange)</td><td>0°~0°</td><td>纯垂直飞行（点发射）</td></tr>
+        <tr><td>空气阻力 (drag)</td><td>0.003</td><td>所有效果中最低——流线型弹体的极低风阻</td></tr>
+        <tr><td>拖尾保留 (trailRetention)</td><td>90%</td><td>极长拖尾，模拟持续推进产生的火焰轨迹</td></tr>
+        <tr><td>全球形扩散</td><td>否</td><td>线性轨迹而非扩散</td></tr>
+        <tr><td>粒子尺寸 (sizeMult)</td><td>0.8×</td><td>弹体尺寸</td></tr>
+        <tr><td>持续倍率 (durationMult)</td><td>1.0×</td><td>标准飞行时间</td></tr>
+      </table>
+      <p style="margin-top:12px;">火箭最显著的物理特征是极低的空气阻力系数（0.003）——这是所有10种效果中最低的，比喷泉（0.080）低了26倍。这反映了火箭流线型弹体设计带来的优异气动性能：细长的圆锥形头部和平滑的圆柱体侧面将气流平稳地导向尾部，最大限度减少了气动阻力。同时90%的拖尾保留率意味着火箭飞过之处留下极长的明亮轨迹，这在真实火箭烟花中对应推进药燃烧产生的持续火焰。</p>
+    </div>
+
+    <h2>📜 历史渊源</h2>
+    <div class="info-card">
+      <p>火箭烟花是人类最早的火箭技术实践，其历史可以追溯到中国南宋。1232年的开封保卫战中，宋军使用"飞火枪"（一种原始火箭）攻击蒙古军队。同一时期，民间已出现用于庆典的火箭烟花。南宋周密的《武林旧事》记载了"起花"——一种绑在竹杆上的火箭烟花。</p>
+      <p style="margin-top:12px;">火箭技术通过丝绸之路传入阿拉伯和欧洲。13世纪阿拉伯人称之为"中国箭"（Sahm Cathay）。到了16世纪，意大利和德国的烟花师将火箭烟花发展为庆典必备品。德语中"火箭"（Rakete）一词至今仍用于指代烟花火箭。</p>
+      <p style="margin-top:12px;">最传奇的火箭烟花故事是明朝万户飞天的传说——据说明代工匠万户将47支火箭绑在椅子上试图飞天，虽然以失败告终，但被国际航天界视为人类最早的载人火箭飞行尝试。月球背面的"万户撞击坑"（Wan Hoo Crater）便是以他命名，表达了国际社会对中国火箭先驱的敬意。</p>
+    </div>
+
+    <h2>🔧 制作工艺</h2>
+    <div class="info-card">
+      <p>火箭烟花的结构分为三个主要部分：推进段、效果段和导向装置。</p>
+      <p style="margin-top:12px;"><strong>推进段</strong>：圆柱形药筒，内部填装压制成型的推进药柱。药柱中间通常有一个轴向孔道，使燃烧面积更大、推力更均匀。底部喷嘴的口径经过精确计算——太大则推力不足，太小则内部压力过高可能爆炸。专业火箭的喷嘴采用陶瓷或耐热合金材料，可承受2000°C以上高温。</p>
+      <p style="margin-top:12px;"><strong>效果段</strong>：位于弹头，装有与礼花弹类似的效果药和星体。推进药燃尽后，火焰通过延时引信传到效果段，引爆弹头。高端火箭的效果段可以装载牡丹、菊花、垂柳等多种效果。</p>
+      <p style="margin-top:12px;"><strong>导向装置</strong>：民用小火箭使用竹签或木杆作为导向杆，靠重心在杆的顶部三分之一处来保持飞行稳定。专业大型火箭使用尾翅（fins），3-4片对称排列的尾翅在飞行中起到空气动力学稳定作用。浏阳的高端出口火箭采用3D打印塑料尾翅，重量轻、对称性好、飞行轨迹更稳定。</p>
+    </div>
+
+    <h2>⚠️ 安全规范</h2>
+    <div class="info-card">
+      <p>火箭烟花的安全风险较高，因为其飞行轨迹较难完全控制。根据 GB 10631《烟花爆竹 安全与质量》和 GB 24426 规定：</p>
+      <p style="margin-top:12px;">①火箭必须使用专用发射架或发射筒发射，严禁手持发射；②发射架必须牢固固定在地面上，倾斜角度不得超过设计允许的最大值（通常±10°）；③小型民用火箭安全距离不少于50米，中型不少于100米，大型专业火箭不少于200米；④风力超过4级时停止燃放火箭类产品——火箭在飞行过程中受风力影响最大，强风可能导致偏离预定轨迹飞向观众区；⑤火箭下方不得有易燃物，因为推进药燃烧产生的火焰和灼热残渣可能引发火灾。</p>
+    </div>
+
+    <h2>🏮 浏阳花炮特色</h2>
+    <div class="info-card">
+      <p>浏阳是世界最大的火箭烟花出口基地。浏阳产的"窜天猴"（英文名 Bottle Rocket）畅销全球，在美国独立日庆典中尤其受欢迎。浏阳工匠发展了多种特色火箭产品：</p>
+      <p style="margin-top:12px;"><strong>"多级火箭"</strong>：借鉴航天技术的多级推进原理，第一级推进药将火箭送到中空，脱离后第二级点燃继续上升，最终在更高处绽放。这种设计可以在不增加单级药量的情况下将飞行高度提高60-80%。</p>
+      <p style="margin-top:12px;"><strong>"变色尾迹"</strong>：在推进药中分段添加不同金属盐，使火箭升空过程中尾迹颜色不断变化——从底部的红色渐变为中段的绿色再到顶部的蓝色，整个飞行轨迹如同一道彩虹。</p>
+      <p style="margin-top:12px;">浏阳的火箭烟花年出口量超过1亿支，占全球市场份额的50%以上。浏阳花炮传统制作技艺在2006年被列入首批国家级非物质文化遗产名录，火箭烟花的导向杆手工削制、药柱手工压装等传统工艺至今仍在传承。</p>
+    </div>
+
+    <h2>🎆 其他烟花效果</h2>
+    <div class="effects-nav">
+      <a href="/effects/peony/">🌸 牡丹</a>
+      <a href="/effects/chrysanthemum/">🌼 菊花</a>
+      <a href="/effects/willow/">🌊 垂柳</a>
+      <a href="/effects/crossette/">✨ 十字星</a>
+      <a href="/effects/comet/">☄️ 彗星</a>
+      <a href="/effects/fountain/">⛲ 喷泉</a>
+      <a href="/effects/mine/">💎 地雷</a>
+      <a href="/effects/burst/">💥 齐射</a>
+      <a href="/effects/rocket/" class="current">🚀 火箭</a>
+      <a href="/effects/sparkler/">✨ 仙女棒</a>
+    </div>
+    <footer>
+      <p><a href="/">首页</a> · <a href="/about/">关于</a> · <a href="/features/">功能</a> · <a href="/effects/">效果大全</a> · <a href="/liuyang/">浏阳花炮</a> · <a href="https://github.com/H8DIDI/yingheluo-v3">GitHub</a></p>
+      <p>&copy; 2026 萤合落 Yingheluo</p>
+    </footer>
+  </div>
+</body>
+</html>
