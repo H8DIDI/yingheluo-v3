@@ -393,7 +393,7 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
 
   useEffect(() => {
     firedEvents.current.clear();
-  }, [project]);
+  }, [project?.id]);
 
   useEffect(() => {
     resetSceneState();
