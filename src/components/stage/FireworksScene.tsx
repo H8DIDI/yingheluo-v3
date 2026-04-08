@@ -29,6 +29,7 @@ import {
 } from './stagePlayback';
 import { playScheduledEventFire } from './stageEventPlayback';
 import { buildCueSchedule, buildFiringSchedule, type ScheduledCue, type ScheduledFire } from './stageSchedule';
+import { getPlaybackResetKey } from './stagePlaybackReset';
 
 const PARTICLE_COUNT = 500; // Reduced: only shells tracked on CPU now
 let GRAVITY = -9.8; // m/s²
@@ -314,6 +315,10 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
   const cueSchedule = useMemo(() => buildCueSchedule(project), [project]);
   const useCueSchedule = cueSchedule.length > 0;
   const playbackMode = useCueSchedule ? 'cue' : 'event';
+  const playbackResetKey = useMemo(
+    () => getPlaybackResetKey(project?.id, playbackMode),
+    [project?.id, playbackMode]
+  );
 
   const resetSceneState = () => {
     if (!meshRef.current) return;
@@ -393,7 +398,7 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
   useEffect(() => {
     resetSceneState();
     setCurrentTime(0);
-  }, [project, playbackMode, setCurrentTime]);
+  }, [playbackResetKey, setCurrentTime]);
 
   useEffect(() => {
     if (replayToken === lastReplayRef.current) return;
