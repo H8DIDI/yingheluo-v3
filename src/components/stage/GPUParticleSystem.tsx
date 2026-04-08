@@ -4,6 +4,10 @@ import * as THREE from 'three';
 import { createParticleSprite } from '../../utils/particleSprite';
 import vertexShader from '../../shaders/particle.vert.glsl?raw';
 import fragmentShader from '../../shaders/particle.frag.glsl?raw';
+import {
+  getParticleCoolingColor,
+  getParticleMaterialConfig,
+} from './particleMaterialConfig';
 
 const MAX_PARTICLES = 100000;
 
@@ -35,6 +39,8 @@ const GPUParticleSystem = forwardRef<GPUParticleEmitter>((_, ref) => {
   const { size } = useThree();
 
   const sprite = useMemo(() => createParticleSprite(), []);
+  const materialConfig = useMemo(() => getParticleMaterialConfig(), []);
+  const coolingColor = useMemo(() => getParticleCoolingColor(), []);
 
   const { geometry, material } = useMemo(() => {
     const geo = new THREE.BufferGeometry();
@@ -61,20 +67,28 @@ const GPUParticleSystem = forwardRef<GPUParticleEmitter>((_, ref) => {
     const mat = new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
-      uniforms: {
-        uTime: { value: 0 },
-        uGravity: { value: -9.8 },
-        uDrag: { value: 0.98 },
-        uResolution: { value: new THREE.Vector2(size.width, size.height) },
-      },
-      transparent: true,
-      blending: THREE.AdditiveBlending,
+        uniforms: {
+          uTime: { value: 0 },
+          uGravity: { value: -9.8 },
+          uDrag: { value: 0.98 },
+          uResolution: { value: new THREE.Vector2(size.width, size.height) },
+          uSprite: { value: sprite },
+          uPointScale: { value: materialConfig.pointScale },
+          uCoreBoost: { value: materialConfig.coreBoost },
+          uFlashBoost: { value: materialConfig.flashBoost },
+          uGlowFalloff: { value: materialConfig.glowFalloff },
+          uCoreFalloff: { value: materialConfig.coreFalloff },
+          uCoolingColor: { value: new THREE.Vector3(...coolingColor) },
+          uCoolingStrength: { value: materialConfig.coolingStrength },
+        },
+        transparent: true,
+        blending: THREE.AdditiveBlending,
       depthWrite: false,
       depthTest: true,
     });
 
     return { geometry: geo, material: mat };
-  }, [size.width, size.height, sprite]);
+  }, [size.width, size.height, sprite, materialConfig, coolingColor]);
 
   useImperativeHandle(ref, () => ({
     emit(origin, velocities, colors, lifespans, sizes) {

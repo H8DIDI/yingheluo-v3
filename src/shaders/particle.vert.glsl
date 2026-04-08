@@ -5,6 +5,9 @@ uniform float uTime;
 uniform float uGravity;   // e.g. -9.8
 uniform float uDrag;      // e.g. 0.98 (per-frame at 60fps)
 uniform vec2 uResolution;
+uniform float uPointScale;
+uniform vec3 uCoolingColor;
+uniform float uCoolingStrength;
 
 attribute float aSize;
 attribute vec3 aVelocity;
@@ -61,7 +64,7 @@ void main() {
   } else if (life < 0.3) {
     // Cooling: shift to ember red and dim
     float cool = 1.0 - life / 0.3;
-    warmColor = mix(aColor, vec3(0.9, 0.2, 0.02), cool * 0.5);
+    warmColor = mix(aColor, uCoolingColor, cool * uCoolingStrength);
     warmColor *= 0.3 + 0.7 * (life / 0.3);
   }
   vColor = warmColor;
@@ -74,7 +77,7 @@ void main() {
   float sizeMult = birthFade * deathFade;
   sizeMult = max(sizeMult, life * 0.5); // keep visible while alive
 
-  gl_PointSize = aSize * sizeMult * (250.0 / max(-mvPosition.z, 1.0));
+  gl_PointSize = aSize * sizeMult * (uPointScale / max(-mvPosition.z, 1.0));
   gl_PointSize = clamp(gl_PointSize, 0.5, 96.0);
 
   gl_Position = projectionMatrix * mvPosition;
