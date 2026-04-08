@@ -71,13 +71,13 @@ const BURST_PRESET_CONFIG: Record<
     burstPattern: BurstPatternId;
   }
 > = {
-  ring: { name: 'Quick Ring', height: 132, duration: 2.35, particleCount: 260, trailLength: 0.66, burstPattern: 'ring' },
-  heart: { name: 'Quick Heart', height: 138, duration: 2.6, particleCount: 300, trailLength: 0.7, burstPattern: 'heart' },
-  star: { name: 'Quick Star', height: 136, duration: 2.45, particleCount: 280, trailLength: 0.68, burstPattern: 'star' },
-  diamond: { name: 'Quick Diamond', height: 140, duration: 2.5, particleCount: 300, trailLength: 0.7, burstPattern: 'diamond' },
-  butterfly: { name: 'Quick Butterfly', height: 146, duration: 2.8, particleCount: 340, trailLength: 0.76, burstPattern: 'butterfly' },
-  'text-love': { name: 'Quick LOVE', height: 142, duration: 2.8, particleCount: 340, trailLength: 0.74, burstPattern: 'text-love' },
-  'text-520': { name: 'Quick 520', height: 140, duration: 2.7, particleCount: 320, trailLength: 0.72, burstPattern: 'text-520' },
+  ring: { name: 'Quick Ring', height: 138, duration: 2.45, particleCount: 300, trailLength: 0.72, burstPattern: 'ring' },
+  heart: { name: 'Quick Heart', height: 144, duration: 2.7, particleCount: 340, trailLength: 0.76, burstPattern: 'heart' },
+  star: { name: 'Quick Star', height: 142, duration: 2.55, particleCount: 320, trailLength: 0.74, burstPattern: 'star' },
+  diamond: { name: 'Quick Diamond', height: 146, duration: 2.6, particleCount: 340, trailLength: 0.76, burstPattern: 'diamond' },
+  butterfly: { name: 'Quick Butterfly', height: 152, duration: 2.95, particleCount: 380, trailLength: 0.82, burstPattern: 'butterfly' },
+  'text-love': { name: 'Quick LOVE', height: 148, duration: 2.95, particleCount: 380, trailLength: 0.8, burstPattern: 'text-love' },
+  'text-520': { name: 'Quick 520', height: 146, duration: 2.85, particleCount: 360, trailLength: 0.78, burstPattern: 'text-520' },
 };
 
 export function buildQuickLaunchTextLabel(value: string) {
@@ -148,12 +148,12 @@ export function buildQuickLaunchEffect(
       name: `Quick ${burstLabel}`,
       type: 'burst',
       color,
-      height: 138,
-      duration: 2.8,
+      height: 146,
+      duration: 3,
       intensity: 1,
-      particleCount: 320,
+      particleCount: 380,
       spread: 360,
-      trailLength: 0.68,
+      trailLength: 0.78,
       burstPattern: 'text-custom',
       burstLabel,
     };
@@ -165,12 +165,12 @@ export function buildQuickLaunchEffect(
       name: 'Quick Willow',
       type: 'willow',
       color,
-      height: 152,
-      duration: 3.4,
+      height: 164,
+      duration: 3.8,
       intensity: 1,
-      particleCount: 320,
+      particleCount: 360,
       spread: 360,
-      trailLength: 1.1,
+      trailLength: 1.2,
     };
   }
 
@@ -180,12 +180,12 @@ export function buildQuickLaunchEffect(
       name: 'Quick Comet',
       type: 'comet',
       color,
-      height: 128,
-      duration: 1.9,
+      height: 136,
+      duration: 2.1,
       intensity: 1,
-      particleCount: 180,
+      particleCount: 220,
       spread: 120,
-      trailLength: 0.9,
+      trailLength: 1,
     };
   }
 
@@ -213,12 +213,12 @@ export function buildQuickLaunchEffect(
     name: 'Quick Peony',
     type: 'peony',
     color,
-    height: 132,
-    duration: 2.3,
+    height: 142,
+    duration: 2.6,
     intensity: 1,
-    particleCount: 280,
+    particleCount: 340,
     spread: 360,
-    trailLength: 0.62,
+    trailLength: 0.72,
   };
 }
 

@@ -10,8 +10,9 @@ test('quick launch presets use taller and larger burst profiles', () => {
   const profile = getQuickLaunchBurstProfile('peony');
 
   assert.ok(peony.height >= 125);
-  assert.ok(peony.particleCount >= 260);
+  assert.ok(peony.particleCount >= 320);
   assert.ok(willow.height >= 145);
+  assert.ok(willow.particleCount >= 340);
   assert.ok(profile.burstHeight >= 34);
 });
 

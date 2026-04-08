@@ -77,16 +77,22 @@ export function QuickLaunchBar({ compact = false }: QuickLaunchBarProps) {
             )}
           </>
         ) : (
-          <select
-            value={selectedEffect?.id ?? ''}
-            onChange={(event) => selectEffect(effects.find((effect) => effect.id === event.target.value) ?? null)}
-            className={`h-9 rounded-xl border border-panel-border bg-panel-bg px-2 text-sm text-text-main ${compact ? 'flex-1 min-w-0' : 'min-w-[220px]'}`}
-          >
-            <option value="">选择库效果</option>
-            {effects.map((effect) => (
-              <option key={effect.id} value={effect.id}>{effect.name}</option>
-            ))}
-          </select>
+          <div className="flex flex-wrap gap-2 max-w-full">
+            {effects.slice(0, compact ? 5 : 8).map((effect) => {
+              const selected = selectedEffect?.id === effect.id;
+              return (
+                <button
+                  key={effect.id}
+                  onClick={() => selectEffect(effect)}
+                  className={`h-9 px-3 rounded-xl border text-sm inline-flex items-center gap-2 ${selected ? 'border-primary bg-primary/15 text-text-main shadow-glow' : 'border-panel-border bg-panel-bg text-text-secondary hover:text-text-main'}`}
+                  title={effect.name}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: effect.color }} />
+                  <span className="truncate max-w-[120px]">{effect.name}</span>
+                </button>
+              );
+            })}
+          </div>
         )}
 
         <button
