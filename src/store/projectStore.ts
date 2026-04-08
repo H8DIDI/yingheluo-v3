@@ -27,6 +27,7 @@ interface ProjectState {
   replayToken: number;
   quickLaunchQueue: QuickLaunchRequest[];
   quickLaunchPreset: QuickLaunchPreset;
+  quickLaunchCustomLabel: string;
   history: Project[];
 
   // Actions
@@ -70,6 +71,7 @@ interface ProjectState {
   requestQuickLaunch: (payload: { world: [number, number, number]; source: QuickLaunchSource }) => void;
   enqueueQuickLaunches: (requests: QuickLaunchRequest[]) => void;
   setQuickLaunchPreset: (preset: QuickLaunchPreset) => void;
+  setQuickLaunchCustomLabel: (label: string) => void;
   shiftQuickLaunch: () => void;
 
   // Legacy compatibility
@@ -265,6 +267,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
   replayToken: 0,
   quickLaunchQueue: [],
   quickLaunchPreset: 'peony',
+  quickLaunchCustomLabel: 'YHL',
   history: [],
 
   // Legacy compatibility
@@ -698,12 +701,13 @@ export const useProjectStore = create<ProjectState>((set) => ({
     set((state) => ({
       quickLaunchQueue: [
         ...state.quickLaunchQueue,
-        createQuickLaunchRequest(world, source, state.quickLaunchPreset),
+        createQuickLaunchRequest(world, source, state.quickLaunchPreset, state.quickLaunchCustomLabel),
       ],
     })),
   enqueueQuickLaunches: (requests) =>
     set((state) => ({ quickLaunchQueue: [...state.quickLaunchQueue, ...requests] })),
   setQuickLaunchPreset: (preset) => set({ quickLaunchPreset: preset }),
+  setQuickLaunchCustomLabel: (label) => set({ quickLaunchCustomLabel: label }),
   shiftQuickLaunch: () =>
     set((state) => ({ quickLaunchQueue: state.quickLaunchQueue.slice(1) })),
 }));

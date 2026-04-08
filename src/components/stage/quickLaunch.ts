@@ -13,13 +13,15 @@ export type QuickLaunchPreset =
   | 'diamond'
   | 'butterfly'
   | 'text-love'
-  | 'text-520';
+  | 'text-520'
+  | 'text-custom';
 
 export type QuickLaunchRequest = {
   id: string;
   world: [number, number, number];
   source: QuickLaunchSource;
   preset: QuickLaunchPreset;
+  customLabel?: string;
 };
 
 export type QuickLaunchEffect = {
@@ -48,6 +50,7 @@ const QUICK_LAUNCH_PRESET_COLORS: Record<QuickLaunchPreset, string[]> = {
   butterfly: ['#C084FC', '#F472B6', '#FDE68A'],
   'text-love': ['#FB7185', '#F472B6', '#F9A8D4'],
   'text-520': ['#60A5FA', '#818CF8', '#C084FC'],
+  'text-custom': ['#F59E0B', '#FDE047', '#FB7185'],
 };
 
 const BURST_PRESET_CONFIG: Record<
@@ -70,6 +73,11 @@ const BURST_PRESET_CONFIG: Record<
   'text-520': { name: 'Quick 520', height: 100, duration: 2.3, particleCount: 220, trailLength: 0.6, burstPattern: 'text-520' },
 };
 
+export function buildQuickLaunchTextLabel(value: string) {
+  const normalized = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
+  return normalized.length > 0 ? normalized : 'YHL';
+}
+
 function createOffsetWorld(
   center: [number, number, number],
   offsetX: number,
@@ -89,22 +97,43 @@ export function getQuickLaunchLaunchPoint(point: [number, number, number]): [num
 export function createQuickLaunchRequest(
   world: [number, number, number],
   source: QuickLaunchSource,
-  preset: QuickLaunchPreset = 'peony'
+  preset: QuickLaunchPreset = 'peony',
+  customLabel?: string
 ): QuickLaunchRequest {
   return {
     id: `quick-launch-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     world,
     source,
     preset,
+    customLabel: preset === 'text-custom' ? buildQuickLaunchTextLabel(customLabel ?? '') : undefined,
   };
 }
 
 export function buildQuickLaunchEffect(
   preset: QuickLaunchPreset,
-  id: string
+  id: string,
+  customLabel?: string
 ): QuickLaunchEffect {
   const colors = QUICK_LAUNCH_PRESET_COLORS[preset];
   const color = colors[Math.floor(Math.random() * colors.length)];
+
+  if (preset === 'text-custom') {
+    const burstLabel = buildQuickLaunchTextLabel(customLabel ?? '');
+    return {
+      id,
+      name: `Quick ${burstLabel}`,
+      type: 'burst',
+      color,
+      height: 104,
+      duration: 2.4,
+      intensity: 1,
+      particleCount: 260,
+      spread: 360,
+      trailLength: 0.62,
+      burstPattern: 'text-custom',
+      burstLabel,
+    };
+  }
 
   if (preset === 'willow') {
     return {
@@ -171,7 +200,8 @@ export function buildQuickLaunchEffect(
 
 export function createQuickLaunchSalvoRequests(
   center: [number, number, number],
-  preset: QuickLaunchPreset
+  preset: QuickLaunchPreset,
+  customLabel?: string
 ) {
   const offsets: Array<[number, number]> = [
     [-16, -6],
@@ -182,15 +212,15 @@ export function createQuickLaunchSalvoRequests(
   ];
 
   return offsets.map(([offsetX, offsetZ]) =>
-    createQuickLaunchRequest(createOffsetWorld(center, offsetX, offsetZ), 'quick-button', preset)
+    createQuickLaunchRequest(createOffsetWorld(center, offsetX, offsetZ), 'quick-button', preset, customLabel)
   );
 }
 
-export function createQuickLaunchRandomShowRequests(preset: QuickLaunchPreset) {
+export function createQuickLaunchRandomShowRequests(preset: QuickLaunchPreset, customLabel?: string) {
   return Array.from({ length: 8 }, (_, index) => {
     const x = -60 + ((index * 17) % 120);
     const z = -60 + ((index * 11) % 80);
-    return createQuickLaunchRequest([x, 0, z], 'quick-button', preset);
+    return createQuickLaunchRequest([x, 0, z], 'quick-button', preset, customLabel);
   });
 }
 

@@ -5,7 +5,8 @@ export type BurstPatternId =
   | 'diamond'
   | 'butterfly'
   | 'text-love'
-  | 'text-520';
+  | 'text-520'
+  | 'text-custom';
 
 type BurstPatternKind = 'shape' | 'text';
 
@@ -33,6 +34,7 @@ const PATTERN_META: Record<BurstPatternId, BurstPatternMeta> = {
   butterfly: { id: 'butterfly', kind: 'shape', label: 'BUTTERFLY' },
   'text-love': { id: 'text-love', kind: 'text', label: 'LOVE' },
   'text-520': { id: 'text-520', kind: 'text', label: '520' },
+  'text-custom': { id: 'text-custom', kind: 'text', label: 'YHL' },
 };
 
 export function resolveBurstPatternMeta(pattern: BurstPatternId): BurstPatternMeta {

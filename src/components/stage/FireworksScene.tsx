@@ -780,7 +780,7 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
   };
 
   const spawnQuickLaunch = (request: QuickLaunchRequest) => {
-    const effect = buildQuickLaunchEffect(request.preset, `quick-${request.id}`);
+    const effect = buildQuickLaunchEffect(request.preset, `quick-${request.id}`, request.customLabel);
     const launchPos = getQuickLaunchLaunchPoint(request.world);
     const burstHeight = request.preset === 'willow' ? 30 : request.preset === 'comet' ? 18 : 24;
     const burstPos: [number, number, number] = [request.world[0], burstHeight, request.world[2]];

@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 
 import {
   buildQuickLaunchEffect,
+  buildQuickLaunchTextLabel,
   createQuickLaunchFinaleRequests,
+  createQuickLaunchRequest,
   createQuickLaunchRandomShowRequests,
 } from './quickLaunch.ts';
 
@@ -33,4 +35,19 @@ test('createQuickLaunchFinaleRequests creates layered finale presets', () => {
   assert.ok(presetSet.has('ring'));
   assert.ok(presetSet.has('text-520'));
   assert.ok(presetSet.has('willow'));
+});
+
+test('buildQuickLaunchTextLabel sanitizes custom text into short uppercase glyphs', () => {
+  assert.equal(buildQuickLaunchTextLabel('  love fireworks 2026  '), 'LOVE');
+  assert.equal(buildQuickLaunchTextLabel('5201314'), '5201');
+  assert.equal(buildQuickLaunchTextLabel('@@@'), 'YHL');
+});
+
+test('buildQuickLaunchEffect uses custom text payload when preset is custom text', () => {
+  const request = createQuickLaunchRequest([0, 0, 0], 'quick-button', 'text-custom', 'boom');
+  const effect = buildQuickLaunchEffect(request.preset, 'fx-custom', request.customLabel);
+
+  assert.equal(effect.burstPattern, 'text-custom');
+  assert.equal(effect.burstLabel, 'BOOM');
+  assert.equal(effect.name, 'Quick BOOM');
 });

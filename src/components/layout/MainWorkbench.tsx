@@ -26,7 +26,9 @@ export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: M
   const [isMobile, setIsMobile] = useState(false);
   const [activeMobilePanel, setActiveMobilePanel] = useState<MobileWorkbenchPanel>('stage');
   const quickLaunchPreset = useProjectStore((state) => state.quickLaunchPreset);
+  const quickLaunchCustomLabel = useProjectStore((state) => state.quickLaunchCustomLabel);
   const setQuickLaunchPreset = useProjectStore((state) => state.setQuickLaunchPreset);
+  const setQuickLaunchCustomLabel = useProjectStore((state) => state.setQuickLaunchCustomLabel);
   const enqueueQuickLaunches = useProjectStore((state) => state.enqueueQuickLaunches);
 
   useEffect(() => {
@@ -77,17 +79,26 @@ export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: M
                     <option value="butterfly">蝴蝶</option>
                     <option value="text-love">LOVE</option>
                     <option value="text-520">520</option>
+                    <option value="text-custom">自定义文字</option>
                   </select>
+                  {quickLaunchPreset === 'text-custom' && (
+                    <input
+                      value={quickLaunchCustomLabel}
+                      onChange={(event) => setQuickLaunchCustomLabel(event.target.value.toUpperCase().slice(0, 4))}
+                      placeholder="输入4位内文字"
+                      className="h-9 w-[108px] rounded-xl border border-panel-border bg-panel-bg px-2 text-sm text-text-main"
+                    />
+                  )}
                   <button
                     className="h-9 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-1.5 flex-shrink-0"
-                    onClick={() => enqueueQuickLaunches(createQuickLaunchSalvoRequests([0, 0, -8], quickLaunchPreset))}
+                    onClick={() => enqueueQuickLaunches(createQuickLaunchSalvoRequests([0, 0, -8], quickLaunchPreset, quickLaunchCustomLabel))}
                     title="一键齐射"
                   >
                     <Zap size={15} /> 齐射
                   </button>
                   <button
                     className="h-9 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-1.5 flex-shrink-0"
-                    onClick={() => enqueueQuickLaunches(createQuickLaunchRandomShowRequests(quickLaunchPreset))}
+                    onClick={() => enqueueQuickLaunches(createQuickLaunchRandomShowRequests(quickLaunchPreset, quickLaunchCustomLabel))}
                     title="随机秀"
                   >
                     <Wand2 size={15} /> 随机秀
