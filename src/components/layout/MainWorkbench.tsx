@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Bot, Map, Sparkles, Timer } from 'lucide-react';
+import { Bot, Map, Sparkles, Timer, Wand2, Zap } from 'lucide-react';
 import { Header } from './Header';
 import { MapEditor } from '../map/MapEditor';
 import { Stage3D } from '../stage/Stage3D';
 import { Timeline } from '../timeline/Timeline';
+import { useProjectStore } from '../../store/projectStore';
+import {
+  createQuickLaunchRandomShowRequests,
+  createQuickLaunchSalvoRequests,
+} from '../stage/quickLaunch';
 import {
   getMobileWorkbenchSheetTitle,
   getMobileWorkbenchTabs,
@@ -19,6 +24,9 @@ interface MainWorkbenchProps {
 export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: MainWorkbenchProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeMobilePanel, setActiveMobilePanel] = useState<MobileWorkbenchPanel>('stage');
+  const quickLaunchPreset = useProjectStore((state) => state.quickLaunchPreset);
+  const setQuickLaunchPreset = useProjectStore((state) => state.setQuickLaunchPreset);
+  const enqueueQuickLaunches = useProjectStore((state) => state.enqueueQuickLaunches);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
@@ -49,16 +57,41 @@ export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: M
                 <div className="min-w-0">
                   <div className="text-sm font-semibold text-text-main truncate">烟花舞台</div>
                   <div className="text-[11px] text-text-secondary truncate">
-                    手机上先优先看效果和基础控制，复杂编辑收进底部面板
+                    点舞台直接放烟花，先玩起来，再进编排
                   </div>
                 </div>
-                <button
-                  className="h-12 w-12 rounded-full bg-primary text-white shadow-glow flex items-center justify-center"
-                  onClick={() => setActiveMobilePanel('timeline')}
-                  title="打开时间轴"
-                >
-                  <Timer size={20} />
-                </button>
+                <div className="flex items-center gap-2 flex-wrap justify-end">
+                  <select
+                    value={quickLaunchPreset}
+                    onChange={(event) => setQuickLaunchPreset(event.target.value as typeof quickLaunchPreset)}
+                    className="h-10 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main"
+                  >
+                    <option value="peony">牡丹</option>
+                    <option value="willow">垂柳</option>
+                    <option value="comet">彗星</option>
+                  </select>
+                  <button
+                    className="h-10 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-2"
+                    onClick={() => enqueueQuickLaunches(createQuickLaunchSalvoRequests([0, 0, -8], quickLaunchPreset))}
+                    title="一键齐射"
+                  >
+                    <Zap size={16} /> 齐射
+                  </button>
+                  <button
+                    className="h-10 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-2"
+                    onClick={() => enqueueQuickLaunches(createQuickLaunchRandomShowRequests(quickLaunchPreset))}
+                    title="随机秀"
+                  >
+                    <Wand2 size={16} /> 随机秀
+                  </button>
+                  <button
+                    className="h-12 w-12 rounded-full bg-primary text-white shadow-glow flex items-center justify-center"
+                    onClick={() => setActiveMobilePanel('timeline')}
+                    title="打开时间轴"
+                  >
+                    <Timer size={20} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

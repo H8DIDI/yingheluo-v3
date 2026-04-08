@@ -14,7 +14,7 @@ import { generateEpicShow } from '../utils/showGenerator';
 import { generateGrandShow } from '../utils/grandShowGenerator';
 import { generateSpectacularShow } from '../utils/spectacularShowGenerator';
 import { syncProjectCueCompatibility } from '../utils/cueCompatibility';
-import type { QuickLaunchRequest, QuickLaunchSource } from '../components/stage/quickLaunch';
+import type { QuickLaunchPreset, QuickLaunchRequest, QuickLaunchSource } from '../components/stage/quickLaunch';
 import { createQuickLaunchRequest } from '../components/stage/quickLaunch';
 
 interface ProjectState {
@@ -25,7 +25,8 @@ interface ProjectState {
   currentTime: number;
   isPlaying: boolean;
   replayToken: number;
-  quickLaunchRequest: QuickLaunchRequest | null;
+  quickLaunchQueue: QuickLaunchRequest[];
+  quickLaunchPreset: QuickLaunchPreset;
   history: Project[];
 
   // Actions
@@ -67,7 +68,9 @@ interface ProjectState {
   setIsPlaying: (isPlaying: boolean) => void;
   requestReplay: () => void;
   requestQuickLaunch: (payload: { world: [number, number, number]; source: QuickLaunchSource }) => void;
-  clearQuickLaunch: (id: string) => void;
+  enqueueQuickLaunches: (requests: QuickLaunchRequest[]) => void;
+  setQuickLaunchPreset: (preset: QuickLaunchPreset) => void;
+  shiftQuickLaunch: () => void;
 
   // Legacy compatibility
   selectedCue: ShowEvent | null;
@@ -260,7 +263,8 @@ export const useProjectStore = create<ProjectState>((set) => ({
   currentTime: 0,
   isPlaying: true,
   replayToken: 0,
-  quickLaunchRequest: null,
+  quickLaunchQueue: [],
+  quickLaunchPreset: 'peony',
   history: [],
 
   // Legacy compatibility
@@ -691,10 +695,15 @@ export const useProjectStore = create<ProjectState>((set) => ({
   setIsPlaying: (isPlaying) => set({ isPlaying }),
   requestReplay: () => set((state) => ({ replayToken: state.replayToken + 1 })),
   requestQuickLaunch: ({ world, source }) =>
-    set({ quickLaunchRequest: createQuickLaunchRequest(world, source) }),
-  clearQuickLaunch: (id) =>
     set((state) => ({
-      quickLaunchRequest:
-        state.quickLaunchRequest?.id === id ? null : state.quickLaunchRequest,
+      quickLaunchQueue: [
+        ...state.quickLaunchQueue,
+        createQuickLaunchRequest(world, source, state.quickLaunchPreset),
+      ],
     })),
+  enqueueQuickLaunches: (requests) =>
+    set((state) => ({ quickLaunchQueue: [...state.quickLaunchQueue, ...requests] })),
+  setQuickLaunchPreset: (preset) => set({ quickLaunchPreset: preset }),
+  shiftQuickLaunch: () =>
+    set((state) => ({ quickLaunchQueue: state.quickLaunchQueue.slice(1) })),
 }));

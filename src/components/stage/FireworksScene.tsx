@@ -19,7 +19,11 @@ import { specToSceneArray } from '../../planner/coordinate';
 import { createParticleSprite } from '../../utils/particleSprite';
 import GPUParticleSystem, { GPUParticleEmitter } from './GPUParticleSystem';
 import { deepAudioEngine } from '../../utils/deepAudioEngine';
-import type { QuickLaunchRequest } from './quickLaunch';
+import {
+  buildQuickLaunchEffect,
+  getQuickLaunchLaunchPoint,
+  type QuickLaunchRequest,
+} from './quickLaunch';
 import {
   shouldTriggerScheduledItem,
   updateCueShellParticle,
@@ -484,8 +488,8 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
     selectedPosition,
     fireTube,
     replayToken,
-    quickLaunchRequest,
-    clearQuickLaunch,
+    quickLaunchQueue,
+    shiftQuickLaunch,
   } = useProjectStore(
     useShallow((state) => ({
       project: state.project,
@@ -496,8 +500,8 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
       selectedPosition: state.selectedPosition,
       fireTube: state.fireTube,
       replayToken: state.replayToken,
-      quickLaunchRequest: state.quickLaunchRequest,
-      clearQuickLaunch: state.clearQuickLaunch,
+      quickLaunchQueue: state.quickLaunchQueue,
+      shiftQuickLaunch: state.shiftQuickLaunch,
     }))
   );
   const showSettings = useManagerStore(
@@ -646,10 +650,11 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
   }, [playbackMode, project]);
 
   useEffect(() => {
-    if (!quickLaunchRequest) return;
-    spawnQuickLaunch(quickLaunchRequest);
-    clearQuickLaunch(quickLaunchRequest.id);
-  }, [quickLaunchRequest, clearQuickLaunch]);
+    const nextRequest = quickLaunchQueue[0];
+    if (!nextRequest) return;
+    spawnQuickLaunch(nextRequest);
+    shiftQuickLaunch();
+  }, [quickLaunchQueue, shiftQuickLaunch]);
 
   useEffect(() => {
     if (currentTime < lastTimeRef.current) {
@@ -743,21 +748,17 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
   };
 
   const spawnQuickLaunch = (request: QuickLaunchRequest) => {
-    const palette = ['#F59E0B', '#EF4444', '#FDE047', '#60A5FA', '#C084FC'];
-    const color = palette[Math.floor(Math.random() * palette.length)];
+    const effect = buildQuickLaunchEffect(request.preset, `quick-${request.id}`);
+    const launchPos = getQuickLaunchLaunchPoint(request.world);
+    const burstPos: [number, number, number] = [request.world[0], 24, request.world[2]];
+    const burstDelay = 1.15;
+    const velocity: [number, number, number] = [
+      (burstPos[0] - launchPos[0]) / burstDelay,
+      (burstPos[1] - launchPos[1] - 0.5 * GRAVITY * burstDelay * burstDelay) / burstDelay,
+      (burstPos[2] - launchPos[2]) / burstDelay,
+    ];
 
-    spawnBurstAt(request.world, {
-      id: `quick-${request.id}`,
-      name: 'Quick Burst',
-      type: 'peony',
-      color,
-      height: 90,
-      duration: 1.8,
-      intensity: 1,
-      particleCount: 180,
-      spread: 360,
-      trailLength: 0.5,
-    });
+    spawnCueShell(launchPos, velocity, effect, burstDelay, effect.duration);
   };
 
   const spawnLaunchShell = (
