@@ -6,6 +6,7 @@ import { Stage3D } from '../stage/Stage3D';
 import { Timeline } from '../timeline/Timeline';
 import { useProjectStore } from '../../store/projectStore';
 import {
+  createQuickLaunchFinaleRequests,
   createQuickLaunchRandomShowRequests,
   createQuickLaunchSalvoRequests,
 } from '../stage/quickLaunch';
@@ -72,6 +73,10 @@ export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: M
                     <option value="ring">圆环</option>
                     <option value="heart">爱心</option>
                     <option value="star">星形</option>
+                    <option value="diamond">钻石</option>
+                    <option value="butterfly">蝴蝶</option>
+                    <option value="text-love">LOVE</option>
+                    <option value="text-520">520</option>
                   </select>
                   <button
                     className="h-9 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-1.5 flex-shrink-0"
@@ -86,6 +91,13 @@ export function MainWorkbench({ onOpenManager, onOpenAdmin, onOpenAssistant }: M
                     title="随机秀"
                   >
                     <Wand2 size={15} /> 随机秀
+                  </button>
+                  <button
+                    className="h-9 rounded-xl border border-panel-border bg-panel-bg px-3 text-sm text-text-main inline-flex items-center gap-1.5 flex-shrink-0"
+                    onClick={() => enqueueQuickLaunches(createQuickLaunchFinaleRequests([0, 0, -8]))}
+                    title="终场秀"
+                  >
+                    <Sparkles size={15} /> 终场秀
                   </button>
                 </div>
               </div>

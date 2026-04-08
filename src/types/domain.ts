@@ -33,7 +33,8 @@ export interface FireworkEffect {
   particleCount: number;
   spread: number; // degrees
   trailLength: number; // 0-1
-  shapePattern?: 'ring' | 'heart' | 'star';
+  burstPattern?: 'ring' | 'heart' | 'star' | 'diamond' | 'butterfly' | 'text-love' | 'text-520';
+  burstLabel?: string;
   splitDelay?: number; // for crossette type
   soundFrequency?: number; // Hz for audio sync
 }

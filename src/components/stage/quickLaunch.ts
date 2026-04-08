@@ -1,6 +1,19 @@
+import type { BurstPatternId } from './burstPatterns.ts';
+import { resolveBurstPatternMeta } from './burstPatterns.ts';
+
 export type QuickLaunchSource = 'stage-tap' | 'quick-button';
 
-export type QuickLaunchPreset = 'peony' | 'willow' | 'comet' | 'ring' | 'heart' | 'star';
+export type QuickLaunchPreset =
+  | 'peony'
+  | 'willow'
+  | 'comet'
+  | 'ring'
+  | 'heart'
+  | 'star'
+  | 'diamond'
+  | 'butterfly'
+  | 'text-love'
+  | 'text-520';
 
 export type QuickLaunchRequest = {
   id: string;
@@ -20,7 +33,8 @@ export type QuickLaunchEffect = {
   particleCount: number;
   spread: number;
   trailLength: number;
-  shapePattern?: 'ring' | 'heart' | 'star';
+  burstPattern?: BurstPatternId;
+  burstLabel?: string;
 };
 
 const QUICK_LAUNCH_PRESET_COLORS: Record<QuickLaunchPreset, string[]> = {
@@ -30,6 +44,30 @@ const QUICK_LAUNCH_PRESET_COLORS: Record<QuickLaunchPreset, string[]> = {
   ring: ['#FDE047', '#F59E0B', '#FFFFFF'],
   heart: ['#F472B6', '#FB7185', '#FCA5A5'],
   star: ['#60A5FA', '#93C5FD', '#FDE68A'],
+  diamond: ['#22D3EE', '#38BDF8', '#E0F2FE'],
+  butterfly: ['#C084FC', '#F472B6', '#FDE68A'],
+  'text-love': ['#FB7185', '#F472B6', '#F9A8D4'],
+  'text-520': ['#60A5FA', '#818CF8', '#C084FC'],
+};
+
+const BURST_PRESET_CONFIG: Record<
+  Extract<QuickLaunchPreset, 'ring' | 'heart' | 'star' | 'diamond' | 'butterfly' | 'text-love' | 'text-520'>,
+  {
+    name: string;
+    height: number;
+    duration: number;
+    particleCount: number;
+    trailLength: number;
+    burstPattern: BurstPatternId;
+  }
+> = {
+  ring: { name: 'Quick Ring', height: 90, duration: 1.9, particleCount: 140, trailLength: 0.55, burstPattern: 'ring' },
+  heart: { name: 'Quick Heart', height: 95, duration: 2.2, particleCount: 180, trailLength: 0.6, burstPattern: 'heart' },
+  star: { name: 'Quick Star', height: 96, duration: 2, particleCount: 160, trailLength: 0.58, burstPattern: 'star' },
+  diamond: { name: 'Quick Diamond', height: 98, duration: 2.05, particleCount: 180, trailLength: 0.58, burstPattern: 'diamond' },
+  butterfly: { name: 'Quick Butterfly', height: 104, duration: 2.3, particleCount: 220, trailLength: 0.64, burstPattern: 'butterfly' },
+  'text-love': { name: 'Quick LOVE', height: 102, duration: 2.4, particleCount: 240, trailLength: 0.62, burstPattern: 'text-love' },
+  'text-520': { name: 'Quick 520', height: 100, duration: 2.3, particleCount: 220, trailLength: 0.6, burstPattern: 'text-520' },
 };
 
 function createOffsetWorld(
@@ -98,51 +136,22 @@ export function buildQuickLaunchEffect(
     };
   }
 
-  if (preset === 'ring') {
+  if (preset in BURST_PRESET_CONFIG) {
+    const config = BURST_PRESET_CONFIG[preset as keyof typeof BURST_PRESET_CONFIG];
+    const patternMeta = resolveBurstPatternMeta(config.burstPattern);
     return {
       id,
-      name: 'Quick Ring',
+      name: config.name,
       type: 'burst',
       color,
-      height: 90,
-      duration: 1.9,
+      height: config.height,
+      duration: config.duration,
       intensity: 1,
-      particleCount: 140,
+      particleCount: config.particleCount,
       spread: 360,
-      trailLength: 0.55,
-      shapePattern: 'ring',
-    };
-  }
-
-  if (preset === 'heart') {
-    return {
-      id,
-      name: 'Quick Heart',
-      type: 'burst',
-      color,
-      height: 95,
-      duration: 2.2,
-      intensity: 1,
-      particleCount: 180,
-      spread: 360,
-      trailLength: 0.6,
-      shapePattern: 'heart',
-    };
-  }
-
-  if (preset === 'star') {
-    return {
-      id,
-      name: 'Quick Star',
-      type: 'burst',
-      color,
-      height: 96,
-      duration: 2,
-      intensity: 1,
-      particleCount: 160,
-      spread: 360,
-      trailLength: 0.58,
-      shapePattern: 'star',
+      trailLength: config.trailLength,
+      burstPattern: config.burstPattern,
+      burstLabel: patternMeta.kind === 'text' ? patternMeta.label : undefined,
     };
   }
 
@@ -183,4 +192,22 @@ export function createQuickLaunchRandomShowRequests(preset: QuickLaunchPreset) {
     const z = -60 + ((index * 11) % 80);
     return createQuickLaunchRequest([x, 0, z], 'quick-button', preset);
   });
+}
+
+export function createQuickLaunchFinaleRequests(center: [number, number, number]) {
+  const finalePlan: Array<{ offsetX: number; offsetZ: number; preset: QuickLaunchPreset }> = [
+    { offsetX: -28, offsetZ: -10, preset: 'ring' },
+    { offsetX: -18, offsetZ: -6, preset: 'diamond' },
+    { offsetX: -8, offsetZ: -2, preset: 'text-love' },
+    { offsetX: 0, offsetZ: 0, preset: 'text-520' },
+    { offsetX: 8, offsetZ: -2, preset: 'star' },
+    { offsetX: 18, offsetZ: -6, preset: 'butterfly' },
+    { offsetX: 28, offsetZ: -10, preset: 'heart' },
+    { offsetX: -10, offsetZ: -14, preset: 'willow' },
+    { offsetX: 10, offsetZ: -14, preset: 'willow' },
+  ];
+
+  return finalePlan.map(({ offsetX, offsetZ, preset }) =>
+    createQuickLaunchRequest(createOffsetWorld(center, offsetX, offsetZ), 'quick-button', preset)
+  );
 }

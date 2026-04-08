@@ -15,7 +15,12 @@ import {
   Project,
   ChoreographyCue,
 } from '../../types/domain';
-import { specToSceneArray } from '../../planner/coordinate';
+import type { Coordinate } from '../../types/domain';
+
+/** Convert spec coords (x/y on field, z is height) to scene coords (x/z ground, y up). */
+function specToSceneArray(value: Coordinate): [number, number, number] {
+  return [value.x, value.z, value.y];
+}
 import { createParticleSprite } from '../../utils/particleSprite';
 import GPUParticleSystem, { GPUParticleEmitter } from './GPUParticleSystem';
 import { deepAudioEngine } from '../../utils/deepAudioEngine';
@@ -24,7 +29,7 @@ import {
   getQuickLaunchLaunchPoint,
   type QuickLaunchRequest,
 } from './quickLaunch';
-import { buildShapeBurstPattern } from './shapeBurst';
+import { buildBurstPattern, resolveBurstPatternMeta } from './burstPatterns';
 import {
   shouldTriggerScheduledItem,
   updateCueShellParticle,
@@ -684,8 +689,8 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
     const colors: Array<[number, number, number]> = [];
     const lifespans: number[] = [];
     const sizes: number[] = [];
-    const shapePattern = effect.shapePattern
-      ? buildShapeBurstPattern(effect.shapePattern, particleCount, 10)
+    const shapePattern = effect.burstPattern
+      ? buildBurstPattern(effect.burstPattern, particleCount, effect.burstLabel ? 6.8 : 10)
       : null;
 
     for (let i = 0; i < particleCount; i++) {
@@ -693,14 +698,15 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
       let elevation: number;
       let speed: number;
 
-      if (shapePattern) {
-        const point = shapePattern[i % shapePattern.length];
-        const duration = Math.max(resolvedHangTime * 0.55, 0.9);
-        velocities.push([
-          point[0] / duration,
-          point[1] / duration,
-          point[2] / duration,
-        ]);
+        if (shapePattern) {
+          const point = shapePattern[i % shapePattern.length];
+          const patternMeta = effect.burstPattern ? resolveBurstPatternMeta(effect.burstPattern) : null;
+          const duration = Math.max(resolvedHangTime * (patternMeta?.kind === 'text' ? 0.72 : 0.55), 0.9);
+          velocities.push([
+            point[0] / duration,
+            point[1] / duration,
+            point[2] / duration,
+          ]);
 
         const targetColor = colorScheme[Math.floor(Math.random() * colorScheme.length)];
         const brightness = 0.7 + Math.random() * 0.5;
@@ -711,7 +717,7 @@ export function FireworksScene({ heightLimit }: { heightLimit?: number }) {
         ]);
 
         lifespans.push(resolvedHangTime);
-        sizes.push(4.2 + Math.random() * 2.5);
+        sizes.push((effect.burstLabel ? 3.8 : 4.2) + Math.random() * 2.5);
         continue;
       }
 

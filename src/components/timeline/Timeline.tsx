@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
-import { GripVertical } from 'lucide-react';
+import { GripVertical, Pause, Play, RotateCcw, Sparkles } from 'lucide-react';
 import { useProjectStore } from '../../store/projectStore';
 import { useLibraryStore } from '../../store/libraryStore';
 import { ShowEvent, FiringPattern, FireworkType } from '../../types/domain';
@@ -10,19 +10,25 @@ export function Timeline() {
     project,
     currentTime,
     setCurrentTime,
+    isPlaying,
+    setIsPlaying,
+    requestReplay,
     selectedEvent,
     updateEvent,
-  selectEvent,
-  addEvent,
-  deleteEvent,
-  loadTube,
-  unloadTube,
-  refillTubes,
+    selectEvent,
+    addEvent,
+    deleteEvent,
+    loadTube,
+    unloadTube,
+    refillTubes,
   } = useProjectStore(
     useShallow((state) => ({
       project: state.project,
       currentTime: state.currentTime,
       setCurrentTime: state.setCurrentTime,
+      isPlaying: state.isPlaying,
+      setIsPlaying: state.setIsPlaying,
+      requestReplay: state.requestReplay,
       selectedEvent: state.selectedEvent,
       updateEvent: state.updateEvent,
       selectEvent: state.selectEvent,
@@ -48,6 +54,28 @@ export function Timeline() {
   const [handleDragging, setHandleDragging] = useState<{ id: string; offset: number } | null>(null);
   const formatTime = (value: number) =>
     `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, '0')}`;
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    let raf = 0;
+    let last = performance.now();
+
+    const tick = (now: number) => {
+      const delta = (now - last) / 1000;
+      last = now;
+      const next = Math.min(duration, currentTime + delta);
+      setCurrentTime(next);
+      if (next >= duration) {
+        setIsPlaying(false);
+        return;
+      }
+      raf = window.requestAnimationFrame(tick);
+    };
+
+    raf = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(raf);
+  }, [currentTime, duration, isPlaying, setCurrentTime, setIsPlaying]);
 
   useEffect(() => {
     if (effects.length === 0) return;
@@ -237,6 +265,33 @@ export function Timeline() {
     });
   };
 
+  const handleGenerateFinaleTimeline = () => {
+    if (!project || tracks.length === 0) return;
+
+    const anchor = Math.max(currentTime, 8);
+    const finalePatterns: Array<{ delay: number; pattern: FiringPattern; name: string }> = [
+      { delay: 0, pattern: 'all', name: '终场铺底' },
+      { delay: 1.2, pattern: 'sequential', name: '终场推进' },
+      { delay: 2.6, pattern: 'reverse', name: '终场回扫' },
+      { delay: 4.1, pattern: 'random', name: '终场炸点' },
+    ];
+
+    finalePatterns.forEach((item, index) => {
+      const track = tracks[index % tracks.length];
+      addEvent({
+        id: `event-finale-${Date.now()}-${index}`,
+        name: item.name,
+        startTime: Math.min(project.duration, anchor + item.delay),
+        positionId: track.positionId,
+        rackId: track.rackId,
+        tubeIndices: [],
+        pattern: item.pattern,
+        interval: item.pattern === 'all' ? undefined : 120,
+        track: track.id,
+      });
+    });
+  };
+
   const handleUnloadAllTubes = () => {
     const position = selectedRackInfo.position;
     const rack = selectedRackInfo.rack;
@@ -297,6 +352,30 @@ export function Timeline() {
           </div>
         </div>
         <div className="flex items-center gap-4 text-xs text-white flex-1 justify-end">
+          <div className="flex items-center gap-2">
+            <button
+              className="px-3 py-1.5 rounded bg-panel-bg hover:bg-panel-border text-text-main inline-flex items-center gap-1.5"
+              onClick={() => setIsPlaying(!isPlaying)}
+            >
+              {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+              {isPlaying ? '暂停' : '播放'}
+            </button>
+            <button
+              className="px-3 py-1.5 rounded bg-panel-bg hover:bg-panel-border text-text-main inline-flex items-center gap-1.5"
+              onClick={() => {
+                requestReplay();
+                setIsPlaying(true);
+              }}
+            >
+              <RotateCcw size={14} /> 重播
+            </button>
+            <button
+              className="px-3 py-1.5 rounded bg-panel-bg hover:bg-panel-border text-text-main inline-flex items-center gap-1.5"
+              onClick={handleGenerateFinaleTimeline}
+            >
+              <Sparkles size={14} /> 终场序列
+            </button>
+          </div>
           <div className="flex items-center gap-2">
             <span className="text-text-secondary">缩放</span>
             <input

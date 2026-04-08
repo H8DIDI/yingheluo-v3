@@ -1,37 +1,14 @@
 import type { FireworkEffect } from '../../types/domain';
+import { buildBurstPattern } from './burstPatterns';
 
-export type ShapeBurstPattern = 'ring' | 'heart' | 'star';
+export type ShapeBurstPattern = 'ring' | 'heart' | 'star' | 'diamond' | 'butterfly' | 'text-love' | 'text-520';
 
 export function buildShapeBurstPattern(
   pattern: ShapeBurstPattern,
   count: number,
   scale: number
 ): Array<[number, number, number]> {
-  if (pattern === 'star') {
-    return Array.from({ length: count }, (_, index) => {
-      const angle = (index / count) * Math.PI * 2;
-      const radius = index % 2 === 0 ? scale : scale * 0.42;
-      return [Math.cos(angle) * radius, Math.sin(angle) * radius, 0];
-    });
-  }
-
-  if (pattern === 'heart') {
-    return Array.from({ length: count }, (_, index) => {
-      const t = (index / count) * Math.PI * 2;
-      const x = 16 * Math.pow(Math.sin(t), 3);
-      const y =
-        13 * Math.cos(t) -
-        5 * Math.cos(2 * t) -
-        2 * Math.cos(3 * t) -
-        Math.cos(4 * t);
-      return [x * scale * 0.08, (y - 2) * scale * 0.08, 0];
-    });
-  }
-
-  return Array.from({ length: count }, (_, index) => {
-    const angle = (index / count) * Math.PI * 2;
-    return [Math.cos(angle) * scale, 0, Math.sin(angle) * scale];
-  });
+  return buildBurstPattern(pattern, count, scale);
 }
 
 export function buildShapeQuickLaunchEffect(
@@ -40,15 +17,42 @@ export function buildShapeQuickLaunchEffect(
 ): FireworkEffect {
   return {
     id,
-    name: pattern === 'ring' ? 'Shape Ring' : pattern === 'heart' ? 'Shape Heart' : 'Shape Star',
+    name:
+      pattern === 'ring' ? 'Shape Ring' :
+      pattern === 'heart' ? 'Shape Heart' :
+      pattern === 'star' ? 'Shape Star' :
+      pattern === 'diamond' ? 'Shape Diamond' :
+      pattern === 'butterfly' ? 'Shape Butterfly' :
+      pattern === 'text-love' ? 'Shape LOVE' :
+      'Shape 520',
     type: 'burst',
-    color: pattern === 'ring' ? '#FDE047' : pattern === 'heart' ? '#F472B6' : '#60A5FA',
+    color:
+      pattern === 'ring' ? '#FDE047' :
+      pattern === 'heart' ? '#F472B6' :
+      pattern === 'star' ? '#60A5FA' :
+      pattern === 'diamond' ? '#22D3EE' :
+      pattern === 'butterfly' ? '#C084FC' :
+      pattern === 'text-love' ? '#FB7185' :
+      '#818CF8',
     height: 100,
-    duration: pattern === 'ring' ? 1.9 : pattern === 'heart' ? 2.2 : 2,
+    duration:
+      pattern === 'ring' ? 1.9 :
+      pattern === 'heart' ? 2.2 :
+      pattern === 'butterfly' ? 2.3 :
+      pattern === 'text-love' || pattern === 'text-520' ? 2.35 :
+      2,
     intensity: 1,
-    particleCount: pattern === 'ring' ? 140 : pattern === 'heart' ? 180 : 160,
+    particleCount:
+      pattern === 'ring' ? 140 :
+      pattern === 'heart' ? 180 :
+      pattern === 'diamond' ? 180 :
+      pattern === 'butterfly' ? 220 :
+      pattern === 'text-love' ? 240 :
+      pattern === 'text-520' ? 220 :
+      160,
     spread: 360,
     trailLength: 0.55,
-    shapePattern: pattern,
+    burstPattern: pattern,
+    burstLabel: pattern === 'text-love' ? 'LOVE' : pattern === 'text-520' ? '520' : undefined,
   };
 }
