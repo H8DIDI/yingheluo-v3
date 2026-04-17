@@ -7,23 +7,18 @@ import { AIAssistantPage } from '../components/assistant/AIAssistantPage';
 export default function Simulator() {
   const [page, setPage] = useState<'workbench' | 'manager' | 'admin' | 'assistant'>('workbench');
 
-  if (page === 'manager') {
-    return <FireworkManagerPage onBack={() => setPage('workbench')} />;
-  }
+  const inner = (() => {
+    if (page === 'manager') return <FireworkManagerPage onBack={() => setPage('workbench')} />;
+    if (page === 'admin') return <AdminPage onBack={() => setPage('workbench')} />;
+    if (page === 'assistant') return <AIAssistantPage onBack={() => setPage('workbench')} />;
+    return (
+      <MainWorkbench
+        onOpenManager={() => setPage('manager')}
+        onOpenAdmin={() => setPage('admin')}
+        onOpenAssistant={() => setPage('assistant')}
+      />
+    );
+  })();
 
-  if (page === 'admin') {
-    return <AdminPage onBack={() => setPage('workbench')} />;
-  }
-
-  if (page === 'assistant') {
-    return <AIAssistantPage onBack={() => setPage('workbench')} />;
-  }
-
-  return (
-    <MainWorkbench
-      onOpenManager={() => setPage('manager')}
-      onOpenAdmin={() => setPage('admin')}
-      onOpenAssistant={() => setPage('assistant')}
-    />
-  );
+  return <div className="simulator-root">{inner}</div>;
 }

@@ -10,7 +10,7 @@ type Tool = {
   badge?: string;
   status: 'ready' | 'planning';
   icon: React.ComponentType<{ size?: number; className?: string }>;
-  tone: string;
+  tone: 'amber' | 'sky' | 'emerald' | 'rose' | 'fuchsia' | 'violet';
 };
 
 const tools: Tool[] = [
@@ -19,7 +19,7 @@ const tools: Tool[] = [
     title: '3D 烟花编排模拟器',
     desc: 'Three.js GPU 粒子引擎，支持 800 管阵地布局、多种效果与时间轴编排。',
     to: '/tools/simulator',
-    badge: '原天河落核心',
+    badge: '原核心',
     status: 'ready',
     icon: Rocket,
     tone: 'amber',
@@ -67,29 +67,29 @@ const tools: Tool[] = [
 ];
 
 const toneMap: Record<string, { text: string; ring: string; bg: string }> = {
-  amber: { text: 'text-amber-300', ring: 'ring-amber-400/30', bg: 'bg-amber-400/10' },
-  sky: { text: 'text-sky-300', ring: 'ring-sky-400/30', bg: 'bg-sky-400/10' },
-  emerald: { text: 'text-emerald-300', ring: 'ring-emerald-400/30', bg: 'bg-emerald-400/10' },
-  rose: { text: 'text-rose-300', ring: 'ring-rose-400/30', bg: 'bg-rose-400/10' },
-  fuchsia: { text: 'text-fuchsia-300', ring: 'ring-fuchsia-400/30', bg: 'bg-fuchsia-400/10' },
-  violet: { text: 'text-violet-300', ring: 'ring-violet-400/30', bg: 'bg-violet-400/10' },
+  amber: { text: 'text-amber-300', ring: 'ring-amber-400/25', bg: 'bg-amber-400/10' },
+  sky: { text: 'text-sky-300', ring: 'ring-sky-400/25', bg: 'bg-sky-400/10' },
+  emerald: { text: 'text-emerald-300', ring: 'ring-emerald-400/25', bg: 'bg-emerald-400/10' },
+  rose: { text: 'text-rose-300', ring: 'ring-rose-400/25', bg: 'bg-rose-400/10' },
+  fuchsia: { text: 'text-fuchsia-300', ring: 'ring-fuchsia-400/25', bg: 'bg-fuchsia-400/10' },
+  violet: { text: 'text-violet-300', ring: 'ring-violet-400/25', bg: 'bg-violet-400/10' },
 };
 
 function ToolCard({ t }: { t: Tool }) {
   const Icon = t.icon;
-  const tone = toneMap[t.tone] || toneMap.amber;
+  const tone = toneMap[t.tone];
   const ready = t.status === 'ready';
   const Inner = (
     <div
-      className={`group relative flex h-full flex-col rounded-xl border border-white/[0.08] bg-neutral-900/40 p-5 transition-all duration-200 ${
+      className={`group flex h-full flex-col rounded-xl border border-white/[0.08] bg-[#101113] p-5 transition-all duration-200 ${
         ready
-          ? 'hover:-translate-y-0.5 hover:border-amber-400/40 hover:bg-neutral-900/60 hover:shadow-[0_0_0_1px_rgba(245,158,11,0.08),0_20px_40px_-20px_rgba(245,158,11,0.15)]'
+          ? 'hover:-translate-y-0.5 hover:border-amber-400/30 hover:shadow-[0_0_0_1px_rgba(245,158,11,0.08),0_24px_48px_-24px_rgba(245,158,11,0.2)]'
           : 'opacity-70'
       }`}
     >
       <div className="flex items-start justify-between gap-2">
         <span className={`inline-grid h-9 w-9 place-items-center rounded-lg ${tone.bg} ring-1 ring-inset ${tone.ring} ${tone.text}`}>
-          <Icon size={18} />
+          <Icon size={17} />
         </span>
         {t.badge && (
           <span className="rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300 ring-1 ring-inset ring-amber-400/20">
@@ -97,18 +97,18 @@ function ToolCard({ t }: { t: Tool }) {
           </span>
         )}
       </div>
-      <h3 className="mt-3 text-[15px] font-semibold text-neutral-100 transition-colors group-hover:text-amber-200">
+      <h3 className="mt-3 text-[15px] font-semibold text-white transition-colors group-hover:text-amber-200">
         {t.title}
       </h3>
-      <p className="mt-1.5 flex-1 text-[13px] leading-relaxed text-neutral-400">{t.desc}</p>
-      <div className="mt-4 flex items-center justify-between text-xs">
+      <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed text-white/55">{t.desc}</p>
+      <div className="mt-4 text-[12px]">
         {ready ? (
-          <span className="flex items-center gap-1 text-amber-300 transition-colors group-hover:text-amber-200">
-            打开工具 <ArrowUpRight size={13} />
+          <span className="inline-flex items-center gap-1 text-amber-300 transition-colors group-hover:text-amber-200">
+            打开工具 <ArrowUpRight size={12} />
           </span>
         ) : (
-          <span className="flex items-center gap-1.5 text-neutral-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
+          <span className="inline-flex items-center gap-1.5 text-white/40">
+            <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
             开发中
           </span>
         )}
@@ -122,21 +122,21 @@ function ToolCard({ t }: { t: Tool }) {
 
 export default function Tools() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 md:space-y-14">
       <section>
         <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/20 bg-fuchsia-400/5 px-3 py-1 text-[11px] font-medium text-fuchsia-300">
           <Sparkles size={11} /> 实用工具集
         </div>
-        <h1 className="mt-3 text-3xl font-bold tracking-tight text-neutral-50 sm:text-4xl">
+        <h1 className="mt-3 text-[28px] font-bold leading-tight tracking-tight text-white sm:text-[34px] md:text-[40px]">
           趁手工具 · 不做平台
         </h1>
-        <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-neutral-400">
+        <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-white/60 sm:text-[14.5px]">
           面向花炮从业者与爱好者的轻量计算与编排工具。每个工具专注一个实际痛点，
           不堆砌功能、不强制登录。
         </p>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-3 grid-cols-1 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {tools.map((t) => (
           <ToolCard key={t.id} t={t} />
         ))}
