@@ -17,7 +17,6 @@
     "@types/three": "^0.182.0",
     "allotment": "^1.20.4",
     "clsx": "^2.1.1",
-    "geist": "^1.7.0",
     "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.4",
