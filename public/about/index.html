@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>关于天河落 — 烟花燃放控制系统开发背景与技术架构</title>
-  <meta name="description" content="天河落是一款基于 React 19 和 Three.js 的开源烟花燃放控制与3D编排系统。了解项目的开发背景、技术架构和设计理念。" />
+  <title>关于天河落 — 浏阳花炮产业聚合站</title>
+  <meta name="description" content="天河落是聚焦浏阳花炮产业的数字化聚合展示站：日更视频、资讯、产业链图、产业数据，并含 3D 烟花编排工具集。" />
   <meta name="keywords" content="天河落,tianheluo,烟花软件,花炮编排,开源项目,React,Three.js,WebGL,烟花控制系统" />
   <link rel="canonical" href="https://tianheluo.com/about/" />
-  <meta property="og:title" content="关于天河落 — 烟花燃放控制系统" />
-  <meta property="og:description" content="了解天河落项目的开发背景、技术架构和设计理念" />
+  <meta property="og:title" content="关于天河落 — 浏阳花炮产业聚合" />
+  <meta property="og:description" content="了解天河落：聚合浏阳花炮视频 / 资讯 / 产业数据 / 工具" />
   <meta property="og:url" content="https://tianheluo.com/about/" />
   <meta property="og:image" content="https://tianheluo.com/og-image.png" />
   <meta property="og:type" content="website" />
@@ -55,32 +55,32 @@
   </nav>
   <div class="container">
     <div class="breadcrumb"><a href="/">首页</a> › 关于天河落</div>
-    <h1>关于天河落 — 烟花燃放控制与3D编排系统</h1>
+    <h1>关于天河落 — 浏阳花炮产业聚合站</h1>
     
-    <p>天河落（Tianheluo）是一款<strong>开源的专业烟花燃放控制与3D编排系统</strong>，旨在将传统的花炮行业带入数字化时代。项目名称取自"天河"——即夜空中壮丽的银河，寓意万千焰火如星河倾泻、璀璨降落。</p>
+    <p>天河落（Tianheluo）是一款<strong>开源的浏阳花炮产业数字化聚合展示站</strong>。项目名称取自"天河"——即夜空中壮丽的银河，寓意万千焰火如星河倾泻、璀璨降落。</p>
+    <p>天河落围绕"视频 · 产业链 · 资讯 · 数据 · 工具"五大板块，让从业者、观察者与爱好者都能以极低成本跟上浏阳花炮产业的最新动态。</p>
 
     <h2>🎯 项目背景</h2>
     <p>中国是烟花的发源地，<strong>浏阳</strong>作为世界烟花之都，其花炮产业年产值超过<strong>508亿元</strong>。然而传统的烟花秀设计仍高度依赖人工经验，缺乏可视化编排工具。天河落正是为解决这一痛点而生。</p>
     <p>本项目源于对<strong>文化创意赋能花炮产业</strong>的深度思考——如何用数字技术提升传统产业的价值链？烟花编排系统就是答案之一。</p>
 
-    <h2>🏗️ 技术架构</h2>
-    <p>天河落采用现代 Web 技术栈构建，完全在浏览器中运行，无需安装任何软件：</p>
+    <h2>🧩 五大板块</h2>
     <ul>
-      <li><strong>前端框架</strong>：React 19 + TypeScript + Vite 6</li>
-      <li><strong>3D渲染引擎</strong>：Three.js — 使用 InstancedMesh 实现50000粒子的实时渲染</li>
-      <li><strong>物理引擎</strong>：自研二次方阻力模型，模拟真实的烟花弹道轨迹</li>
-      <li><strong>发色模型</strong>：基于金属盐冷却发色原理，还原真实烟花颜色变化</li>
-      <li><strong>状态管理</strong>：Zustand — 轻量高效的 React 状态管理</li>
-      <li><strong>后端</strong>：Cloudflare Workers + D1 数据库</li>
-      <li><strong>部署</strong>：Cloudflare Pages — 全球 CDN 加速</li>
+      <li><strong>视频墙</strong> — 日更 B 站 / YouTube 浏阳烟花与烟花秀内容</li>
+      <li><strong>产业链</strong> — 上游原料装备 · 中游药剂组装 · 下游流通应用</li>
+      <li><strong>资讯</strong> — 百度新闻、财经媒体、政府公众号关键词追踪（标题摘要）</li>
+      <li><strong>数据 · 企业</strong> — 产业指标 + 规上企业名录（API 对接中）</li>
+      <li><strong>工具集</strong> — 3D 烟花编排模拟器、燃放时长估算、安全距离计算器等</li>
     </ul>
 
-    <h2>💡 设计理念</h2>
-    <p>天河落的设计理念围绕三个核心：</p>
+    <h2>🏗️ 技术架构</h2>
     <ul>
-      <li><strong>专业性</strong>：800管阵地布局、多种发射模式、对称齐射编排，满足专业烟花秀设计需求</li>
-      <li><strong>易用性</strong>：AI智能编排助手，用自然语言描述需求即可生成烟花秀方案</li>
-      <li><strong>真实性</strong>：物理引擎模拟真实弹道，金属盐发色模型还原烟花颜色</li>
+      <li><strong>前端</strong>：React 19 + TypeScript + Vite 6 + Tailwind + React Router</li>
+      <li><strong>后端 API</strong>：Cloudflare Pages Functions + D1 数据库</li>
+      <li><strong>数据管线</strong>：阿里云 ECS 上 RSSHub + Python 抓取脚本 + systemd timer 日更</li>
+      <li><strong>分发</strong>：Cloudflare 全球 CDN + Cloudflared Tunnel</li>
+      <li><strong>MCP 服务</strong>：为 AI 助手提供 list_fireworks_videos / list_fireworks_news / get_industry_stats / get_industry_chain 等工具</li>
+      <li><strong>3D 引擎</strong>：Three.js GPU 粒子 + 金属盐冷却发色模型（工具集内保留）</li>
     </ul>
 
     <h2>📮 联系作者</h2>
