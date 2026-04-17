@@ -1,30 +1,28 @@
-import { useState } from 'react';
-import { MainWorkbench } from './components/layout/MainWorkbench';
-import { FireworkManagerPage } from './components/manager/FireworkManagerPage';
-import { AdminPage } from './components/admin/AdminPage';
-import { AIAssistantPage } from './components/assistant/AIAssistantPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
+import IndustryChain from './pages/IndustryChain';
+import News from './pages/News';
+import Data from './pages/Data';
+import Tools from './pages/Tools';
+import Simulator from './pages/Simulator';
 
 function App() {
-  const [page, setPage] = useState<'workbench' | 'manager' | 'admin' | 'assistant'>('workbench');
-
-  if (page === 'manager') {
-    return <FireworkManagerPage onBack={() => setPage('workbench')} />;
-  }
-
-  if (page === 'admin') {
-    return <AdminPage onBack={() => setPage('workbench')} />;
-  }
-
-  if (page === 'assistant') {
-    return <AIAssistantPage onBack={() => setPage('workbench')} />;
-  }
-
   return (
-    <MainWorkbench
-      onOpenManager={() => setPage('manager')}
-      onOpenAdmin={() => setPage('admin')}
-      onOpenAssistant={() => setPage('assistant')}
-    />
+    <BrowserRouter>
+      <Routes>
+        {/* Simulator 独立全屏路由，不套 MainLayout */}
+        <Route path="/tools/simulator" element={<Simulator />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/chain" element={<IndustryChain />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/data" element={<Data />} />
+          <Route path="/tools" element={<Tools />} />
+          <Route path="*" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
